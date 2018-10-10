@@ -1,0 +1,51 @@
+﻿<Window x:Class="UtilityWpf.DemoApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UtilityWpf.DemoApp"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <TabControl>
+         
+            <TabItem Header="pagination">
+              <local:FilteredPaginatedUserControl></local:FilteredPaginatedUserControl>
+            </TabItem>
+            <TabItem Header="listboxex">
+                <local:ListBoxExUserControl></local:ListBoxExUserControl>
+            </TabItem>
+            <TabItem Header="PathButton">
+                <local:PathButtonUserControl></local:PathButtonUserControl>
+            </TabItem>
+            <TabItem Header="DoubleClick">
+                <local:DoubleClickUserControl></local:DoubleClickUserControl>
+
+            </TabItem>
+            <TabItem Header="Dictionary">
+                <local:DictionaryUserControl></local:DictionaryUserControl>
+
+            </TabItem>
+            <TabItem Header="LabelledTextBox">
+                <local:LabelledTextBoxUserControl></local:LabelledTextBoxUserControl>
+
+            </TabItem>
+
+            <TabItem Header="Dynamic Data Grid">
+                <local:DynamicDataGridUserControl></local:DynamicDataGridUserControl>
+
+            </TabItem>
+
+            <TabItem Header="Csv Data Grid">
+                <local:CsvDataGridUserControl></local:CsvDataGridUserControl>
+
+            </TabItem>
+
+            <TabItem Header="MultiSelect TreeView">
+                <local:MultiSelectTreeView></local:MultiSelectTreeView>
+
+            </TabItem>
+        </TabControl>
+
+    </Grid>
+</Window>
