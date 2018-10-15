@@ -15,7 +15,23 @@ namespace UtilityWpf
 
             IEnumerator enumerator = enumerable.GetEnumerator();
             enumerator.MoveNext();
-            return enumerator.Current;
+
+                return enumerator.Current;
+
+        }
+        public static object FirstOrDefault2(this IEnumerable enumerable)
+        {
+
+            IEnumerator enumerator = enumerable.GetEnumerator();
+            enumerator.MoveNext();
+            try
+            {
+                return enumerator.Current;
+            }
+            catch (InvalidOperationException e)
+            {
+                return null;
+            }
         }
 
         public static IEnumerable FilterByIndex(this IEnumerable enumerable, IEnumerable<int> indices)

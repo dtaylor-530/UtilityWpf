@@ -9,10 +9,12 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <UniformGrid Rows="1">
         <view:MultiSelectTreeView Name="treeview" ItemsSource="{Binding RootNodes}" Key="Name"></view:MultiSelectTreeView>
-        <ItemsControl ItemsSource="{Binding ElementName=treeview,Path=SelectedItems}">
+        <ItemsControl ItemsSource="{Binding ElementName=treeview,Path=SelectedItem}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Name}"></TextBlock>
+                    <Border Background="Pink">
+                        <TextBlock Text="{Binding Name}"></TextBlock>
+                    </Border>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

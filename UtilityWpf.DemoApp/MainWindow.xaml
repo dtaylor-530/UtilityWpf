@@ -9,13 +9,13 @@
     <Grid>
         <TabControl>
          
-            <TabItem Header="pagination">
+            <!--<TabItem Header="pagination">
               <local:FilteredPaginatedUserControl></local:FilteredPaginatedUserControl>
-            </TabItem>
-            <TabItem Header="listboxex">
+            </TabItem>-->
+           <TabItem Header="listboxex">
                 <local:ListBoxExUserControl></local:ListBoxExUserControl>
             </TabItem>
-            <TabItem Header="PathButton">
+             <TabItem Header="PathButton">
                 <local:PathButtonUserControl></local:PathButtonUserControl>
             </TabItem>
             <TabItem Header="DoubleClick">
@@ -43,6 +43,10 @@
 
             <TabItem Header="MultiSelect TreeView">
                 <local:MultiSelectTreeView></local:MultiSelectTreeView>
+
+            </TabItem>
+            <TabItem Header="Player">
+                <local:PlayerUserControl></local:PlayerUserControl>
 
             </TabItem>
         </TabControl>

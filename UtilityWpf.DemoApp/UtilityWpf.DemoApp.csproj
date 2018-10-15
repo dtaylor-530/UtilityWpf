@@ -57,6 +57,9 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="UtilityEnum, Version=1.0.8.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\UtilityEnum.1.0.8-alpha\lib\netstandard2.0\UtilityEnum.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -66,6 +69,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="View\PlayerUserControl.xaml.cs">
+      <DependentUpon>PlayerUserControl.xaml</DependentUpon>
+    </Compile>
     <Page Include="View\CsvDataGridUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -134,7 +140,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\PathButtonUserControl.xaml">
+    <Page Include="View\ButtonUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PlayerUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -143,8 +153,8 @@
     <Compile Include="View\MultiSelectTreeView.xaml.cs">
       <DependentUpon>MultiSelectTreeView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\PathButtonUserControl.xaml.cs">
-      <DependentUpon>PathButtonUserControl.xaml</DependentUpon>
+    <Compile Include="View\ButtonUserControl.xaml.cs">
+      <DependentUpon>ButtonUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -174,10 +184,22 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\UtilityWpf.Common\UtilityWpf.Common.csproj">
+      <Project>{62d2ffeb-df74-4567-b251-3ad07c22d494}</Project>
+      <Name>UtilityWpf.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UtilityWpf.View\UtilityWpf.View.csproj">
       <Project>{dee623fd-ef9b-4fb6-a6a0-c04ad50d0cca}</Project>
       <Name>UtilityWpf.View</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\bar-chart.png" />
+    <Resource Include="Images\Cancel.png" />
+    <Resource Include="Images\Pause.png" />
+    <Resource Include="Images\Play.png" />
+    <Resource Include="Images\Settings.png" />
+    <Resource Include="Images\Stop.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

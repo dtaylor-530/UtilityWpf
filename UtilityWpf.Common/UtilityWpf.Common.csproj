@@ -57,12 +57,19 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="UtilityEnum, Version=1.0.8.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\BackgroundWorkerExtended\BackgroundWorkerAdvancedControl\packages\UtilityEnum.1.0.8-alpha\lib\netstandard2.0\UtilityEnum.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ButtonDefinition.cs" />
+    <Compile Include="Converter\InverseBooleanConverter.cs" />
+    <Compile Include="Converter\InverseBooleanToVisibilityConverter.cs" />
+    <Compile Include="Converter\EnumToBooleanConverter.cs" />
+    <Compile Include="Converter\TimeSpanStringConverter.cs" />
     <Compile Include="LinqEx.cs" />
     <Compile Include="PropertyHelper\INPC.cs" />
     <Compile Include="PropertyHelper\NotificationHelper.cs" />
@@ -93,6 +100,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
