@@ -1,0 +1,26 @@
+﻿<UserControl x:Class="UtilityWpf.View.PaginatedUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:UtilityWpf.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid  Name="usercontrol">
+        <DockPanel>
+            <local:NavigatorControl DockPanel.Dock="Top"  PageSize="{Binding PageSize}" CurrentPage="{Binding CurrentPage}" PageRequest="{Binding  PageRequest,Mode=OneWayToSource}"/>
+
+            <DataGrid 
+    ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                    ScrollViewer.VerticalScrollBarVisibility="Auto"
+          ItemsSource="{Binding PaginatedItems,Mode=OneWay,IsAsync=True}" 
+          CanUserAddRows="False"
+          AutoGenerateColumns="True"
+                  
+                  EnableColumnVirtualization = "True"
+EnableRowVirtualization = "True">
+
+            </DataGrid>
+        </DockPanel>
+    </Grid>
+</UserControl>
