@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace UtilityWpf.ViewModel
 {
-    public class NumberBoxViewModel:OutputViewModel<int>
+    public class NumberBoxViewModel:OutputService<int>
     {
 
         public string Title { get; }

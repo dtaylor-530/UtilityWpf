@@ -25,10 +25,13 @@ namespace UtilityWpf.View
 
             DataTemplate myDataTemplate = ((System.Windows.Controls.ContentPresenter)container).ContentTemplate;
 
+ 
             try
             {
                 var dataTemplateKey = new DataTemplateKey(type);
+                //var x = Application.Current.Resources[dataTemplateKey];
                 var dataTemplate = (container as FrameworkElement).FindResource(dataTemplateKey);
+           
                 if (dataTemplate != null)
                     return ContentPresenterTemplate;
             }

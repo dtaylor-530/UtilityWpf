@@ -13,7 +13,8 @@ namespace UtilityWpf.ViewModel
 {
 
     // suitable for use with ComboBox/listbox
-    public class CollectionViewModel<T> :OutputViewModel<T>
+    // consider instead reactivecollection
+    public class CollectionViewModel<T> :OutputService<T>
     {
 
         public ObservableCollection<T> Items { get; set; } = new ObservableCollection<T>();

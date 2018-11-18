@@ -101,7 +101,152 @@
         </Setter>
     </Style>
 
+    
+                <ControlTemplate x:Key="VerticalTemplate">
+                    <DockPanel x:Name="Panel">
+                        <RepeatButton x:Name="LineUpButton" DockPanel.Dock="Top" Height="20"  
+                                      
+                                      Content="M 0 4 L 8 4 L 4 0 Z"     
+                                      Command="{x:Static ScrollBar.LineUpCommand}"       
+                                      CommandTarget="{Binding ElementName=scrollviewer}"
+                                      ClickMode="Hover" />
+                        <RepeatButton x:Name="LineDownButton" DockPanel.Dock="Bottom" Height="20" 
+                                      
+                                      Content="M 0 0 L 4 4 L 8 0 Z" 
+                                      Command="{x:Static ScrollBar.LineDownCommand}"       
+                                      CommandTarget="{Binding ElementName=scrollviewer}"
+                                      ClickMode="Hover"/>
+                        <Border BorderThickness="1" BorderBrush="Gray" Background="Transparent">
+                            <ScrollViewer x:Name="scrollviewer"  >
+                                <ScrollViewer.Template>
+                                    <ControlTemplate TargetType="{x:Type ScrollViewer}" >
+                                        <Grid>
+                                            <ScrollBar x:Name="PART_VerticalScrollBar" Orientation="Vertical" 
+                                                               Value="{TemplateBinding VerticalOffset}"
+                                                               Maximum="{TemplateBinding ScrollableHeight}"
+                                                               ViewportSize="{TemplateBinding ViewportHeight}"
+                                                               Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}"
+                                                               Width="{Binding Width, ElementName=Panel}">
+                                                <ScrollBar.Template>
+                                                    <ControlTemplate>
+                                                        <Grid Background="{TemplateBinding Background}" >
+                                                            <Track x:Name="PART_Track" IsDirectionReversed="True">
+                                                                <Track.DecreaseRepeatButton>
+                                                                    <RepeatButton Command="ScrollBar.PageUpCommand"
+						                                                    Style="{StaticResource ScrollBarPageButton}"/>
+                                                                </Track.DecreaseRepeatButton>
+                                                                <Track.IncreaseRepeatButton>
+                                                                    <RepeatButton Command="ScrollBar.PageDownCommand"
+						                                                    Style="{StaticResource ScrollBarPageButton}"/>
+                                                                </Track.IncreaseRepeatButton>
+                                                                <Track.Thumb>
+                                                                    <Thumb Background="Gray" Opacity="0.1" />
+                                                                </Track.Thumb>
+                                                            </Track>
+                                                        </Grid>
+                                                    </ControlTemplate>
+                                                </ScrollBar.Template>
+                                            </ScrollBar>
+                                            <ScrollContentPresenter Margin="4,0" Width="Auto" HorizontalAlignment="Center"/>
+                                        </Grid>
+                                    </ControlTemplate>
+                                </ScrollViewer.Template>
+                                <ItemsPresenter/>
+                            </ScrollViewer>
+                        </Border>
+                    </DockPanel>
+                </ControlTemplate>
 
+    <ControlTemplate x:Key="HorizontalTemplate">
+        <Grid >
+            <ScrollViewer x:Name="scrollviewer" >
+                <ScrollViewer.Template>
+                    <ControlTemplate TargetType="{x:Type ScrollViewer}" >
+                        <Grid>
+                            <ScrollBar x:Name="PART_HorizontalScrollBar" Orientation="Horizontal" 
+                                                               Value="{TemplateBinding HorizontalOffset}"
+                                                               Maximum="{TemplateBinding ScrollableWidth}"
+                                                               ViewportSize="{TemplateBinding ViewportWidth}"
+                                                               Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}"
+                                                               Height="{Binding Height, ElementName=Panel}">
+                                <ScrollBar.Template>
+                                    <ControlTemplate>
+                                        <Track x:Name="PART_Track">
+                                            <Track.DecreaseRepeatButton>
+                                                <RepeatButton Command="ScrollBar.PageLeftCommand"
+						                                                    Style="{StaticResource ScrollBarPageButton}"/>
+                                            </Track.DecreaseRepeatButton>
+                                            <Track.IncreaseRepeatButton>
+                                                <RepeatButton Command="ScrollBar.PageRightCommand"
+						                                                    Style="{StaticResource ScrollBarPageButton}"/>
+                                            </Track.IncreaseRepeatButton>
+                                            <Track.Thumb>
+                                                <Thumb Style="{StaticResource ScrollBarThumb}" 
+                                                                         Background="Gray" Opacity="0.05" Margin="0,-1" />
+                                            </Track.Thumb>
+                                        </Track>
+                                    </ControlTemplate>
+                                </ScrollBar.Template>
+                            </ScrollBar>
+                            <ScrollContentPresenter Margin="0,2" Height="Auto" VerticalAlignment="Center"/>
+                        </Grid>
+                    </ControlTemplate>
+                </ScrollViewer.Template>
+                <ItemsPresenter HorizontalAlignment="Stretch"/>
+            </ScrollViewer>
+            <Grid x:Name="Panel" Margin="0,2" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <RepeatButton x:Name="LineLeftButton" Grid.Column="0" Width="20" Opacity="0" Visibility="Collapsed"
+                                      Style="{StaticResource ScrollBarLineButton}"
+                                      Content="M 8 0 L 8 32 L 0 16 Z"       
+                                      Command="{x:Static ScrollBar.LineLeftCommand}"       
+                                      CommandTarget="{Binding ElementName=scrollviewer}"
+                                      ClickMode="Hover" />
+                <RepeatButton x:Name="LineRightButton" Grid.Column="2" Width="20" Opacity="0" Visibility="Collapsed"
+                                      Style="{StaticResource ScrollBarLineButton}"
+                                      Content="M 0 0 L 8 16 L 0 32 Z" 
+                                      Command="{x:Static ScrollBar.LineRightCommand}"       
+                                      CommandTarget="{Binding ElementName=scrollviewer}"
+                                      ClickMode="Hover"/>
+            </Grid>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsMouseOver" Value="True"/>
+                    <Condition Property="ComputedHorizontalScrollBarVisibility" SourceName="scrollviewer" Value="Visible"/>
+                </MultiTrigger.Conditions>
+                <MultiTrigger.Setters>
+                    <Setter TargetName="LineLeftButton" Property="Visibility" Value="Visible" />
+                    <Setter TargetName="LineRightButton" Property="Visibility" Value="Visible" />
+                </MultiTrigger.Setters>
+                <MultiTrigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetName="LineLeftButton" 
+                                                             Storyboard.TargetProperty="Opacity" To="0.8" Duration="0:0:0.25"/>
+                            <DoubleAnimation Storyboard.TargetName="LineRightButton" 
+                                                             Storyboard.TargetProperty="Opacity" To="0.8" Duration="0:0:0.25"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </MultiTrigger.EnterActions>
+                <MultiTrigger.ExitActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetName="LineLeftButton" 
+                                                             Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.25"/>
+                            <DoubleAnimation Storyboard.TargetName="LineRightButton" 
+                                                             Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.25"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </MultiTrigger.ExitActions>
+            </MultiTrigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
 
 
     <Style x:Key="ListBoxStyle" TargetType="ListBox" BasedOn="{StaticResource {x:Type ListBox}}">
@@ -125,115 +270,20 @@
         <Setter Property="ItemsPanel">
             <Setter.Value>
                 <ItemsPanelTemplate>
-                    <WrapPanel/>
+                    <StackPanel Orientation="{Binding Orientation, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ListBoxEx}}}"></StackPanel>
                 </ItemsPanelTemplate>
             </Setter.Value>
         </Setter>
         <Setter Property="ItemTemplate">
             <Setter.Value>
                 <DataTemplate>
-
-            
                     <ContentPresenter HorizontalAlignment="Stretch" Content="{Binding Object}" 
                                                       ContentTemplateSelector="{StaticResource propertytemplateSelector}"/>
-
                 </DataTemplate>
             </Setter.Value>
         </Setter>
-        <Setter Property="Template">
-            <Setter.Value >
-                <ControlTemplate>
-                    <Grid >
-                        <ScrollViewer x:Name="scrollviewer" >
-                            <ScrollViewer.Template>
-                                <ControlTemplate TargetType="{x:Type ScrollViewer}" >
-                                    <Grid>
-                                        <ScrollBar x:Name="PART_HorizontalScrollBar" Orientation="Horizontal" 
-                                                               Value="{TemplateBinding HorizontalOffset}"
-                                                               Maximum="{TemplateBinding ScrollableWidth}"
-                                                               ViewportSize="{TemplateBinding ViewportWidth}"
-                                                               Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}"
-                                                               Height="{Binding Height, ElementName=Panel}">
-                                            <ScrollBar.Template>
-                                                <ControlTemplate>
-                                                    <Track x:Name="PART_Track">
-                                                        <Track.DecreaseRepeatButton>
-                                                            <RepeatButton Command="ScrollBar.PageLeftCommand"
-						                                                    Style="{StaticResource ScrollBarPageButton}"/>
-                                                        </Track.DecreaseRepeatButton>
-                                                        <Track.IncreaseRepeatButton>
-                                                            <RepeatButton Command="ScrollBar.PageRightCommand"
-						                                                    Style="{StaticResource ScrollBarPageButton}"/>
-                                                        </Track.IncreaseRepeatButton>
-                                                        <Track.Thumb>
-                                                            <Thumb Style="{StaticResource ScrollBarThumb}" 
-                                                                         Background="Gray" Opacity="0.05" Margin="0,-1" />
-                                                        </Track.Thumb>
-                                                    </Track>
-                                                </ControlTemplate>
-                                            </ScrollBar.Template>
-                                        </ScrollBar>
-                                        <ScrollContentPresenter Margin="0,2" Height="Auto" VerticalAlignment="Center"/>
-                                    </Grid>
-                                </ControlTemplate>
-                            </ScrollViewer.Template>
-                            <ItemsPresenter HorizontalAlignment="Stretch"/>
-                        </ScrollViewer>
-                        <Grid x:Name="Panel" Margin="0,2" >
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <RepeatButton x:Name="LineLeftButton" Grid.Column="0" Width="20" Opacity="0" Visibility="Collapsed"
-                                      Style="{StaticResource ScrollBarLineButton}"
-                                      Content="M 8 0 L 8 32 L 0 16 Z"       
-                                      Command="{x:Static ScrollBar.LineLeftCommand}"       
-                                      CommandTarget="{Binding ElementName=scrollviewer}"
-                                      ClickMode="Hover" />
-                            <RepeatButton x:Name="LineRightButton" Grid.Column="2" Width="20" Opacity="0" Visibility="Collapsed"
-                                      Style="{StaticResource ScrollBarLineButton}"
-                                      Content="M 0 0 L 8 16 L 0 32 Z" 
-                                      Command="{x:Static ScrollBar.LineRightCommand}"       
-                                      CommandTarget="{Binding ElementName=scrollviewer}"
-                                      ClickMode="Hover"/>
-                        </Grid>
-                    </Grid>
-                    <ControlTemplate.Triggers>
-                        <MultiTrigger>
-                            <MultiTrigger.Conditions>
-                                <Condition Property="IsMouseOver" Value="True"/>
-                                <Condition Property="ComputedHorizontalScrollBarVisibility" SourceName="scrollviewer" Value="Visible"/>
-                            </MultiTrigger.Conditions>
-                            <MultiTrigger.Setters>
-                                <Setter TargetName="LineLeftButton" Property="Visibility" Value="Visible" />
-                                <Setter TargetName="LineRightButton" Property="Visibility" Value="Visible" />
-                            </MultiTrigger.Setters>
-                            <MultiTrigger.EnterActions>
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="LineLeftButton" 
-                                                             Storyboard.TargetProperty="Opacity" To="0.8" Duration="0:0:0.25"/>
-                                        <DoubleAnimation Storyboard.TargetName="LineRightButton" 
-                                                             Storyboard.TargetProperty="Opacity" To="0.8" Duration="0:0:0.25"/>
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </MultiTrigger.EnterActions>
-                            <MultiTrigger.ExitActions>
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="LineLeftButton" 
-                                                             Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.25"/>
-                                        <DoubleAnimation Storyboard.TargetName="LineRightButton" 
-                                                             Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.25"/>
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </MultiTrigger.ExitActions>
-                        </MultiTrigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
+        <Setter Property="Template" Value="{StaticResource HorizontalTemplate}"/>
+
         <!--<Setter Property="ItemsPanel">
             <Setter.Value >
                 <ItemsPanelTemplate>
@@ -241,6 +291,12 @@
                 </ItemsPanelTemplate>
             </Setter.Value>
         </Setter>-->
+
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Orientation,Mode=OneWay,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ListBoxEx}}}" Value="Vertical">
+                <Setter Property="Template" Value="{StaticResource VerticalTemplate}"  />
+            </DataTrigger>
+        </Style.Triggers>
     </Style>
 
 

@@ -8,7 +8,7 @@ using System.Windows;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("UtilityWpf.Common")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("utility wpf code")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("UtilityWpf.Common")]

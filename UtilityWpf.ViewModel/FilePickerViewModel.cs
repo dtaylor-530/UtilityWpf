@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace UtilityWpf.ViewModel
 {
-    public class FilePickerViewModel : NPC, IOutputViewModel<string>
+    public class FilePickerViewModel : NPC, IOutputService<string>
     {
 
         private string file;

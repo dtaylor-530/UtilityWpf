@@ -13,9 +13,7 @@ namespace UtilityWpf.View
         public XButton()
         {
             var myResourceDictionary = new System.Windows.ResourceDictionary();
-            myResourceDictionary.Source =
-                new Uri("/UtilityWpf.View;component/Themes/Geometry.xaml",
-                        UriKind.RelativeOrAbsolute);
+            myResourceDictionary.Source = new Uri("/UtilityWpf.View;component/Themes/Geometry.xaml", UriKind.RelativeOrAbsolute);
             var path = myResourceDictionary["Cross"];
             PathData = (System.Windows.Media.Geometry)path;
 

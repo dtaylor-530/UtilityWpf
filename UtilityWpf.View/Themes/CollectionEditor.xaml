@@ -21,7 +21,7 @@
                     <DockPanel>
                         <ToolBarTray DockPanel.Dock="Top">
                             <ToolBar>
-                                <ItemsControl x:Name="bdc2" ItemsSource="{TemplateBinding Buttons}" Style="{StaticResource ButtonDefinitionStyle}"/>
+                                <!--<ItemsControl x:Name="bdc2" ItemsSource="{TemplateBinding Buttons}" Style="{StaticResource ButtonDefinitionStyle}"/>-->
 
                                 <Border Background="Aquamarine" Width="100">
                                     <ContentPresenter  Content="{Binding Input,RelativeSource={RelativeSource TemplatedParent}}"/>
@@ -32,9 +32,8 @@
                         <UniformGrid Columns="1">
                             <Border Width="250">
                                 <Viewbox>
-                                    <ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate }" Content="{Binding Path=SelectedItem.Object, ElementName=lb }" ContentTemplateSelector="{StaticResource propertytemplateSelector}">
-                          
-                                    </ContentPresenter>
+                                    <!--<ContentPresenter ContentTemplate="{TemplateBinding ContentTemplate }" Content="{Binding Path=SelectedItem.Object, ElementName=lb }" ContentTemplateSelector="{StaticResource propertytemplateSelector}">-->
+                         
                                 </Viewbox>
 
                             </Border>

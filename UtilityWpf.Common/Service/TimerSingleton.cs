@@ -1,5 +1,4 @@
-﻿using Reactive.Bindings;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive;
@@ -11,21 +10,6 @@ using System.Windows.Threading;
 
 namespace UtilityWpf.ViewModel
 {
-
-
-    public class TimerViewModel<T>
-    {
-
-        private TimerViewModel()
-        {
-            Time = TimerSingleton.Instance.Time.ToReadOnlyReactiveProperty();
-        }
-
-        public ReadOnlyReactiveProperty<DateTime> Time { get; }
-
-
-        public T Object { get; set; }
-    }
 
 
     public class TimerSingleton
@@ -47,7 +31,6 @@ namespace UtilityWpf.ViewModel
 
         }
 
-        
         public static TimerSingleton Instance
             {
                 get

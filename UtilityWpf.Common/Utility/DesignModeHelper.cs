@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UtilityWpf.ViewModel
+namespace UtilityWpf
 {
     public class DesignModeHelper
     {

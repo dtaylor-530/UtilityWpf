@@ -10,27 +10,21 @@ using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Text;
 using System.Threading.Tasks;
+using UtilityInterface;
 
 namespace UtilityWpf.ViewModel
 {
 
-
-
-
-
-    public class InteractiveCollectionViewModel<T, R> : InteractiveCollectionBase<T>, ICollectionViewModel<IContainer<T>>
+    public class InteractiveCollectionViewModel<T, R> : InteractiveCollectionBase<T>, ICollectionViewModel<IContainer<T>>,IDisposable
     {
         //private ReadOnlyObservableCollection<SHDObject<T>> _items;
 
         public InteractiveCollectionViewModel(IObservableCache<T, R> observable,
-            IObservable<Func<T, bool>> visiblefilter,
-            IObservable<Func<T, bool>> enabledfilter,
+            IObservable<Predicate<T>> visiblefilter,
+            IObservable<Predicate<T>> enabledfilter,
             IScheduler scheduler, string title = null)
         {
-
-            //  Output = new ReactiveProperty<T>();
-
-            observable.Connect()
+            disposable = observable.Connect()
                  .ObserveOn(scheduler)
                 .Transform(s =>
                 {
@@ -41,49 +35,76 @@ namespace UtilityWpf.ViewModel
                   .Bind(out _items)
               .DisposeMany()
                 .Subscribe(
-                _ => Console.WriteLine("generic view model changed"),
-                ex => Console.WriteLine("Error in generic view model"));
+                _ =>
+                {
+                    foreach (var x in _.Select(a => new KeyValuePair<IContainer<T>, ChangeReason>(a.Current, a.Reason)))
+                        (Changes as Subject<KeyValuePair<IContainer<T>, ChangeReason>>).OnNext(x);
+                },
+                ex =>
+                {
+                    (Errors as ISubject<Exception>).OnNext(ex);
+                    Console.WriteLine("Error in generic view model");
+                },
+                () => Console.WriteLine("observable completed"));
 
             Title = title;
+         
 
         }
 
-
-            //private ReadOnlyObservableCollection<SHDObject<T>> _items;
-
-            public InteractiveCollectionViewModel(IObservable<IChangeSet<T, R>> observable, IScheduler scheduler, string title = null)
-            {
-
-                observable
-                     .ObserveOn(scheduler)
-                    .Transform(s =>
-                    {
-                        var so = new SHDObject<T>(s );
-                        this.ReactToChanges(so);
-                        return (IContainer<T>)so;
-                    })
-                      .Bind(out _items)
-                  .DisposeMany()
-                    .Subscribe(
-                    _ =>
-                    Console.WriteLine("generic view model changed"),
-                    ex => Console.WriteLine("Error in generic view model"));
-
-                Title = title;
-
-            }
-
-        public ISubject<T> ChildSubject = new Subject<T>();
-
-        public InteractiveCollectionViewModel(IObservable<IChangeSet<T, R>> observable, string childrenpath,IScheduler scheduler, System.Windows.Threading.Dispatcher dispatcher,string title = null)
+        IDisposable disposable;
+        public InteractiveCollectionViewModel(IObservable<IChangeSet<T, R>> observable, IScheduler scheduler=null, IObservable<T> disable = null, string title = null)
         {
+            
+            if (scheduler != null)
+                observable = observable.ObserveOn(scheduler);
 
-            observable
+            disposable= observable
+          
+                .Transform(s =>
+                {
+                    var funcenable = disable?.Scan(new List<T>(), (a, b) => { a.Add(b); return a; }).Select(_ => { Predicate<T> f = a => !_.Any(b => b.Equals(a)); return f; });
+                    var so = new SHDObject<T>(s, null, funcenable);
+              
+                    this.ReactToChanges(so);
+                    return (IContainer<T>)so;
+                })
+                 .Bind(out _items)
+                 .DisposeMany()
+                 .Subscribe(
+               _ =>
+               {
+                    foreach (var x in _.Select(a => new KeyValuePair<IContainer<T>, ChangeReason>(a.Current, a.Reason)))
+                        (Changes as Subject<KeyValuePair<IContainer<T>, ChangeReason>>).OnNext(x);
+                },
+                ex =>
+                {
+                    (Errors as ISubject<Exception>).OnNext(ex);
+                    Console.WriteLine("Error in generic view model");
+                    },
+                () => 
+                Console.WriteLine("observable completed"));
+
+            Title = title;
+  
+        }
+        //((System.Reactive.Subjects.ISubject<KeyValuePair<object, InteractionArgs>>) interactivecollection.Interactions).OnNext(new KeyValuePair<object, InteractionArgs>(_.d, new InteractionArgs { Interaction = Interaction.Include, Value = false }));
+
+
+
+        public InteractiveCollectionViewModel(IObservable<IChangeSet<T, R>> observable, string childrenpath, IObservable<bool> ischecked, IObservable<bool> expand, IScheduler scheduler, System.Windows.Threading.Dispatcher dispatcher, string title = null)
+        {
+            disposable = observable
                  .ObserveOn(scheduler)
                 .Transform(s =>
                 {
-                    var so = new SEObject<T>(s,childrenpath,dispatcher);
-                    so.OnPropertyChange(_ => _.ChildSelected).Subscribe(_ => ChildSubject.OnNext(_));
+                    var so = new SEObject<T>(s, childrenpath, ischecked, expand, dispatcher);
+
+                    so.OnPropertyChangeWithSource<SEObject<T>, KeyValuePair<T, InteractionArgs>>(nameof(SEObject<T>.ChildChanged)).Subscribe(_ =>
+                    {
+                        ChildSubject.OnNext(_.Item2);
+                    });
+
                     this.ReactToChanges(so);
                     return (IContainer<T>)so;
                 })
@@ -91,41 +112,60 @@ namespace UtilityWpf.ViewModel
               .DisposeMany()
                 .Subscribe(
                 _ =>
-                Console.WriteLine("generic view model changed"),
-                ex => Console.WriteLine("Error in generic view model"));
+                {
+                    foreach (var x in _.Select(a => new KeyValuePair<IContainer<T>, ChangeReason>(a.Current, a.Reason)))
+                        (Changes as Subject<KeyValuePair<IContainer<T>, ChangeReason>>).OnNext(x);
+                },
+                ex => Console.WriteLine("Error in generic view model"),
+                () => Console.WriteLine("observable completed"));
+
+            ischecked.DelaySubscription(TimeSpan.FromSeconds(0.5)).Take(1).Subscribe(_ =>
+            {
+                foreach (var x in _items)
+                    (x as SEObject<T>).IsChecked = _;
+            });
 
             Title = title;
-
+    
         }
 
 
 
-        public InteractiveCollectionViewModel(IObservable<IChangeSet<T, R>> observable,
-IObservable<Func<T, bool>> invisiblefilter,
-IObservable<Func<T, bool>> enabledfilter,
-IScheduler scheduler, string title = null)
+        public InteractiveCollectionViewModel(IObservable<IChangeSet<T, R>> observable, IObservable<Predicate<T>> invisiblefilter, IObservable<Predicate<T>> enabledfilter, IScheduler scheduler, string title = null)
         {
 
-           // Output = new ReactiveProperty<T>();
-
-            observable.ObserveOn(scheduler)
+            disposable = observable.ObserveOn(scheduler)
            .Transform(s =>
            {
-               var so = new SHDObject<T>(s,invisiblefilter, enabledfilter) ;
+               var so = new SHDObject<T>(s, invisiblefilter, enabledfilter);
                this.ReactToChanges(so);
                return (IContainer<T>)so;
            })
              .Bind(out _items)
          .DisposeMany()
-           .Subscribe(
-           _ => Console.WriteLine("generic view model changed"),
-           ex => Console.WriteLine("Error in generic view model"));
+                .Subscribe(
+                _ =>
+                {
+                    foreach (var x in _.Select(a => new KeyValuePair<IContainer<T>, ChangeReason>(a.Current, a.Reason)))
+                        (Changes as Subject<KeyValuePair<IContainer<T>, ChangeReason>>).OnNext(x);
+                },
+                ex =>
+                {
+                    (Errors as ISubject<Exception>).OnNext(ex);
+                    Console.WriteLine("Error in generic view model");
+                },
+                () => Console.WriteLine("observable completed"));
 
             Title = title;
-
+    
         }
 
+        public void Dispose()
+        {
+            disposable.Dispose();
+        }
     }
+
 
 
 
@@ -169,7 +209,7 @@ IScheduler scheduler, string title = null)
 
     //}
 
-  
+
 }
 
 

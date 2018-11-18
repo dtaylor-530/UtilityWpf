@@ -8,10 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using UtilityWpf.Common;
+
 using System.Reflection;
 using UtilityHelper;
 using CustomHelper;
+using UtilityHelper.NonGeneric;
 
 namespace UtilityWpf.View
 {
@@ -50,11 +51,14 @@ namespace UtilityWpf.View
 
         private static void ItemsSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (!(((IEnumerable)e.NewValue).FirstOrDefault2() is Dynamic))
-                (d as DynamicDataGrid).ItemsSourceSubject.OnNext((IEnumerable)e.NewValue);
+            if (!(((IEnumerable)e.NewValue).First() is Dynamic))
+               (d as DynamicDataGrid).ChangeItemsSource((IEnumerable)e.NewValue); 
         }
 
-
+        protected virtual void ChangeItemsSource(IEnumerable value)
+        {
+            ItemsSourceSubject.OnNext((IEnumerable)value);
+        }
 
         private static void ValueChange(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -73,9 +77,9 @@ namespace UtilityWpf.View
         //}
 
 
-        ISubject<IEnumerable> ItemsSourceSubject = new Subject<IEnumerable>();
-        ISubject<string> KeyChangeSubject = new Subject<string>();
-        ISubject<string> ValueChangeSubject = new Subject<string>();
+        protected  ISubject<IEnumerable> ItemsSourceSubject = new Subject<IEnumerable>();
+        protected ISubject<string> KeyChangeSubject = new Subject<string>();
+        protected ISubject<string> ValueChangeSubject = new Subject<string>();
 
 
 

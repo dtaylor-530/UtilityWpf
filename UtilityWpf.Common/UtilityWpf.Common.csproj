@@ -60,20 +60,44 @@
     <Reference Include="UtilityEnum, Version=1.0.8.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\BackgroundWorkerExtended\BackgroundWorkerAdvancedControl\packages\UtilityEnum.1.0.8-alpha\lib\netstandard2.0\UtilityEnum.dll</HintPath>
     </Reference>
+    <Reference Include="UtilityHelper, Version=1.2.9.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\FootballData\packages\dt_UtilityHelper.1.2.9-alpha\lib\netstandard2.0\UtilityHelper.dll</HintPath>
+    </Reference>
+    <Reference Include="UtilityInterface, Version=1.0.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\DALViewer\packages\dt_UtilityInterface.1.0.7\lib\netstandard2.0\UtilityInterface.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ButtonDefinition.cs" />
+    <Compile Include="Converter\FirstLineConverter.cs" />
+    <Compile Include="Converter\LookupToListConverter.cs" />
+    <Compile Include="PropertyHelper\DependencyPropertyChangeHelper.cs" />
+    <Compile Include="Service\IDelayedConstructor.cs" />
+    <Compile Include="Service\IDelayedConstuctorService.cs" />
+    <Compile Include="Service\IMethod.cs" />
+    <Compile Include="Service\InputOutputService.cs" />
+    <Compile Include="Service\IOutputService.cs" />
+    <Compile Include="Service\TimerSingleton.cs" />
+    <Compile Include="Utility\ApplicationHelper.cs" />
+    <Compile Include="Utility\ButtonDefinition.cs" />
+    <Compile Include="Converter\CountToBooleanConverter.cs" />
+    <Compile Include="Converter\EnumerableToDistinctPropertiesConverter.cs" />
     <Compile Include="Converter\InverseBooleanConverter.cs" />
     <Compile Include="Converter\InverseBooleanToVisibilityConverter.cs" />
     <Compile Include="Converter\EnumToBooleanConverter.cs" />
+    <Compile Include="Converter\NullToBooleanConverter.cs" />
+    <Compile Include="Converter\StringToFilterConverter.cs" />
     <Compile Include="Converter\TimeSpanStringConverter.cs" />
-    <Compile Include="LinqEx.cs" />
-    <Compile Include="PropertyHelper\INPC.cs" />
+    <Compile Include="Service\ContainsFilter.cs" />
+    <Compile Include="Service\IFilter.cs" />
+    <Compile Include="Utility\ControlHelper.cs" />
+    <Compile Include="Utility\DesignModeHelper.cs" />
     <Compile Include="PropertyHelper\NotificationHelper.cs" />
-    <Compile Include="ReflectionHelper.cs" />
+    <Compile Include="PropertyHelper\NPC.cs" />
+    <Compile Include="Utility\ObservableCollectionHelper.cs" />
+    <Compile Include="Utility\ReflectionHelper.cs" />
     <Compile Include="Command\Command.cs" />
     <Compile Include="Command\RelayCommand.cs" />
     <Compile Include="CustomHelper\CustomPropertyInfoHelper.cs" />
@@ -95,7 +119,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Service\DispatcherService.cs" />
-    <Compile Include="Service\IService.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

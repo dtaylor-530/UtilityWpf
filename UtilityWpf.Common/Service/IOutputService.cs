@@ -1,15 +1,14 @@
-﻿using DynamicData.Binding;
-using Reactive.Bindings;
+﻿
 using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Reactive.Linq;
 
-namespace UtilityWpf.ViewModel
+namespace UtilityWpf
 {
 
 
-    public class OutputViewModel<T> : IOutputViewModel<T>
+    public class OutputService<T> : IOutputService<T>
     {
 
         public virtual IObservable<T> Output { get; protected set; }
@@ -17,7 +16,7 @@ namespace UtilityWpf.ViewModel
     }
 
 
-    public interface IOutputViewModel<T> //: INotifyPropertyChanged
+    public interface IOutputService<T> //: INotifyPropertyChanged
     {
         IObservable<T> Output { get;  }
 

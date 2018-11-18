@@ -8,19 +8,7 @@
              mc:Ignorable="d" 
    d:DesignHeight="300" d:DesignWidth="300"  Name="usercontrol">
     <Grid>
-        <!--<ToolBar>
-                <Button Name="BtnGetNewInfo2" Command="{Binding OpenSourceCommand}"   Content="File"/>
-                <TextBox Width="120" Text="{Binding File}"></TextBox>
-                <Button Name="BtnGetNewInf3" Command="{Binding OpenTargetCommand}"  Content="Folder"/>
-                <TextBox Width="120" Text="{Binding Folder}"></TextBox>
-            </ToolBar>-->
 
-
-        <!--x:Class="ControlDemos.FilePickerPage"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:p="clr-namespace:PropertyTools.Wpf;assembly=PropertyTools.Wpf" 
-	  Title="FilePicker Demo">-->
 
 
                 <StackPanel >

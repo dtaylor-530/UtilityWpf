@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UtilityHelper;
+using UtilityHelper.NonGeneric;
 using UtilityWpf;
 
 namespace CustomHelper
@@ -34,7 +36,7 @@ namespace CustomHelper
                 var values = ((IEnumerable)en).GetPropValues<object>(value);
                 Dynamic customer1 = new Dynamic();// { FirstName = "Julie", LastName = "Smith" };
                 foreach (var val in values.Cast<object>().Zip(keys.Cast<object>(), (a, b) => new { a, b }))
-                    customer1.SetPropertyValue((string)val.b, (string)val.a);
+                    customer1.SetPropertyValue((string)val.b, val.a);
 
 
                 Customers.Add(customer1);

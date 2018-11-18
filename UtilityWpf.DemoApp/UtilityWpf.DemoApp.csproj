@@ -60,6 +60,9 @@
     <Reference Include="UtilityEnum, Version=1.0.8.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\UtilityEnum.1.0.8-alpha\lib\netstandard2.0\UtilityEnum.dll</HintPath>
     </Reference>
+    <Reference Include="UtilityInterface, Version=1.0.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\dt_UtilityInterface.1.0.7\lib\netstandard2.0\UtilityInterface.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -71,6 +74,9 @@
     </ApplicationDefinition>
     <Compile Include="View\PlayerUserControl.xaml.cs">
       <DependentUpon>PlayerUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\StructDataGridUserControl.xaml.cs">
+      <DependentUpon>StructDataGridUserControl.xaml</DependentUpon>
     </Compile>
     <Page Include="View\CsvDataGridUserControl.xaml">
       <SubType>Designer</SubType>
@@ -145,6 +151,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\PlayerUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\StructDataGridUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

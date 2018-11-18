@@ -3,6 +3,7 @@
                     xmlns:view="clr-namespace:UtilityWpf.View"
                     xmlns:converter="clr-namespace:UtilityWpf;assembly=UtilityWpf.Common"
                     xmlns:uenm="clr-namespace:UtilityEnum;assembly=UtilityEnum"
+                         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                     >
 
     <ResourceDictionary.MergedDictionaries >
@@ -73,9 +74,19 @@
                                               IsEnabled="{Binding ProcessState,RelativeSource={RelativeSource TemplatedParent},Converter={StaticResource EnumBool},ConverterParameter={StaticResource paramscancel},Mode=OneWayToSource }"
                                                />
                                 <Grid>
+                                    
+                                    <Button Margin="6" Grid.Column="0" Command="{Binding PreviousTrackButtonClickCommand}">
+                                        <materialDesign:PackIcon Kind="SkipPrevious" Height="Auto" Width="Auto"/>
+                                    </Button>
+                                    <Button Margin="6" Grid.Column="1" Command="{Binding PlayPauseTrackButtonClickCommand}">
+                                        <materialDesign:PackIcon Kind="PlayPause" Height="Auto" Width="Auto" />
+                                    </Button>
+                                    <Button Margin="6" Grid.Column="2" Command="{Binding NextTrackButtonClickCommand}">
+                                        <materialDesign:PackIcon Kind="SkipNext" Height="Auto" Width="Auto" />
+                                    </Button>
 
-
-                                <ProgressBar Style="{StaticResource ProgressBar}" Grid.Column="2" Value="{   Binding Value,RelativeSource={RelativeSource TemplatedParent}}"  />
+                                    
+                                    <ProgressBar Style="{StaticResource ProgressBar}" Grid.Column="2" Value="{   Binding Value,RelativeSource={RelativeSource TemplatedParent}}"  />
 
                                 <!--<TextBlock Grid.Column="2" Width="50" 
                                    HorizontalAlignment="Right" 

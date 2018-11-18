@@ -5,6 +5,7 @@
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary  Source="/UtilityWpf.View;component/Themes/Brushes.xaml"/>
+        <ResourceDictionary  Source="/UtilityWpf.View;component/DataTemplate/PropertyDataTemplateSelector.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
 
@@ -13,14 +14,14 @@
 
     <Style x:Key="HorizontalPanelItemStyle" TargetType="{x:Type ListBoxItem}">
 
-        <Setter Property="IsSelected" Value="{Binding IsSelected.Value}"/>
+        <Setter Property="IsSelected" Value="{Binding IsSelected}"/>
         <Setter Property="Visibility" Value="{Binding IsVisible.Value,Converter={StaticResource BoolToVis}}"/>
-        <Setter Property="local:ControlDoubleClick.Command" Value="{Binding DoubleClickCommand}"/>
+        <Setter Property="local:MouseDoubleClick.Command" Value="{Binding DoubleClickCommand}"/>
         <Setter Property="IsEnabled" Value="{Binding IsEnabled.Value}"/>
         <!--<Setter Property="Canvas.Left" Value="{Binding Location.X}" />
         <Setter Property="Canvas.Top" Value="{Binding Location.Y}" />
         <Setter Property="Grid.Row"        Value="{Binding Order}" />-->
-        <Setter Property="Background" Value="#FF3B0031" />
+        <Setter Property="Background" Value="Transparent" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <!--<Setter Property="Height" Value="40" />-->
         <Setter Property="MinHeight" Value="30"/>
@@ -59,10 +60,13 @@
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="10"/>
                                 </Grid.ColumnDefinitions>
-
-                                <ContentPresenter Name="cp" Grid.Column="0"></ContentPresenter>
-
-                                <local:XButton Grid.Column="1" Command="{Binding DeleteCommand }"/>
+                            <ContentPresenter HorizontalAlignment="Stretch" Content="{Binding Object}" 
+                                                      ContentTemplateSelector="{StaticResource propertytemplateSelector}"/>
+                            <StackPanel Grid.Column="1" > 
+                                <local:XButton Command="{Binding DeleteCommand }"/>
+                                <CheckBox IsChecked="{Binding IsChecked,Mode=TwoWay}"></CheckBox>
+                            </StackPanel>
+                           
                             </Grid>
                         </Border>
                     <!--</ContentControl>-->

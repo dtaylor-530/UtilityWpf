@@ -22,7 +22,7 @@
         <ListBox ItemsSource="{Binding Characters }">
             <ListBox.ItemContainerStyle>
                 <Style>
-                    <Setter Property="util:ControlDoubleClick.Command" Value="{Binding DataContext.MyCommand,
+                    <Setter Property="util:MouseDoubleClick.Command" Value="{Binding DataContext.MyCommand,
                                     RelativeSource={RelativeSource FindAncestor, 
                                     AncestorType={x:Type UserControl}}}"/>
                 </Style>

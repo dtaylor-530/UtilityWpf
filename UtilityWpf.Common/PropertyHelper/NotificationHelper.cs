@@ -28,14 +28,29 @@ namespace UtilityWpf
 
 
 
-        public static IObservable<R> OnPropertyChange<T,R>(this T source,Func<T,R> property)
+        public static IObservable<R> OnPropertyChange<T,R>(this T source,string name)
             where T : INotifyPropertyChanged
         {
+            var xx = typeof(T).GetProperty(name);
             return System.Reactive.Linq.Observable.FromEventPattern<PropertyChangedEventHandler, PropertyChangedEventArgs>(
                                 handler => handler.Invoke,
                                 h => source.PropertyChanged += h,
                                 h => source.PropertyChanged -= h)
-                            .Select(_ => property(source));
+                               .Where(_=>_.EventArgs.PropertyName==name)
+                            .Select(_ =>UtilityHelper.PropertyHelper.GetPropValue<R>(source,xx));
+        }
+
+        public static IObservable<Tuple<T,R>> OnPropertyChangeWithSource<T, R>(this T source, string name)
+    where T : INotifyPropertyChanged
+        {
+            var xx = typeof(T).GetProperty(name);
+            return System.Reactive.Linq.Observable.FromEventPattern<PropertyChangedEventHandler, PropertyChangedEventArgs>(
+                                handler => handler.Invoke,
+                                h => source.PropertyChanged += h,
+                                h => source.PropertyChanged -= h)
+                                .Where(_ => _.EventArgs.PropertyName == name)
+                                .Select(_ => Tuple.Create(source, UtilityHelper.PropertyHelper.GetPropValue<R>(source,xx)));
+                          
         }
     }
 }

@@ -8,15 +8,21 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <UniformGrid Rows="1">
-        <view:MultiSelectTreeView Name="treeview" ItemsSource="{Binding RootNodes}" Key="Name"></view:MultiSelectTreeView>
-        <ItemsControl ItemsSource="{Binding ElementName=treeview,Path=SelectedItem}">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
+        <UniformGrid.Resources>
+
+            <DataTemplate DataType="{x:Type local:TreeItemModel}">
                     <Border Background="Pink">
                         <TextBlock Text="{Binding Name}"></TextBlock>
                     </Border>
                 </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+ 
+        </UniformGrid.Resources>
+        <view:MultiSelectTreeView Name="treeview" ItemsSource="{Binding RootNodes}" Key="Name" ChildrenPath="Children"></view:MultiSelectTreeView>
+        <ListBox Name="z" ItemsSource="{Binding ElementName=treeview,Path=SelectedItems}">
+
+        </ListBox>
+        <ContentPresenter Content="{Binding ElementName=z,Path=SelectedItem}">
+       
+        </ContentPresenter>
     </UniformGrid>
 </UserControl>

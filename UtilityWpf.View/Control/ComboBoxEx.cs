@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UtilityWpf.View
 {
-    class RepeatImageButton
+    public class ComboBoxEx
     {
     }
 }

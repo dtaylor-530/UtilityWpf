@@ -10,7 +10,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using UtilityHelper;
-
+using UtilityHelper.NonGeneric;
 
 namespace UtilityWpf.View
 {
@@ -19,11 +19,15 @@ namespace UtilityWpf.View
     {
 
 
+
         public static readonly DependencyProperty ContentTemplateProperty = DependencyProperty.Register("ContentTemplate", typeof(DataTemplate), typeof(CollectionEditor));
 
-        public static readonly DependencyProperty ButtonsProperty = DependencyProperty.Register("Buttons", typeof(List<ViewModel.ButtonDefinition>), typeof(CollectionEditor));
+        public static readonly DependencyProperty ButtonsProperty = DependencyProperty.Register("Buttons", typeof(IEnumerable<ViewModel.ButtonDefinition>), typeof(CollectionEditor));
 
         public static readonly DependencyProperty InputProperty = DependencyProperty.Register("Input", typeof(object), typeof(CollectionEditor), new PropertyMetadata(null, InputChanged));
+
+        //public static readonly DependencyProperty ItemsPresenterProperty = DependencyProperty.Register("ItemsPresenter", typeof(object), typeof(CollectionEditor), new PropertyMetadata(null, InputChanged));
+
 
 
         public IEnumerable Buttons
@@ -58,36 +62,52 @@ namespace UtilityWpf.View
 
         static CollectionEditor()
         {
-     
+
             DefaultStyleKeyProperty.OverrideMetadata(typeof(CollectionEditor), new FrameworkPropertyMetadata(typeof(CollectionEditor)));
 
         }
 
 
 
-        public CollectionEditor()
+        public CollectionEditor():base()
         {
 
             Uri resourceLocater = new Uri("/UtilityWpf.View;component/Themes/CollectionEditor.xaml", System.UriKind.Relative);
             ResourceDictionary resourceDictionary = (ResourceDictionary)Application.LoadComponent(resourceLocater);
             Style = resourceDictionary["CollectionEditorStyle"] as Style;
 
-            DeletedSubject.OnNext(new object());
-            InputSubject.WithLatestFrom(SelectedItemSubject, (input, item) => new { input, item }).Subscribe(_ =>
-                {
+            //DeletedSubject.OnNext(new object());
 
-                    switch (_.input)
-                    {
-                        case (DatabaseCommand.Delete):
-                            DeletedSubject.OnNext(_.item);
-                            break;
-                        case (DatabaseCommand.Update):
-                            {
+            //NewItemS
+            //Observable.FromEventPattern<EventHandler, EventArgs>(_ => this.Initialized += _, _ => this.Initialized -= _)
+            //  .CombineLatest(NewItemsSubject, (a, b) => b)
+            //     .CombineLatest(KeySubject, (item, key) => new { item, key })
+            //  .Subscribe(_ => React(_.item, _.key));
 
-                            }
-                            break;
-                    }
-                });
+
+            var obs = ItemsSourceSubject.Where(_ => _ != null)
+                .Take(1)
+                .Select(_ => (_.First()))
+                 .Concat(SelectedItemSubject)
+                 .DistinctUntilChanged();
+
+            InputSubject.WithLatestFrom(obs, (input, item) => new { input, item })
+              .Subscribe(_ =>
+                   {
+
+                       switch (_.input)
+                       {
+                           case (DatabaseCommand.Delete):
+                               DeletedSubject.OnNext(_.item);
+                               break;
+                           case (DatabaseCommand.Update):
+
+                               break;
+                           case (DatabaseCommand.Clear):
+                               ClearedSubject.OnNext(null);
+                               break;
+                       }
+                   });
 
 
             Action<DatabaseCommand> av = (a) => this.Dispatcher.InvokeAsync(() => InputSubject.OnNext(a), System.Windows.Threading.DispatcherPriority.Background, default(System.Threading.CancellationToken));
@@ -107,5 +127,14 @@ namespace UtilityWpf.View
 
 
         }
+
+        List<object> clxnitems = new List<object>();
+
+        //protected virtual void React(object _b, string key)
+        //{
+        //    clxnitems.Add(_b);
+
+        //    ItemsSourceSubject.OnNext(clxnitems);
+        //}
     }
 }

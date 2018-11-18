@@ -12,8 +12,8 @@ using System.Threading.Tasks;
 namespace UtilityWpf.ViewModel
 {
 
-
-    public class ValueViewModel<T> : NPC, IOutputViewModel<T>
+    // conside  instead ReactiveProperty
+    public class ValueViewModel<T> : NPC, IOutputService<T>
     {
 
         public T Value { get; private set; }

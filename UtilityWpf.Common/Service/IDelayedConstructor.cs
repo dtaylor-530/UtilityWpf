@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UtilityWpf.Common
-{ 
-    public interface IService<T>
+namespace UtilityWpf
+{
+    public interface IDelayedConstructor
     {
-        IObservable<T> Resource { get; }
+        Task<bool> Init(object o);
     }
-
 }

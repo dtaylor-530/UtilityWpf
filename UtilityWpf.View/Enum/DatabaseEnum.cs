@@ -9,6 +9,6 @@ namespace UtilityWpf.View
     public enum DatabaseCommand
     {
 
-        Update,Insert,Delete
+        Update,Insert,Delete,Clear
     }
 }

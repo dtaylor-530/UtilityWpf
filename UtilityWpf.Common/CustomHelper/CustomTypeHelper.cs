@@ -19,6 +19,7 @@ namespace CustomHelper
         public CustomTypeHelper()
         {
             foreach (var property in GetCustomType().GetProperties())
+                if(property.Name!=null)
                 _customPropertyValues.Add(property.Name, null);
         }
 
@@ -81,16 +82,21 @@ namespace CustomHelper
         public void SetPropertyValue(string propertyName, object value)
         {
             CustomPropertyInfoHelper propertyInfo = CustomProperties.FirstOrDefault(prop => prop.Name == propertyName);
+            if(propertyName!=null)
             if (propertyInfo == null || !_customPropertyValues.ContainsKey(propertyName)) 
                 throw new Exception("There is no property with the name " + propertyName); 
             
             if (ValidateValueType(value, propertyInfo._type))
             {
-                if (_customPropertyValues[propertyName] != value)
-                {
+
+                //   if (_customPropertyValues[propertyName] != value)
+                //{
+          
                     _customPropertyValues[propertyName] = value;
                     RaisePropertyChanged(propertyName);
-                }
+    
+               // }
+
             }               
             else 
                 throw new Exception("Value is of the wrong type or null for a non-nullable type.");                        

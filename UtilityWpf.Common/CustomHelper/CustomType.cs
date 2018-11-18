@@ -44,7 +44,8 @@ namespace CustomHelper
 
             protected override TypeAttributes GetAttributeFlagsImpl()
             {
-                throw new NotImplementedException();
+                return default(TypeAttributes);
+                //throw new NotImplementedException();
             }
 
             protected override ConstructorInfo GetConstructorImpl(BindingFlags bindingAttr, Binder binder, CallingConventions callConvention, Type[] types, ParameterModifier[] modifiers)

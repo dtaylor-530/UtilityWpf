@@ -30,8 +30,8 @@ namespace UtilityWpf
         }
 
         /// <summary>
-        ///  raises the PropertyChanged event for single property
-        ///  propertyname can be left null (e.g OnPropertyChanged()) if called from body of property 
+        ///  raises the PropertyChanged event for a single property
+        ///  'propertyname' can be left null (e.g OnPropertyChanged()), if called from body of property 
         /// </summary>
         public void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

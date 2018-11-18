@@ -24,7 +24,7 @@ namespace UtilityWpf.ViewModel
 
     
 
-    public class PageNavigatorViewModel:NavigatorVM, IOutputViewModel<DynamicData.PageRequest>
+    public class PageNavigatorViewModel:NavigatorVM, IOutputService<DynamicData.PageRequest>
     {
           public IObservable<DynamicData.PageRequest> Output { get;  set; }
 

@@ -12,44 +12,44 @@ using System.Reactive.Linq;
 
 namespace UtilityWpf.ViewModel
 {
-    public class ToggleViewModel : OutputViewModel<bool> /*where T : struct, IConvertible*/
-    {
+    //public class ToggleViewModel : OutputService<bool> /*where T : struct, IConvertible*/
+    //{
        
 
-        public string Title { get; }
-        public ToggleViewModel(string title)
-        {
-            Title = title;
-            Output = new ReactiveProperty<bool>();
+    //    public string Title { get; }
+    //    public ToggleViewModel(string title)
+    //    {
+    //        Title = title;
+    //        Output = new ReactiveProperty<bool>();
 
-        }
-
-
-    }
+    //    }
 
 
+    //}
 
 
-    public class ToggleViewModel<T> : OutputViewModel<T> //, IConvertible*/
-    {
 
-        public string Checked { get; }
-        public string UnChecked { get; }
-        public string Title { get; }
-        public ReactiveProperty<bool> Input { get; set; }
 
-        public ToggleViewModel(string title="")
-        {
-            Title = title==""? typeof(T).Name:title;
-            Input = new ReactiveProperty<bool>();
-            Output = Input.Select(_ =>
-            EnumHelper.ToEnum<T>(Convert.ToInt32(_))).ToReactiveProperty();
-            Checked = EnumHelper.ToEnum<T>(0).ToString();
-            UnChecked = EnumHelper.ToEnum<T>(1).ToString();
+    //public class ToggleViewModel<T> : OutputService<T> //, IConvertible*/
+    //{
 
-        }
+    //    public string Checked { get; }
+    //    public string UnChecked { get; }
+    //    public string Title { get; }
+    //    public ReactiveProperty<bool> Input { get; set; }
 
-    }
+    //    public ToggleViewModel(string title="")
+    //    {
+    //        Title = title==""? typeof(T).Name:title;
+    //        Input = new ReactiveProperty<bool>();
+    //        Output = Input.Select(_ =>
+    //        EnumHelper.ToEnum<T>(Convert.ToInt32(_))).ToReactiveProperty();
+    //        Checked = EnumHelper.ToEnum<T>(0).ToString();
+    //        UnChecked = EnumHelper.ToEnum<T>(1).ToString();
+
+    //    }
+
+    //}
 
 
 

@@ -13,6 +13,7 @@
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/UtilityWpf.View;component/DataTemplate/PathDataTemplate.xaml"/>
+        <ResourceDictionary  Source="/UtilityWpf.View;component/DataTemplate/PropertyDataTemplateSelector.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
 
@@ -78,8 +79,12 @@
     </Style>
 
     <Style TargetType="{x:Type TreeViewItem}" x:Key="MyTreeViewItemStyle">
-        <Setter Property="IsExpanded" Value="{Binding IsExpanded}" />
+        <Style.Resources>
+            <local:BindingChecker x:Key="bc"></local:BindingChecker>
+        </Style.Resources>
+        <Setter Property="IsExpanded" Value="{Binding IsExpanded,Mode=TwoWay}" />
         <Setter Property="IsSelected" Value="{Binding IsSelected,Mode=OneWayToSource}" />
+      
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
         <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
@@ -102,10 +107,13 @@
                         </Grid.RowDefinitions>
                         <!--<Ellipse Fill="Red" Height="20" Width="29"></Ellipse>-->
                         <ToggleButton x:Name="Expander" ClickMode="Press" IsChecked="{Binding Path=IsExpanded, RelativeSource={RelativeSource TemplatedParent}}" Style="{StaticResource ExpandCollapseToggleStyle}"/>
+       
                         <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Grid.Column="1" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
-                            <ContentPresenter x:Name="PART_Header" Content="{Binding Object}" ContentTemplateSelector="{StaticResource pathtemplateSelector}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                            <ContentPresenter x:Name="PART_Header" Content="{Binding Object}" ContentTemplateSelector="{StaticResource propertytemplateSelector}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
                         </Border>
+      
                         <ItemsPresenter x:Name="ItemsHost" Grid.ColumnSpan="2" Grid.Column="1" Grid.Row="1"/>
+            
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsExpanded" Value="false">
@@ -145,7 +153,8 @@
     <local:AlternationEqualityConverter x:Key="MyAlternationEqualityConverter" />
 
     <Style x:Key="StretchedTreeViewItemWithLinesStyle" TargetType="{x:Type TreeViewItem}">
-        <Setter Property="IsExpanded" Value="{Binding IsExpanded}" />
+        <!-- Binding needs to be twoway since oneway by default-->
+        <Setter Property="IsExpanded" Value="{Binding IsExpanded,Mode=TwoWay}" />
         <Setter Property="IsSelected" Value="{Binding IsSelected,Mode=OneWayToSource}" />
 
         <Setter Property="AlternationCount" Value="{Binding RelativeSource={RelativeSource Self}, Path=Items.Count}"/>
@@ -186,7 +195,7 @@
                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" HorizontalAlignment="Left">
                                 <Rectangle.Style>
                                     <Style TargetType="Rectangle">
-                                        <Setter Property="Fill" Value="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl}, Path=LinienFarbe}"/>
+                                        <!--<Setter Property="Fill" Value="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl}, Path=LinienFarbe}"/>-->
                                         <Setter Property="Margin" Value="5,0,15,0"/>
                                         <Setter Property="Width" Value="13"/>
                                         <Style.Triggers>
@@ -233,6 +242,8 @@
                                 BorderThickness="{TemplateBinding BorderThickness}" 
                                 Padding="{TemplateBinding Padding}" Grid.Column="2">
                             <ContentPresenter x:Name="PART_Header" 
+                                              Content="{Binding Object}"
+                                              ContentTemplateSelector="{Binding ItemTemplateSelector,RelativeSource={RelativeSource TemplatedParent}}"
                                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
                                               SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
                                               ContentSource="Header"
@@ -241,6 +252,8 @@
 
                             <!---->
                         </Border>
+                          <CheckBox   Margin="25,0,0,0" Focusable="False" Name="CheckBoxItem"  IsChecked="{Binding IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"    ></CheckBox>
+
                         <ItemsPresenter x:Name="ItemsHost" HorizontalAlignment="Stretch" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="1"/>
                     </Grid>
                     <ControlTemplate.Triggers>

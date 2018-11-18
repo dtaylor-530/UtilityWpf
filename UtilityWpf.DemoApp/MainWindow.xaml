@@ -49,6 +49,9 @@
                 <local:PlayerUserControl></local:PlayerUserControl>
 
             </TabItem>
+            <TabItem Header="StructDataGrid">
+                <local:StructDataGridUserControl></local:StructDataGridUserControl>
+            </TabItem>
         </TabControl>
 
     </Grid>
