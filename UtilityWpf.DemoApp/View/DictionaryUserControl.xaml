@@ -24,8 +24,33 @@
             <sys:Int32 x:Key="key2">222</sys:Int32>
         </local:MyDictionary>
     </UserControl.Resources>
-    <Grid>
-        <util:DictionaryControl ItemsSource="{Binding }"></util:DictionaryControl>
-        
-    </Grid>
+    <UniformGrid Rows="1">
+        <Grid>
+            <util:DictionaryControl ItemsSource="{Binding }"></util:DictionaryControl>
+
+        </Grid>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Row Spacing: " />
+                <Slider Minimum="0" Maximum="50" Width="200" x:Name="rowSpacing" VerticalAlignment="Center" Value="5" />
+                <Label Content="Column Spacing: " />
+                <Slider Minimum="0" Maximum="50" Width="200" x:Name="colSpacing" VerticalAlignment="Center" Value="5" />
+            </StackPanel>
+            <Border BorderBrush="Black" Padding="4" Grid.Row="1" Margin="10" BorderThickness="2">
+                <util:TwoColumnGrid RowSpacing="{Binding ElementName=rowSpacing, Path=Value}" ColumnSpacing="{Binding ElementName=colSpacing, Path=Value}">
+                    <Label Content="Name:" />
+                    <TextBox Text="John Doe" VerticalAlignment="Center" />
+                    <Label Content="Address:" />
+                    <TextBox Text="34 Some Street&#x0a;123 45 SomeTown&#x0a;Some Country" VerticalAlignment="Center" Height="70" />
+                    <Label Content="Position:" />
+                    <TextBox Text="Manager" />
+                </util:TwoColumnGrid>
+            </Border>
+        </Grid>
+    </UniformGrid>
 </UserControl>

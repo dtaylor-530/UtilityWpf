@@ -11,75 +11,101 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using UtilityHelper;
+
 
 namespace UtilityWpf.View
 {
     public class NavigatorControl : Control
     {
+        private SkipControl SkipControl;
 
-        public static readonly DependencyProperty PreviousCommandProperty = DependencyProperty.Register("PreviousCommand", typeof(ICommand), typeof(NavigatorControl));
+        //public static readonly DependencyProperty OutputProperty = DependencyProperty.Register("Output", typeof(object), typeof(NavigatorControl), new PropertyMetadata(null, OutputChanged));
 
-        public static readonly DependencyProperty NextCommandProperty = DependencyProperty.Register("NextCommand", typeof(ICommand), typeof(NavigatorControl));
+        //private static void OutputChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        //{
+        //    (d as NavigatorControl).OutputChanges.OnNext(e.NewValue);
+        //}
 
-        public static readonly DependencyProperty PageSizeProperty = DependencyProperty.Register("PageSize", typeof(int), typeof(NavigatorControl), new PropertyMetadata(2, PageSizeChange));
-
-        public static readonly DependencyProperty CurrentPageProperty = DependencyProperty.Register("CurrentPage", typeof(int), typeof(NavigatorControl), new PropertyMetadata(1, CurrentPageChange));
-
-        public static readonly DependencyProperty PageRequestProperty = DependencyProperty.Register("PageRequest", typeof(DynamicData.PageRequest), typeof(NavigatorControl));
-
-
-        public ICommand PreviousCommand
+        public int Current
         {
-            get { return (ICommand)GetValue(PreviousCommandProperty); }
-            set { SetValue(PreviousCommandProperty, value); }
-        }
-
-        public ICommand NextCommand
-        {
-            get { return (ICommand)GetValue(NextCommandProperty); }
-            set { SetValue(NextCommandProperty, value); }
-        }
-
-        public DynamicData.PageRequest PageRequest
-        {
-            get { return (DynamicData.PageRequest)GetValue(PageRequestProperty); }
-            set { SetValue(PageRequestProperty, value); }
-        }
-
-        public int CurrentPage
-        {
-            get { return (int)GetValue(CurrentPageProperty); }
-            set { SetValue(CurrentPageProperty, value); }
-        }
-        public int PageSize
-        {
-            get { return (int)GetValue(PageSizeProperty); }
-            set { SetValue(PageSizeProperty, value); }
-        }
-
-        //public ReactiveCommand NextCommand { get; }
-
-        //public ReactiveCommand PreviousCommand { get; }
-
-        ISubject<int> CurrentPageSubject = new Subject<int>();
-        ISubject<int> PageSizeSubject = new Subject<int>();
-
-
-
-
-        private static void CurrentPageChange(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            NavigatorControl control = d as NavigatorControl;
-            control.CurrentPageSubject.OnNext((int)e.NewValue);
-        }
-        private static void PageSizeChange(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            NavigatorControl control = d as NavigatorControl;
-            control.PageSizeSubject.OnNext((int)e.NewValue);
+            get { return (int)GetValue(CurrentProperty); }
+            set { SetValue(CurrentProperty, value); }
         }
 
 
+        public static readonly DependencyProperty CurrentProperty = DependencyProperty.Register("Current", typeof(int), typeof(NavigatorControl), new PropertyMetadata(1, CurrentChanged, CurrentCoerce));
+
+        private static object CurrentCoerce(DependencyObject d, object baseValue)
+        {
+            if ((int)baseValue <= 0)
+                return 1;
+            else if ((int)baseValue > (d as NavigatorControl).Size)
+                return (d as NavigatorControl).Size;
+            else
+                return (int)baseValue;
+        }
+
+        private static void CurrentChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            (d as NavigatorControl).CurrentChanges.OnNext((int)e.NewValue);
+        }
+        ISubject<int> CurrentChanges = new Subject<int>();
+        ISubject<object> OutputChanges = new Subject<object>();
+
+        public int Size
+        {
+            get { return (int)GetValue(SizeProperty); }
+            set { SetValue(SizeProperty, value); }
+        }
+
+
+        public static readonly DependencyProperty SizeProperty = DependencyProperty.Register("Size", typeof(int), typeof(NavigatorControl), new PropertyMetadata(1, _SizeChanged/*, SizeCoerce*/));
+
+        //private static object SizeCoerce(DependencyObject d, object baseValue)
+        //{
+        //    if ((int)baseValue <= 0)
+        //        return 1;
+        //    else if ((int)baseValue < (d as NavigatorControl).Current)
+        //        return (d as NavigatorControl).Current;
+        //    else
+        //        return (int)baseValue;
+        //}
+
+        private static void _SizeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            (d as NavigatorControl).SizeChanges.OnNext((int)e.NewValue);
+        }
+        ISubject<int> SizeChanges = new Subject<int>();
+
+
+
+        bool canMoveBack = true;
+        bool canMoveForward = true;
+        public override void OnApplyTemplate()
+        {
+            SkipControl = this.GetTemplateChild("SkipControl") as SkipControl;
+
+            SkipControl.CanMoveToNext = canMoveForward;
+            SkipControl.CanMoveToPrevious = canMoveBack;
+
+
+            Observable.FromEventPattern<RoutedEventHandler, EventArgs>(ev => SkipControl.Skip += ev, ev => SkipControl.Skip -= ev)
+        //.WithLatestFrom(SizeChanges, (a, b) => new { a, b })
+        .Subscribe(_ =>
+                {
+                    this.Dispatcher.InvokeAsync(() =>
+                    {
+                        Current += ((SkipControl.SkipRoutedEventArgs)_.EventArgs).Direction == UtilityEnum.Direction.Forward ? 1 : -1;
+                        RaiseSelectedIndexEvent(Current);
+                        SkipControl.CanMoveToNext = Current < Size;
+                        SkipControl.CanMoveToPrevious = Current > 1;
+                    }, System.Windows.Threading.DispatcherPriority.Background, default(System.Threading.CancellationToken));
+
+                });
+
+
+
+        }
 
 
 
@@ -87,10 +113,9 @@ namespace UtilityWpf.View
 
         static NavigatorControl()
         {
-
             DefaultStyleKeyProperty.OverrideMetadata(typeof(NavigatorControl), new FrameworkPropertyMetadata(typeof(NavigatorControl)));
-
         }
+
 
 
 
@@ -101,36 +126,64 @@ namespace UtilityWpf.View
             ResourceDictionary resourceDictionary = (ResourceDictionary)Application.LoadComponent(resourceLocater);
             Style = resourceDictionary["NavigatorStyle"] as Style;
 
-            NextCommand = new ReactiveCommand();
-            PreviousCommand = new ReactiveCommand();
+            // .Scan(1, (a, b) => a + (int)b)
 
-            (NextCommand as ReactiveCommand).Subscribe(_ =>
+            SizeChanges.Subscribe(_ =>
             {
+                if (Current > _)
+                { 
+                    Current = _;
+                    Application.Current.Dispatcher.InvokeAsync(() =>
+                    {
+                        Current = Current;
+                    }, System.Windows.Threading.DispatcherPriority.Background);
+                    }
+                    canMoveForward = Current < _;
+                canMoveBack = Current > 1;
+
+                if (SkipControl != null)
+                {
+                    SkipControl.CanMoveToNext = canMoveForward;
+                    SkipControl.CanMoveToPrevious = canMoveBack;
+
+                }
+              
+
 
             });
-            //Size = new ReactiveProperty<int>(pageSize);
 
-            var obs = (CurrentPageSubject).DistinctUntilChanged().CombineLatest(PageSizeSubject, (a, b) =>
-            new { page = a, size = b });
-
-            var Output = (NextCommand as ReactiveCommand)
-                .WithLatestFrom(obs, (a, b) => new PageRequest(b.page + 1, b.size))
-                .Merge((PreviousCommand as ReactiveCommand)
-                .WithLatestFrom(obs, (a, b) => new PageRequest(b.page - 1, b.size)))
-             /*   .StartWith(new PageRequest(1, 25))*/.ToReactiveProperty();
-
-            Output.Subscribe(_ =>
-            {
-               this.Dispatcher.InvokeAsync(() => PageRequest = _, System.Windows.Threading.DispatcherPriority.Background, default(System.Threading.CancellationToken));
-                //PageRequest = _;
-            });
         }
 
 
+        public static readonly RoutedEvent SelectedIndexEvent = EventManager.RegisterRoutedEvent("SelectedIndex", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(NavigatorControl));
+
+
+        public event RoutedEventHandler SelectedIndex
+        {
+            add { AddHandler(SelectedIndexEvent, value); }
+            remove { RemoveHandler(SelectedIndexEvent, value); }
+        }
+
+        void RaiseSelectedIndexEvent(int index)
+        {
+            SelectedIndexRoutedEventArgs newEventArgs = new SelectedIndexRoutedEventArgs(NavigatorControl.SelectedIndexEvent) { Index = index };
+            RaiseEvent(newEventArgs);
+        }
+
+
+        public class SelectedIndexRoutedEventArgs : RoutedEventArgs
+        {
+            public int Index { get; set; }
+
+            public SelectedIndexRoutedEventArgs(RoutedEvent @event) : base(@event)
+            {
+
+            }
+
+        }
+
     }
-
 }
-
 
 
 

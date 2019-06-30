@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace UtilityWpf
 {
@@ -18,7 +19,7 @@ namespace UtilityWpf
             try
             {
 
-                var xx = UtilityHelper.PropertyHelper.GetPropValue<IEnumerable>(e, path);
+                var xx = UtilityHelper.PropertyHelper.GetPropertyValue<IEnumerable>(e, path);
                 foreach (var x in xx)
                     lst.Add(RecursivePropValues(x, path));
             }
@@ -27,6 +28,18 @@ namespace UtilityWpf
                 //
             }
             return lst.SelectMany(_ => _.Cast<object>());
+        }
+
+
+        public static IEnumerable<FieldInfo> GetDependencyProperties(this Type type)
+        {
+            var flags = BindingFlags.Static |
+                BindingFlags.FlattenHierarchy |
+                BindingFlags.Public;
+
+            return type.GetFields(flags)
+                                 .Where(f => f.FieldType == typeof(DependencyProperty));
+
         }
     }
 }
@@ -45,7 +58,7 @@ namespace UtilityWpf
 //            return retval == null ? default(T) : (T)retval;
 //        }
 
-//        public static IEnumerable<T> GetPropValues<T>(this IEnumerable obj, String name, Type type = null)
+//        public static IEnumerable<T> GetPropertyValues<T>(this IEnumerable obj, String name, Type type = null)
 //        {
 //            var info = (type ?? obj.First().GetType()).GetProperty(name);
 //            foreach (var x in obj)
@@ -53,22 +66,22 @@ namespace UtilityWpf
 //        }
 
 
-//        public static IEnumerable<T> GetPropValues<T>(this IEnumerable<Object> obj, String name, Type type = null)
+//        public static IEnumerable<T> GetPropertyValues<T>(this IEnumerable<Object> obj, String name, Type type = null)
 //        {
 //            var x = (type ?? obj.First().GetType()).GetProperty(name);
 //            return obj.Select(_ => GetPropValue<T>(_, x));
 //        }
 
-//        public static IEnumerable<T> GetPropValues<T, R>(IEnumerable<R> obj, String name)
+//        public static IEnumerable<T> GetPropertyValues<T, R>(IEnumerable<R> obj, String name)
 //        {
 //            var x = typeof(R).GetProperty(name);
 //            return obj.Select(_ => GetPropValue<T>(_, x));
 //        }
 
-//        public static IEnumerable<T> GetPropValues<T>(this IEnumerable<Object> obj, PropertyInfo info = null) => obj.Select(_ => GetPropValue<T>(_, info));
+//        public static IEnumerable<T> GetPropertyValues<T>(this IEnumerable<Object> obj, PropertyInfo info = null) => obj.Select(_ => GetPropValue<T>(_, info));
 
 
-//        public static IEnumerable<T> GetPropValues<T>(this IEnumerable obj, PropertyInfo info = null)
+//        public static IEnumerable<T> GetPropertyValues<T>(this IEnumerable obj, PropertyInfo info = null)
 //        {
 //            foreach (var x in obj)
 //                yield return GetPropValue<T>(x, info);
@@ -111,7 +124,7 @@ namespace UtilityWpf
 //            return (T)obj;
 //        }
 
-//        public static IEnumerable GetPropValues(this IEnumerable obj, String name, Type type = null)
+//        public static IEnumerable GetPropertyValues(this IEnumerable obj, String name, Type type = null)
 //        {
 //            var info = (type ?? obj.FirstNG().GetType()).GetProperty(name);
 //            foreach (var x in obj)

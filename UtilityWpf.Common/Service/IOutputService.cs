@@ -10,8 +10,12 @@ namespace UtilityWpf
 
     public class OutputService<T> : IOutputService<T>
     {
+        public OutputService(IObservable<T> output)
+        {
+            Output = output;
+        }
 
-        public virtual IObservable<T> Output { get; protected set; }
+        public virtual IObservable<T> Output { get;  }
 
     }
 

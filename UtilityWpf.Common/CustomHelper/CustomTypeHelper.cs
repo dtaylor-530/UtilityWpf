@@ -91,10 +91,12 @@ namespace CustomHelper
 
                 //   if (_customPropertyValues[propertyName] != value)
                 //{
-          
-                    _customPropertyValues[propertyName] = value;
+                //if (propertyName != null)
+                //{
+
+                _customPropertyValues[propertyName] = value;
                     RaisePropertyChanged(propertyName);
-    
+               // }
                // }
 
             }               

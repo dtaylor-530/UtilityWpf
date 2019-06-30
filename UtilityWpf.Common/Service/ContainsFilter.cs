@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UtilityHelper;
 using UtilityInterface;
+using UtilityInterface.NonGeneric;
 
 namespace UtilityWpf
 {
@@ -24,8 +25,7 @@ namespace UtilityWpf
             _a = a;
         }
 
-        public bool Filter(object o) =>
-            _property == null ? ((string)o).Contains(_a) : ((o.GetPropValue<string>(_property))).Contains(_a);
+        public bool Filter(object o) =>            _property == null ? ((string)o).Contains(_a) : ((o.GetPropertyValue<string>(_property))).Contains(_a);
     }
 
   

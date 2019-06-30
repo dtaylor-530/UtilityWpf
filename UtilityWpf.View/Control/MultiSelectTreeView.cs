@@ -19,11 +19,14 @@ namespace UtilityWpf.View
     //[ContentProperty("Items")]
     public class MultiSelectTreeView : TreeView
     {
+
+        private static readonly string Children = nameof(Children);
+
         public static readonly DependencyProperty CheckedItemsProperty = DependencyProperty.Register("CheckedItems", typeof(IEnumerable), typeof(MultiSelectTreeView), new PropertyMetadata(null));
 
         public static readonly DependencyProperty AllCheckedItemsProperty = DependencyProperty.Register("AllCheckedItems", typeof(IEnumerable), typeof(MultiSelectTreeView), new PropertyMetadata(null));
 
-        public static readonly DependencyProperty ChildrenPathProperty = DependencyProperty.Register(nameof(ChildrenPath), typeof(string), typeof(MultiSelectTreeView), new PropertyMetadata("Children",ChildrenPathChange));
+        public static readonly DependencyProperty ChildrenPathProperty = DependencyProperty.Register(nameof(ChildrenPath), typeof(string), typeof(MultiSelectTreeView), new PropertyMetadata(Children,ChildrenPathChange));
 
         public new static readonly DependencyProperty SelectedItemProperty = DependencyProperty.Register("SelectedItem", typeof(object), typeof(MultiSelectTreeView));
 
@@ -162,9 +165,10 @@ namespace UtilityWpf.View
 
             var sets = Observable.FromEventPattern<RoutedEventHandler, RoutedEventArgs>(h => this.Loaded += h, h => this.Loaded -= h).Select(_ => 0)
                 .Take(1)
-                .CombineLatest(ChildrenPathSubject.StartWith("Children").DistinctUntilChanged(), (a, b) =>  b )
+                .CombineLatest(ChildrenPathSubject.StartWith(Children).DistinctUntilChanged(),
+                ItemsSourceSubject.DistinctUntilChanged(),
+                (a, children,itemsource) => new { children, itemsource })
                 //.CombineLatest(KeySubject.StartWith("Key").DistinctUntilChanged(), (cp, key) => new { cp, key })
-                .CombineLatest(ItemsSourceSubject.DistinctUntilChanged(), (children, itemsource) => new { children, itemsource })
                 //.CombineLatest(CheckSubject.StartWith(Check).DistinctUntilChanged(), (ci, check) => new { check,ci })
                 .Select(init => React(/*init.a.key,*/init.children, init.itemsource, CheckSubject.StartWith(Check).DistinctUntilChanged(), UI, dispatcher))
                 .Subscribe(_ =>
@@ -261,7 +265,7 @@ namespace UtilityWpf.View
 
         public virtual IConvertible GetKey(object trade)
         {
-            return UtilityHelper.PropertyHelper.GetPropValue<IConvertible>(trade, Key);
+            return UtilityHelper.PropertyHelper.GetPropertyValue<IConvertible>(trade, Key);
 
         }
 

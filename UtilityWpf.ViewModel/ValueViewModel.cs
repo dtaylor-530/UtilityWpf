@@ -12,57 +12,57 @@ using System.Threading.Tasks;
 namespace UtilityWpf.ViewModel
 {
 
-    // conside  instead ReactiveProperty
-    public class ValueViewModel<T> : NPC, IOutputService<T>
-    {
+    //// conside  instead ReactiveProperty
+    //public class ValueViewModel<T> : NPC, IOutputService<T>
+    //{
 
-        public T Value { get; private set; }
+    //    public T Value { get; private set; }
 
-        //public IObservable<T> Output { get; private set; }
-        public IObservable<T> Output { get; } = new ReactiveCommand<T>();
-
-
-        public ValueViewModel(IObservable<T> measurements, IScheduler ui)
-        {
-            // measurements.Subscribe(_ =>
-            //Console.WriteLine(_.Key));
-
-            if (measurements != null)
-                measurements.ObserveOn(ui).Subscribe(
-                          meas =>
-                          {
-                              if (!meas.Equals(Value))
-                              {
-                                  Value = meas;
-                                  OnPropertiesChanged(nameof(Value));
-                              }
-                          },
-                      ex => Console.WriteLine("error in observable")
-                   , () => Console.WriteLine("Observer has unsubscribed from timed observable"));
-            else
-                Console.WriteLine("measurements-service equals null in collectionviewmodel");
+    //    //public IObservable<T> Output { get; private set; }
+    //    public IObservable<T> Output { get; } = new ReactiveCommand<T>();
 
 
-            //Output = Observable.Create<T>(observer => Out.Subscribe(_ => observer.OnNext(Value)));
+    //    public ValueViewModel(IObservable<T> measurements, IScheduler ui)
+    //    {
+    //        // measurements.Subscribe(_ =>
+    //        //Console.WriteLine(_.Key));
 
-        }
+    //        if (measurements != null)
+    //            measurements.ObserveOn(ui).Subscribe(
+    //                      meas =>
+    //                      {
+    //                          if (!meas.Equals(Value))
+    //                          {
+    //                              Value = meas;
+    //                              OnPropertiesChanged(nameof(Value));
+    //                          }
+    //                      },
+    //                  ex => Console.WriteLine("error in observable")
+    //               , () => Console.WriteLine("Observer has unsubscribed from timed observable"));
+    //        else
+    //            Console.WriteLine("measurements-service equals null in collectionviewmodel");
 
 
+    //        //Output = Observable.Create<T>(observer => Out.Subscribe(_ => observer.OnNext(Value)));
 
-        public ValueViewModel(IEnumerable<T> measurements)
-        {
-
-            if (measurements != null)
-                Value = measurements.Last();
-            else
-                Console.WriteLine("measurements-service equals null in collectionviewmodel");
-
-        }
+    //    }
 
 
 
+    //    public ValueViewModel(IEnumerable<T> measurements)
+    //    {
 
-    }
+    //        if (measurements != null)
+    //            Value = measurements.Last();
+    //        else
+    //            Console.WriteLine("measurements-service equals null in collectionviewmodel");
+
+    //    }
+
+
+
+
+    //}
 
 
 

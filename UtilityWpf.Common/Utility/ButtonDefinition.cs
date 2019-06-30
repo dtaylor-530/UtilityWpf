@@ -24,11 +24,19 @@ namespace UtilityWpf
             {
                 return BuildFromEnum(type);
             }
+            else if (type.IsInterface)
+            {
+                if(parameters?.All(_=>_==null)==null)
+                return type.LoadInterfaces(parameters);
+                else
+                    return type.LoadInterfaces();
+            }
             else if (type.Assembly.GetName().Name != "mscorlib")
             {
                 // user-defined
                 return LoadMethods(type, outputType.Name, parameters);
             }
+   
             else
                 throw new ArgumentException();
         }
@@ -45,6 +53,7 @@ namespace UtilityWpf
                 // user-defined
                 return LoadMethods<T>(type, parameters);
             }
+
             else
                 throw new ArgumentException();
         }
@@ -73,11 +82,21 @@ namespace UtilityWpf
 
         }
 
+
+        public static IEnumerable<KeyValuePair<string, Func<object>>> LoadInterfaces(this Type type, params object[] parameters)
+        {
+            return AppDomain.CurrentDomain.GetAssemblies()
+                .SelectMany(s => s.GetTypes())
+                .Where(p => type.IsAssignableFrom(p) && type !=p)
+               .Select(_ => new KeyValuePair<string, Func<object>>(_.FullName, () => Activator.CreateInstance(_,parameters)));
+
+        }
+
         public static IEnumerable<KeyValuePair<string, Func<T>>> LoadMethods<T>(this Type t,  params object[] parameters)
         {
             var typename = typeof(T).Name;
             return Assembly.GetAssembly(t)
-                  .GetType(t.FullName)
+                  .GetType(t.Name)
                     .GetMethods(BindingFlags.Public | BindingFlags.Static)
                        // filter by return type
                        .Where(a => a.ReturnType.Name == typename)
@@ -108,24 +127,24 @@ namespace UtilityWpf
             }
         }
 
-        public static IEnumerable<KeyValuePair<string, Action>> ToActions<T>(this IEnumerable<KeyValuePair<string, Func<T>>> kvps, Action<T> tr)
-        {
-            foreach (var m in kvps)
-            {
-                yield return new KeyValuePair<string, Action>(
-                      m.Key,
-                    () => tr(m.Value())
+        //public static IEnumerable<KeyValuePair<string, Action>> ToActions<T>(this IEnumerable<KeyValuePair<string, Func<T>>> kvps, Action<T> tr)
+        //{
+        //    foreach (var m in kvps)
+        //    {
+        //        yield return new KeyValuePair<string, Action>(
+        //              m.Key,
+        //            () => tr(m.Value())
 
-                );
-            }
-        }
+        //        );
+        //    }
+        //}
 
-        public static Func<T, R> GetInstanceMethod<T, R>(MethodInfo method)
-        {
-            //ParameterExpression x = Expression.Parameter(typeof(T), "it");
-            return Expression.Lambda<Func<T, R>>(
-                Expression.Call(null, method), null).Compile();
-        }
+        //public static Func<T, R> GetInstanceMethod<T, R>(MethodInfo method)
+        //{
+        //    //ParameterExpression x = Expression.Parameter(typeof(T), "it");
+        //    return Expression.Lambda<Func<T, R>>(
+        //        Expression.Call(null, method), null).Compile();
+        //}
 
     }
 

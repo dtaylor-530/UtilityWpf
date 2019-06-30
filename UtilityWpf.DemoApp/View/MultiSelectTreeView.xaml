@@ -18,9 +18,9 @@
  
         </UniformGrid.Resources>
         <view:MultiSelectTreeView Name="treeview" ItemsSource="{Binding RootNodes}" Key="Name" ChildrenPath="Children"></view:MultiSelectTreeView>
-        <ListBox Name="z" ItemsSource="{Binding ElementName=treeview,Path=SelectedItems}">
+        <!--<ListBox Name="z" ItemsSource="{Binding ElementName=treeview,Path=SelectedItem}">
 
-        </ListBox>
+        </ListBox>-->
         <ContentPresenter Content="{Binding ElementName=z,Path=SelectedItem}">
        
         </ContentPresenter>

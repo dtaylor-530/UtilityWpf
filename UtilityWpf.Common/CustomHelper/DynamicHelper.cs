@@ -17,8 +17,8 @@ namespace CustomHelper
         public static List<Dynamic> OnGetData(IEnumerable enumerable, string key, string value)
         {
 
-            var keys = ((IEnumerable)enumerable.First()).GetPropValues<object>(key);
-            //var values= ((IEnumerable)enumerable.First()).GetPropValues(value);
+            var keys = ((IEnumerable)enumerable.First()).GetPropertyValues<object>(key);
+            //var values= ((IEnumerable)enumerable.First()).GetPropertyValues(value);
 
             try
             {
@@ -33,7 +33,7 @@ namespace CustomHelper
 
             foreach (var en in enumerable)
             {
-                var values = ((IEnumerable)en).GetPropValues<object>(value);
+                var values = ((IEnumerable)en).GetPropertyValues<object>(value);
                 Dynamic customer1 = new Dynamic();// { FirstName = "Julie", LastName = "Smith" };
                 foreach (var val in values.Cast<object>().Zip(keys.Cast<object>(), (a, b) => new { a, b }))
                     customer1.SetPropertyValue((string)val.b, val.a);

@@ -37,7 +37,7 @@ namespace UtilityWpf
                                 h => source.PropertyChanged += h,
                                 h => source.PropertyChanged -= h)
                                .Where(_=>_.EventArgs.PropertyName==name)
-                            .Select(_ =>UtilityHelper.PropertyHelper.GetPropValue<R>(source,xx));
+                            .Select(_ =>UtilityHelper.PropertyHelper.GetPropertyValue<R>(source,xx));
         }
 
         public static IObservable<Tuple<T,R>> OnPropertyChangeWithSource<T, R>(this T source, string name)
@@ -49,7 +49,7 @@ namespace UtilityWpf
                                 h => source.PropertyChanged += h,
                                 h => source.PropertyChanged -= h)
                                 .Where(_ => _.EventArgs.PropertyName == name)
-                                .Select(_ => Tuple.Create(source, UtilityHelper.PropertyHelper.GetPropValue<R>(source,xx)));
+                                .Select(_ => Tuple.Create(source, UtilityHelper.PropertyHelper.GetPropertyValue<R>(source,xx)));
                           
         }
     }

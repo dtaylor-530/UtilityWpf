@@ -23,6 +23,11 @@ namespace UtilityWpf.View
             target.SetValue(CommandProperty, value);
         }
 
+        public static object GetCommand(DependencyObject target)
+        {
+            return target.GetValue(CommandProperty);
+        }
+
         public static void SetCommandParameter(DependencyObject target, object value)
         {
             target.SetValue(CommandParameterProperty, value);

@@ -24,11 +24,11 @@ namespace UtilityWpf.ViewModel
 
     
 
-    public class PageNavigatorViewModel:NavigatorVM, IOutputService<DynamicData.PageRequest>
+    public class NavigatorViewModel:NavigatorVM, IOutputService<DynamicData.PageRequest>
     {
           public IObservable<DynamicData.PageRequest> Output { get;  set; }
 
-        public PageNavigatorViewModel(IObservable<int> currentPage, IObservable<int> pageSize)
+        public NavigatorViewModel(IObservable<int> currentPage, IObservable<int> pageSize)
         {
             Size = new ReactiveProperty<int>(pageSize);
 

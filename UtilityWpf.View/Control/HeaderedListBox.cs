@@ -23,7 +23,11 @@ namespace UtilityWpf.View
             this.ListBoxPart.SelectionChanged += ListBoxPart_SelectionChanged;
            // FindName(PartListBox);
 
+        }
 
+        static HeaderedListBox()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(HeaderedListBox), new FrameworkPropertyMetadata(typeof(HeaderedListBox)));
         }
 
         private void ListBoxPart_SelectionChanged(object sender, SelectionChangedEventArgs e)

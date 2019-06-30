@@ -17,7 +17,7 @@
     <Style x:Key="PlayerStyle"  TargetType="{x:Type view:Player}">
         <Style.Resources >
             <BooleanToVisibilityConverter x:Key="BoolToVis" />
-            <converter:InverseBooleanToVisibilityConverter  x:Key="InvBoolToVis"></converter:InverseBooleanToVisibilityConverter>
+            <converter:BooleanToVisibilityConverter  Invert="True" x:Key="InvBoolToVis"></converter:BooleanToVisibilityConverter>
             <converter:EnumToBooleanConverter  x:Key="EnumBool"></converter:EnumToBooleanConverter>
 
             <converter:TimeSpanStringConverter x:Key="tssc"></converter:TimeSpanStringConverter>

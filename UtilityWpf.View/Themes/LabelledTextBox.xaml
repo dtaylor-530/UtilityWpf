@@ -5,7 +5,7 @@
 
 
 
-    <Style x:Key="LabelledTextBoxStyle" TargetType="{x:Type local:LabelledTextBox}">
+    <!--<Style x:Key="LabelledTextBoxStyle" TargetType="{x:Type local:LabelledTextBox}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:LabelledTextBox}">
@@ -21,6 +21,6 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-    </Style>
+    </Style>-->
 
 </ResourceDictionary>

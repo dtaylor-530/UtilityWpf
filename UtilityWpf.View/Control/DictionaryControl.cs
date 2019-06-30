@@ -9,7 +9,7 @@ using System.Windows.Controls;
 namespace UtilityWpf.View
 {
 
-    // for displaying dictionaries
+    // for displaying key value pairs
     public class DictionaryControl : ItemsControl
     {
 
@@ -17,16 +17,16 @@ namespace UtilityWpf.View
         static DictionaryControl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(DictionaryControl), new FrameworkPropertyMetadata(typeof(DictionaryControl)));
-
+            //Uri resourceLocater = new Uri("/UtilityWpf.View;component/Themes/DictionaryControl.xaml", System.UriKind.Relative);
+            //ResourceDictionary resourceDictionary = (ResourceDictionary)Application.LoadComponent(resourceLocater);
+            //Style = resourceDictionary["DictionaryStyle"] as Style;
         }
 
-
+ 
 
         public DictionaryControl()
         {
-            Uri resourceLocater = new Uri("/UtilityWpf.View;component/Themes/DictionaryControl.xaml", System.UriKind.Relative);
-            ResourceDictionary resourceDictionary = (ResourceDictionary)Application.LoadComponent(resourceLocater);
-            Style = resourceDictionary["DictionaryStyle"] as Style;
+
         }
 
 

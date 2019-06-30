@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace UtilityWpf
+namespace UtilityWpf.Command
 {
     /// <summary>
     /// A command wich accepts no parameter - assumes the view model will do the work

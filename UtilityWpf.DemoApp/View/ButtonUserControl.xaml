@@ -37,5 +37,42 @@
                                                 FrontImageSource="/Images/Settings.png" 
                                                 BackImageSource="/Images/bar-chart.png" />
         </TabItem>
-        </TabControl>
+
+        <TabItem Header="Default Enum">
+         
+        </TabItem>
+        <TabItem Header="Enum">
+            <StackPanel>
+             <Label>Default</Label>
+                <view:EnumToggleButton HorizontalAlignment="Center" Margin="10"></view:EnumToggleButton>
+                <Label>Using enum</Label>
+                <Grid HorizontalAlignment="Center"  Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                <TextBlock Text="{Binding ElementName=etb,Path=Output}"></TextBlock>
+                <view:EnumToggleButton Grid.Row="1" x:Name="etb" Enum="{x:Type local:Connected}"></view:EnumToggleButton>
+                    <view:EnumToggleButton Grid.Row="2" x:Name="etb2" Enum="{x:Type local:Connected}" UseEnumAsContent="False"></view:EnumToggleButton>
+                </Grid>
+                <!--<TextBlock Text="{Binding ElementName=TenseControl,Path=Output}"></TextBlock>-->
+
+                <Viewbox  Width="200" Height="50">
+                    <view:TenseControl x:Name="TenseControl" HorizontalAlignment="Center"></view:TenseControl>
+                </Viewbox>
+                    
+            
+            </StackPanel>
+            
+        </TabItem>
+        
+        <TabItem Header="EnumButtons">
+            <StackPanel>
+                <view:ButtonDefinitionsControl x:Name="bdc" Type="{x:Type local:EmotionEnum}"/>
+                <TextBox Text="{Binding ElementName=bdc, Path=Output}"/>
+            </StackPanel>
+        </TabItem>
+        
+    </TabControl>
 </UserControl>

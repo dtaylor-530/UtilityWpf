@@ -21,7 +21,7 @@ namespace UtilityWpf
             if (value != null)
                 if ((value as IEnumerable).Count() > 0)
                     return (value as IEnumerable).Cast<object>()
-                        .GetPropValues<object>((string)parameter)
+                        .GetPropertyValues<object>((string)parameter)
                         .Distinct()
                         .OrderBy(a => a)
                         .ToList();

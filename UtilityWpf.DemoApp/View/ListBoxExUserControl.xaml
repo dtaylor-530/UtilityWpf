@@ -8,31 +8,14 @@
              xmlns:common="clr-namespace:UtilityWpf;assembly=UtilityWpf.Common"
              mc:Ignorable="d" 
              x:Name="usercontrol"
-     DataContext="{DynamicResource Characters}"
+             DataContext="{DynamicResource Characters}"
              d:DesignHeight="300" d:DesignWidth="300">
 
     <UserControl.Resources>
 
-        <x:Array x:Key="Characters" x:Name="Items" Type="{x:Type local:Character}" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-            <local:Character First="Bart" Last="Simpson" Age="10" 
-          Gender="Male" Image="images/bart.png" Location="25,150" />
-            <local:Character First="Homer" Last="Simpson" Age="38" 
-          Gender="Male" Image="images/homer.png" Location="75,0" />
-            <local:Character First="Lisa" Last="Bouvier" Age="8" 
-          Gender="Female" Image="images/lisa.png" Location="125,150" />
-            <local:Character First="Maggie" Last="Simpson" Age="0" 
-          Gender="Female" Image="images/maggie.png" Location="225,150" />
-            <local:Character First="Marge" Last="Bouvier" Age="38" 
-          Gender="Female" Image="images/marge.png" Location="175,0" />
-        </x:Array>
+      
 
-        <DataTemplate  DataType="{x:Type local:Character}">
-            <StackPanel Orientation="Vertical" Margin="5" Background="Transparent">
-                <TextBlock FontWeight="Bold" Text="{Binding First}"
-            TextAlignment="Center" />
-                <Image Margin="0,5,0,0" Source="{Binding Image}" />
-            </StackPanel>
-        </DataTemplate>
+
         <common:StringToFilterConverter x:Key="stfc"></common:StringToFilterConverter>
         <ContentControl x:Key="ugrid">
             <Grid>
@@ -124,18 +107,11 @@
         <GroupBox Header="ListBoxEx Vertical">
             <view:ListBoxEx x:Name="lbxa" Key="First"  ItemsSource="{Binding }" Remove="False" Orientation="Vertical"/>
         </GroupBox>
-        <!--<ListBox  ItemsSource="{Binding  }" ></ListBox>-->
+      
 
         <GroupBox Header="Other">
             <UniformGrid Columns="1">
-                
-
-            <StackPanel >
-                <view:ButtonDefinitionsControl x:Name="bdc" Type="{x:Type local:EmotionEnum}"/>
-                <TextBox Text="{Binding ElementName=bdc, Path=Output}"/>
-          
-            </StackPanel>
-            <StackPanel >
+                <StackPanel >
                 <TextBox  Name="tb"/>
                     <ItemsControl ItemsSource="{Binding}" view:ItemsControlEx.Filter="{Binding ElementName=tb,Path=Text}">
                     </ItemsControl>
@@ -153,6 +129,10 @@
 
         <GroupBox Header="Collection Editor">
             <view:CollectionEditor ItemsSource="{Binding}" Key="First"/>
+        </GroupBox>
+
+        <GroupBox Header="ReadOnly">
+            <view:ListBoxEx IsReadOnly="True"  ItemsSource="{Binding}" Key="First"/>
         </GroupBox>
     </UniformGrid>
 

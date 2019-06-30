@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace UtilityWpf.View.Attached
+namespace UtilityWpf.View
 {
     public class Equality : Control
     {

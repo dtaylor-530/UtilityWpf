@@ -15,14 +15,14 @@ namespace UtilityWpf.ViewModel
 
         public ReactiveProperty<DateTime> To { get; set; } = new ReactiveProperty<DateTime>(new DateTime(2018, 7, 15));
 
-        public ReactiveProperty<Savage.Range<DateTime>> Output { get; }
+        public ReactiveProperty<UtilityModel.Range<DateTime>> Output { get; }
 
 
         public DataRangeViewModel()
         {
             Output = From.CombineLatest(To, (a, b) =>new { a, b })
                 .Where(g=>g.a<g.b)
-                .Select(_=> new Savage.Range<DateTime>(_.a, _.b))
+                .Select(_=> new UtilityModel.Range<DateTime> { Minimum = _.a, Maximum = _.b })
                 .Throttle(TimeSpan.FromSeconds(1))
                 .ToReactiveProperty();
 

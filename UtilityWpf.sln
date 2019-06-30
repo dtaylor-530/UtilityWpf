@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UtilityWpf.ViewModel", "Uti
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UtilityWpf.Common", "UtilityWpf.Common\UtilityWpf.Common.csproj", "{62D2FFEB-DF74-4567-B251-3AD07C22D494}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UtilityWpf.Animation", "UtilityWpf.Animation\UtilityWpf.Animation.csproj", "{317D69F3-2AFA-44FB-8178-5E4E344A0C71}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UtilityWpf.DemoAnimation", "UtilityWpf.DemoAnimation\UtilityWpf.DemoAnimation.csproj", "{50ACFDF0-8DF7-4951-BD93-C7490917CE30}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{62D2FFEB-DF74-4567-B251-3AD07C22D494}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{62D2FFEB-DF74-4567-B251-3AD07C22D494}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{62D2FFEB-DF74-4567-B251-3AD07C22D494}.Release|Any CPU.Build.0 = Release|Any CPU
+		{317D69F3-2AFA-44FB-8178-5E4E344A0C71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{317D69F3-2AFA-44FB-8178-5E4E344A0C71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{317D69F3-2AFA-44FB-8178-5E4E344A0C71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{317D69F3-2AFA-44FB-8178-5E4E344A0C71}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50ACFDF0-8DF7-4951-BD93-C7490917CE30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50ACFDF0-8DF7-4951-BD93-C7490917CE30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50ACFDF0-8DF7-4951-BD93-C7490917CE30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50ACFDF0-8DF7-4951-BD93-C7490917CE30}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

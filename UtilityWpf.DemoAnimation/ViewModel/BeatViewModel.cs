@@ -1,0 +1,24 @@
+﻿using Reactive.Bindings;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reactive.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace UtilityWpf.DemoAnimation
+{
+    public  class BeatViewModel
+    {
+
+        public ReactiveProperty<double> Rate { get;  } = new ReactiveProperty<double>(1d);
+
+        public ReactiveProperty<long> Beat { get; }
+
+        public BeatViewModel()
+        {
+
+            Beat = Rate.Where(_=>_>0).Select(_ => Observable.Interval(TimeSpan.FromSeconds(1d / _))).Switch().ToReactiveProperty();
+        }
+    }
+}

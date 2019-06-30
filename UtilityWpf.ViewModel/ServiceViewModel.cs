@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UtilityInterface;
+using UtilityInterface.Generic;
 using UtilityWpf;
 
 namespace UtilityWpf.ViewModel
@@ -16,28 +17,18 @@ namespace UtilityWpf.ViewModel
     public class ServiceViewModel<T>
     {
 
-        public ObservableCollection<T> Items { get; }// => _items;
-        //private readonly ReadOnlyObservableCollection<T> _items;
+        public ObservableCollection<T> Items { get; }
 
         public ServiceViewModel(IService<T> service)
         {
-            //service
-            //     .Resource
-    
-            //     .ToObservableChangeSet()
-            //     .Bind(out _items)
-            //     .DisposeMany();
 
             service.Resource.Subscribe(_ =>
             {
                 Items.Add( _ );
             });
         }
-
-
-
-
     }
+
 
     public class ServiceViewModel<T,R> where R : IComparable
     {
@@ -45,7 +36,7 @@ namespace UtilityWpf.ViewModel
         public ReadOnlyObservableCollection<T> Items => _items;
         private readonly ReadOnlyObservableCollection<T> _items;
 
-        public ServiceViewModel(IService<T> service, Func<T, R> sort,bool byDescending=true)
+        public ServiceViewModel(UtilityInterface.Generic.IService<T> service, Func<T, R> sort,bool byDescending=true)
         {
             SortExpressionComparer<T> comparer = (byDescending)?
                SortExpressionComparer<T>.Descending((t) => sort(t)):
@@ -59,49 +50,7 @@ namespace UtilityWpf.ViewModel
                  .Bind(out _items)
                  .DisposeMany();
         }
-
-
-
     }
 
 
-
-
-
-    //public class ServiceToSelectionViewModel<T>:OutputViewModel<T>
-    //{
-    //    public ReadOnlyReactiveCollection<T> Collection { get; }
-    //    public ValueViewModel<T> SelectedItem { get; }
-
-
-    //    public ServiceToSelectionViewModel(IService<T> dataservice, IDispatcherService ds)
-    //    {
-    //        var cs = dataservice.Resource;
-    //        Collection = cs.ToReadOnlyReactiveCollection();
-
-    //        SelectedItem = new ValueViewModel<T>(Collection.Selected, ds.UI);
-
-    //        Output = SelectedItem.Output;
-    //    }
-
-
-    //}
-    //public class ServiceToSelectionViewModel<T, R>: OutputViewModel<T> where R:IComparable
-    //{
-
-    //    public SelectableCollectionViewModel<T,R> Collection { get; }
-    //    public ValueViewModel<T> SelectedItem { get; }
-
-
-    //    public ServiceToSelectionViewModel(IService<T> dataservice,, IDispatcherService ds)
-    //    {
-    //        var cs = dataservice.Resource;
-    //        Collection = new SelectableCollectionViewModel<T,R>(cs, sort,ds.UI);
-
-    //        SelectedItem =new ValueViewModel<T>( Collection.Output,ds.UI);
-
-    //        Output = SelectedItem.Output;
-
-    //    }
-    //}
 }

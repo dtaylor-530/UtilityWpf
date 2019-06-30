@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using UtilityInterface;
+using UtilityInterface.Generic;
 
 namespace UtilityWpf.DemoApp
 {
@@ -107,7 +108,7 @@ namespace UtilityWpf.DemoApp
 
         public string Name { get;  }
 
-        public IList<TreeItemModel> Children { get;  set; }
+        public IEnumerable<TreeItemModel> Children { get;  set; }
 
         public Task<bool> Init(object o)=>
             Task.Run(() =>

@@ -7,7 +7,5 @@
              xmlns:view="clr-namespace:UtilityWpf.View;assembly=UtilityWpf.View"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-        <view:CsvDataGrid  Path='../../Data/Shapes.csv'/>
-    </Grid>
+
 </UserControl>

@@ -12,12 +12,6 @@ using System.Windows.Input;
 namespace UtilityWpf.ViewModel
 {
 
-
-
-
-
-
-
     public class FolderPickerViewModel : NPC
     {
 

@@ -7,6 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using UtilityInterface;
+using UtilityInterface.Generic;
+
 
 namespace UtilityWpf.View
 {
@@ -63,7 +66,7 @@ namespace UtilityWpf.View
             //DefaultStyleKeyProperty.OverrideMetadata(typeof(InputOutputControl<T, R>), new FrameworkPropertyMetadata(typeof(ListBoxEx)));
         }
 
-        public InputOutputControl(IMethod<T,R> service,Func<IObservable<T>, IObservable<T>> func=null)
+        public InputOutputControl(IFunction<T,R> service,Func<IObservable<T>, IObservable<T>> func=null)
         {
              if(func != null )
                 func(InputChanges).Subscribe(_=>(InputChanges as ISubject<T>).OnNext(_));
@@ -76,13 +79,13 @@ namespace UtilityWpf.View
 
 
 
-        protected virtual void Init(IMethod<T,R> service)
+        protected virtual void Init(IFunction<T,R> service)
         {
             InputChanges.Subscribe(_ =>
             {
                 this.Dispatcher.InvokeAsync(() =>
                {
-                     this.SetValue(OutputProperty,service.Method(_));
+                     this.SetValue(OutputProperty,service.Function(_));
                  }, System.Windows.Threading.DispatcherPriority.Background, default(System.Threading.CancellationToken));
             });
         }

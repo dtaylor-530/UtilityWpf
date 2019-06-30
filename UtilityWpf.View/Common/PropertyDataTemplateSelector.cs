@@ -18,27 +18,23 @@ namespace UtilityWpf.View
 
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
-            if(item==null)
+            if (item == null)
                 return DefaultDataTemplate;
 
             var type = item.GetType();
 
-            DataTemplate myDataTemplate = ((System.Windows.Controls.ContentPresenter)container).ContentTemplate;
+            //DataTemplate myDataTemplate = ((System.Windows.Controls.ContentPresenter)container).ContentTemplate;
 
- 
-            try
-            {
-                var dataTemplateKey = new DataTemplateKey(type);
-                //var x = Application.Current.Resources[dataTemplateKey];
-                var dataTemplate = (container as FrameworkElement).FindResource(dataTemplateKey);
-           
-                if (dataTemplate != null)
-                    return ContentPresenterTemplate;
-            }
-            catch
-            {
 
-            }
+
+            var dataTemplateKey = new DataTemplateKey(type);
+            //var x = Application.Current.Resources[dataTemplateKey];
+            object dataTemplate = null;
+            if (dataTemplateKey != null)
+                dataTemplate = (container as FrameworkElement).TryFindResource(dataTemplateKey);
+
+            if (dataTemplate != null)
+                return ContentPresenterTemplate;
 
 
             var interfaces = type.GetInterfaces();

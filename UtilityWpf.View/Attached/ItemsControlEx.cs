@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive.Subjects;
 using System.Text;
@@ -30,7 +31,7 @@ namespace UtilityWpf.View
 
         private static void NewItemChange(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var x = (d as ItemsControl).Items?.Cast<object>()?.ToList() ?? new List<object>();
+            var x = (d as ItemsControl).Items?.Cast<object>()?.ToObservableCollection() ?? new ObservableCollection<object>();
             x.Add(e.NewValue);
             Application.Current.Dispatcher.InvokeAsync(() => (d as ItemsControl).ItemsSource = x, System.Windows.Threading.DispatcherPriority.Background, default(System.Threading.CancellationToken));
 
@@ -56,7 +57,7 @@ namespace UtilityWpf.View
             string arg = (string)e.NewValue;
             if (control.ItemsSource != null)
                 if (control.ItemsSource?.Count() > 0)
-                    control.ItemsSource = control.ItemsSource.GetPropValues<object>(arg);
+                    control.ItemsSource = control.ItemsSource.GetPropertyValues<object>(arg);
         }
 
         public static IEnumerable GetItemsSourceEx(DependencyObject d)
@@ -78,7 +79,7 @@ namespace UtilityWpf.View
             IEnumerable arg = (IEnumerable)e.NewValue;
             if (arg.Count() > 0)
                 Application.Current.Dispatcher.InvokeAsync(() =>
-                control.SetValue(ItemsSourceProperty, arg.GetPropValues<object>((string)control.GetValue(VariableProperty)).Cast<IEnumerable<object>>().SelectMany(_s => _s)),
+                control.SetValue(ItemsSourceProperty, arg.GetPropertyValues<object>((string)control.GetValue(VariableProperty)).Cast<IEnumerable<object>>().SelectMany(_s => _s)),
                     System.Windows.Threading.DispatcherPriority.Background, default(System.Threading.CancellationToken));
             ;
         }
@@ -156,9 +157,9 @@ namespace UtilityWpf.View
 
         //    //(d as PropertyListControl).PropertyChanges.OnNext((string)e.NewValue);
         //    if ((d as ItemsControl).ItemsSourceEx.First().GetType().GetProperties().SingleOrDefault(a => a.Name == _).PropertyType.GetInterfaces().Contains(typeof(System.Collections.IEnumerable)))
-        //        ItemsSourceExSubject.OnNext(ItemsSourceEx.GetPropValues<IEnumerable<object>>(_).SelectMany(a => a));
+        //        ItemsSourceExSubject.OnNext(ItemsSourceEx.GetPropertyValues<IEnumerable<object>>(_).SelectMany(a => a));
         //    else
-        //        ItemsSourceExSubject.OnNext(ItemsSourceEx.GetPropValues<object>(_));
+        //        ItemsSourceExSubject.OnNext(ItemsSourceEx.GetPropertyValues<object>(_));
         //});
         //}
         //ISubject<string> PropertyChanges = new Subject<string>();

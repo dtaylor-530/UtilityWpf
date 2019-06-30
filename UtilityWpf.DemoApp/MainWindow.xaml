@@ -9,9 +9,7 @@
     <Grid>
         <TabControl>
          
-            <!--<TabItem Header="pagination">
-              <local:FilteredPaginatedUserControl></local:FilteredPaginatedUserControl>
-            </TabItem>-->
+
            <TabItem Header="listboxex">
                 <local:ListBoxExUserControl></local:ListBoxExUserControl>
             </TabItem>
@@ -26,18 +24,14 @@
                 <local:DictionaryUserControl></local:DictionaryUserControl>
 
             </TabItem>
-            <TabItem Header="LabelledTextBox">
-                <local:LabelledTextBoxUserControl></local:LabelledTextBoxUserControl>
-
-            </TabItem>
 
             <TabItem Header="Dynamic Data Grid">
                 <local:DynamicDataGridUserControl></local:DynamicDataGridUserControl>
 
             </TabItem>
 
-            <TabItem Header="Csv Data Grid">
-                <local:CsvDataGridUserControl></local:CsvDataGridUserControl>
+            <TabItem Header="ListBox Criteria">
+                <local:ListBoxCriteriaUserControl></local:ListBoxCriteriaUserControl>
 
             </TabItem>
 
@@ -51,6 +45,23 @@
             </TabItem>
             <TabItem Header="StructDataGrid">
                 <local:StructDataGridUserControl></local:StructDataGridUserControl>
+            </TabItem>
+            <TabItem Header="FirstItemConverter">
+                <local:ItemsControlFirstLastConverter></local:ItemsControlFirstLastConverter>
+            </TabItem>
+            <TabItem Header="Pagination">
+                <local:FilteredPaginatedUserControl></local:FilteredPaginatedUserControl>
+            </TabItem>
+            <TabItem Header="Open Folder">
+                <local:FolderOpenUserControl></local:FolderOpenUserControl>
+            </TabItem>
+
+            <TabItem Header="Style Change">
+                <local:StyleChange></local:StyleChange>
+            </TabItem>
+
+            <TabItem Header="Slider">
+                <local:SliderItemsUserControl></local:SliderItemsUserControl>
             </TabItem>
         </TabControl>
 

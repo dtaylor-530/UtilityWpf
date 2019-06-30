@@ -21,11 +21,11 @@ namespace UtilityWpf.ViewModel
 
         private IDisposable disposable;
 
-        public CollectionViewModel(IObservable<T> measurements, IScheduler ui)
+        public CollectionViewModel(IObservable<T> measurements, IScheduler ui) : base(new ReactiveProperty<T>())
         {
            // measurements.Subscribe(_ =>
            //Console.WriteLine(_.Key));
-            Output = new ReactiveProperty<T>();
+ 
             if (measurements != null)
              disposable=   measurements.ObserveOn(ui).Subscribe(
                           meas => { Items.Add(meas); },
@@ -47,9 +47,9 @@ namespace UtilityWpf.ViewModel
 
 
 
-        public CollectionViewModel(IEnumerable<T> measurements, Dispatcher dispatcher)
+        public CollectionViewModel(IEnumerable<T> measurements, Dispatcher dispatcher) : base(new ReactiveProperty<T>())
         {
-            Output = new ReactiveProperty<T>();
+
             if (measurements != null)
                 Dispatcher.CurrentDispatcher.Invoke(() =>
                 {

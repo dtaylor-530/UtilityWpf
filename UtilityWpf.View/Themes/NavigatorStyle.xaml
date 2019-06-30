@@ -14,81 +14,22 @@
                     <ControlTemplate.Resources>
                         <ResourceDictionary>
                             <ResourceDictionary.MergedDictionaries>
-                                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.listview.xaml" />
                                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.button.xaml" />
                             </ResourceDictionary.MergedDictionaries>
                         </ResourceDictionary>
                     </ControlTemplate.Resources>
 
-                    <!--<DockPanel>-->
                     <ToolBarPanel DockPanel.Dock="Top">
                         <ToolBar>
-                            <StackPanel
-            Grid.Row="2"
-            Grid.Column="0"
-            Margin="8,8,4,0"
-            VerticalAlignment="Center"
-            Orientation="Horizontal">
-                                <!--<TextBlock
-            Grid.Row="0"
-            Grid.Column="1"
-            Margin="0,0,4,0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Center"
-            Text="{Binding TotalCount, StringFormat='The are \{0} trades matching filter'}" />-->
-
-                                <RepeatButton
-                Height="26"
-                Padding="0"
-                Command="{TemplateBinding PreviousCommand}"
-                ToolTip="Move to previous page">
-                                    <!--<Ellipse Width="24" Height="24" Fill="Bisque"/>-->
-                                    <materialDesign:PackIcon
-                    Width="24"
-                    Height="24"
-                    Kind="SkipPrevious" />
-                                </RepeatButton>
-
-                                <TextBlock Margin="8,0,0,0" VerticalAlignment="Center">
-                                    <TextBlock.Text>
-                                        <MultiBinding StringFormat="Page {0} of {1}">
-                                            <Binding Path="CurrentPage" />
-                                            <Binding Path="PageCount" />
-                                        </MultiBinding>
-                                    </TextBlock.Text>
-                                </TextBlock>
-
-                                <RepeatButton
-                Height="26"
-                Margin="8,0,0,0"
-                Padding="0"
-                Command="{TemplateBinding NextCommand}"
-                ToolTip="Move to next page">
-                                    <!--<Ellipse Width="24" Height="24" Fill="Red"/>-->
-                                    <materialDesign:PackIcon
-                    Width="24"
-                    Height="24"
-                    Kind="SkipNext" />
-                                </RepeatButton>
-
-
-                                <TextBlock
-                Margin="8,0,4,0" Width="80" Height="25" Background="WhiteSmoke"
-                HorizontalAlignment="Center"
-               
-                VerticalAlignment="Center"
-                Text="{Binding PageSize, StringFormat='(\{0} items per page)',RelativeSource={RelativeSource TemplatedParent}}" />
-
-
-                            </StackPanel>
-
+                            <local:SkipControl x:Name="SkipControl"></local:SkipControl>
+                            <TextBlock Text="{Binding Current,RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}" Width="50"></TextBlock>
+                            <TextBlock Text="{Binding Size,RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}" Width="50"></TextBlock>
+                            <!--<TextBlock></TextBlock>-->
                         </ToolBar>
                     </ToolBarPanel>
-
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-
     </Style>
 
 

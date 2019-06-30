@@ -248,10 +248,11 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
+    
 
     <Style x:Key="ListBoxStyle" TargetType="ListBox" BasedOn="{StaticResource {x:Type ListBox}}">
-
-       <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+        
+        <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
         <Setter Property="BorderBrush" Value="{StaticResource ListBorder}"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
@@ -261,11 +262,8 @@
         <Setter Property="ScrollViewer.PanningMode" Value="Both"/>
         <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
-
         <Setter Property="SnapsToDevicePixels" Value="true"/>
         <Setter Property="OverridesDefaultStyle" Value="true"/>
-      
-
         <Setter Property="ItemContainerStyle" Value="{StaticResource HorizontalPanelItemStyle}"/>
         <Setter Property="ItemsPanel">
             <Setter.Value>
@@ -283,14 +281,6 @@
             </Setter.Value>
         </Setter>
         <Setter Property="Template" Value="{StaticResource HorizontalTemplate}"/>
-
-        <!--<Setter Property="ItemsPanel">
-            <Setter.Value >
-                <ItemsPanelTemplate>
-                    <VirtualizingStackPanel Orientation="Horizontal"/>
-                </ItemsPanelTemplate>
-            </Setter.Value>
-        </Setter>-->
 
         <Style.Triggers>
             <DataTrigger Binding="{Binding Orientation,Mode=OneWay,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ListBoxEx}}}" Value="Vertical">

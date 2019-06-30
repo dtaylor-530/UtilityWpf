@@ -5,8 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
-using UtilityHelper;
+
 using UtilityInterface;
+using UtilityInterface.NonGeneric;
 using UtilityWpf;
 
 namespace UtilityWpf

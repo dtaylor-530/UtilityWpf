@@ -6,16 +6,24 @@
         <ResourceDictionary Source="/UtilityWpf.View;component/DataTemplate/ButtonDefinitionDataTemplate.xaml"></ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 
+    <ItemsPanelTemplate x:Key="horizontal">
+        <StackPanel Orientation="Horizontal"></StackPanel>
+    </ItemsPanelTemplate>
+    <ItemsPanelTemplate x:Key="vertical">
+        <StackPanel Orientation="Vertical"></StackPanel>
+    </ItemsPanelTemplate>
+
     <Style x:Key="ButtonDefinitionStyle"  TargetType="ItemsControl" BasedOn="{StaticResource {x:Type ItemsControl}}">
         <Setter Property="ItemTemplate" Value="{StaticResource ButtonDefinitionTemplate}"/>
-        <Setter Property="ItemsPanel">
-            <Setter.Value>
-                <ItemsPanelTemplate>
-                    <StackPanel Orientation="Horizontal"></StackPanel>
-                </ItemsPanelTemplate>
-            </Setter.Value>
-        </Setter>
 
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Orientation,Mode=OneWay,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ButtonDefinitionsControl}}}" Value="Vertical">
+                <Setter Property="ItemsPanel" Value="{StaticResource horizontal}"  />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Orientation,Mode=OneWay,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ButtonDefinitionsControl}}}" Value="Vertical">
+                <Setter Property="ItemsPanel" Value="{StaticResource vertical}"  />
+            </DataTrigger>
+        </Style.Triggers>
     </Style>
 
 

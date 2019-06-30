@@ -3,12 +3,15 @@
                     xmlns:local="clr-namespace:UtilityWpf.View">
 
     <Style TargetType="{x:Type local:HeaderedListBox}">
+        <Style.Resources>
+            <ListBox x:Key="a"></ListBox>
+        </Style.Resources>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:HeaderedListBox}">
                     <StackPanel Orientation="Vertical">
                         <ContentPresenter ContentSource="Header" />
-                        <ItemsControl x:Name="PART_ItemsControl" />
+                        <ContentPresenter  x:Name="PART_ItemsControl" ContentSource="Content" ContentTemplate="{StaticResource a}"/>
                     </StackPanel>
                 </ControlTemplate>
             </Setter.Value>
