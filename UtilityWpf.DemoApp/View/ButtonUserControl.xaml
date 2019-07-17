@@ -5,9 +5,37 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:UtilityWpf.DemoApp"
              xmlns:view="clr-namespace:UtilityWpf.View;assembly=UtilityWpf.View"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:int="clr-namespace:UtilityWpf.Behavior;assembly=UtilityWpf.Common"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <TabControl>
+        <TabItem Header="Interactivity">
+
+            <Grid Width="200" Height="60">
+                <Button x:Name="optionsButton" FontSize="20">
+                    Option
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <int:SetterAction PropertyName="Visibility" Value="Collapsed" />
+                            <int:SetterAction PropertyName="Visibility" TargetObject="{Binding ElementName=optionsBackButton}" Value="Visible" />
+                            <!--<int:SetterAction PropertyName="Visibility" TargetObject="{Binding ElementName=optionsPanel}" Value="Visible" />-->
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+
+                <Button x:Name="optionsBackButton" Visibility="Collapsed" FontSize="20">
+                    Back
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <int:SetterAction PropertyName="Visibility" Value="Collapsed" />
+                            <int:SetterAction PropertyName="Visibility" TargetObject="{Binding ElementName=optionsButton}" Value="Visible" />
+                            <!--<int:SetterAction PropertyName="Visibility" TargetObject="{Binding ElementName=optionsPanel}" Value="Collapsed" />-->
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+            </Grid>
+        </TabItem>
         <TabItem Header="Path">
             <UniformGrid Columns="1">
                 <view:PathButton HoverBackground="Blue" Height="70">
@@ -29,6 +57,7 @@
                 <view:XButton/>
             </UniformGrid>
         </TabItem>
+
         <TabItem Header="Image">
 
             <view:ToggleButtonEx x:Name="toggle"  

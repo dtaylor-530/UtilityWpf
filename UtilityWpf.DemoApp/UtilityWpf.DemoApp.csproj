@@ -122,6 +122,9 @@
     </ApplicationDefinition>
     <Compile Include="Converter\Converter.cs" />
     <Compile Include="Model\Connected.cs" />
+    <Compile Include="View\CalendarUserControl.xaml.cs">
+      <DependentUpon>CalendarUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\FolderOpenUserControl.xaml.cs">
       <DependentUpon>FolderOpenUserControl.xaml</DependentUpon>
     </Compile>
@@ -150,6 +153,10 @@
     <Page Include="Dictionaries\Green.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\CalendarUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\CsvDataGridUserControl.xaml">
       <SubType>Designer</SubType>

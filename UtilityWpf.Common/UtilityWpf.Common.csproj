@@ -88,7 +88,8 @@
     <Compile Include="Converter\PositionItemConverter.cs" />
     <Compile Include="Converter\RounderConverter.cs" />
     <Compile Include="Converter\YesNoToBooleanConverter.cs" />
-    <Compile Include="EventTrigger\EventCommandExecutor.cs" />
+    <Compile Include="Behavior\SetterAction.cs" />
+    <Compile Include="Behavior\EventCommandExecutor.cs" />
     <Compile Include="PropertyHelper\DependencyPropertyChangeHelper.cs" />
     <Compile Include="Service\IDelayedConstructor.cs" />
     <Compile Include="Service\IDelayedConstuctorService.cs" />
