@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27004.2009
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29102.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UtilityWpf.View", "UtilityWpf.View\UtilityWpf.View.csproj", "{DEE623FD-EF9B-4FB6-A6A0-C04AD50D0CCA}"
 EndProject
@@ -14,6 +14,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UtilityWpf.Animation", "UtilityWpf.Animation\UtilityWpf.Animation.csproj", "{317D69F3-2AFA-44FB-8178-5E4E344A0C71}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UtilityWpf.DemoAnimation", "UtilityWpf.DemoAnimation\UtilityWpf.DemoAnimation.csproj", "{50ACFDF0-8DF7-4951-BD93-C7490917CE30}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UtilityWpf.View.Livecharts", "UtilityWpf.View.LiveCharts\UtilityWpf.View.Livecharts.csproj", "{AFBC7D54-D55F-4054-840D-1A816AB71435}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{50ACFDF0-8DF7-4951-BD93-C7490917CE30}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{50ACFDF0-8DF7-4951-BD93-C7490917CE30}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{50ACFDF0-8DF7-4951-BD93-C7490917CE30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFBC7D54-D55F-4054-840D-1A816AB71435}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFBC7D54-D55F-4054-840D-1A816AB71435}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFBC7D54-D55F-4054-840D-1A816AB71435}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFBC7D54-D55F-4054-840D-1A816AB71435}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

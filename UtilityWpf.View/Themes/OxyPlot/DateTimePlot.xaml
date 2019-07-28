@@ -4,7 +4,7 @@
                     xmlns:oxy="http://oxyplot.org/wpf"
          >
 
-    <Style  TargetType="{x:Type  local:DateTimePlot }">
+    <!--<Style  TargetType="{x:Type  local:DateTimePlot }">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:DateTimePlot }">
@@ -51,7 +51,7 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-    </Style>
+    </Style>-->
 
 
 

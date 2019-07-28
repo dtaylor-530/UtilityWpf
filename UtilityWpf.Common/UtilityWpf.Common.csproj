@@ -63,14 +63,14 @@
     <Reference Include="UtilityEnum, Version=1.1.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\UtilityEnum.1.1.3\lib\netstandard2.0\UtilityEnum.dll</HintPath>
     </Reference>
-    <Reference Include="UtilityHelper, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\UtilityHelper.2.1.0-alpha\lib\netstandard2.0\UtilityHelper.dll</HintPath>
+    <Reference Include="UtilityHelper, Version=2.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\UtilityHelper.2.1.1-alpha\lib\netstandard2.0\UtilityHelper.dll</HintPath>
     </Reference>
     <Reference Include="UtilityInterface, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\UtilityInterface.2.0.1-alpha\lib\netstandard2.0\UtilityInterface.dll</HintPath>
     </Reference>
-    <Reference Include="UtilityModel, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\UtilityModel.1.0.4-alpha\lib\netstandard2.0\UtilityModel.dll</HintPath>
+    <Reference Include="UtilityModel, Version=1.0.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\UtilityModel.1.0.6-alpha\lib\netstandard2.0\UtilityModel.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />

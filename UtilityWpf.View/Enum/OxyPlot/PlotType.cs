@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UtilityWpf.View.OxyPlot
-{
-    public enum PlotType
-    {
-        Line,Scater,Bar
-    }
-}
+//namespace UtilityWpf.View.OxyPlot
+//{
+//    public enum PlotType
+//    {
+//        Line,Scater,Bar
+//    }
+//}

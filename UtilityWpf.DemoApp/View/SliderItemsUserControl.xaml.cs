@@ -62,7 +62,7 @@ namespace UtilityWpf.DemoApp
         }
     }
 
-    public class ValueChangedCommand:View.ValueChangedCommand,INotifyPropertyChanged
+    public class ValueChangedCommand:UtilityWpf.View.ValueChangedCommand,INotifyPropertyChanged
     {
         private KeyValuePair<string, double> keyValuePair;
 

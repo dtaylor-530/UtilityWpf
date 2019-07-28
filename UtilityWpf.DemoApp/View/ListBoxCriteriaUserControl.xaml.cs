@@ -46,18 +46,18 @@ namespace UtilityWpf.DemoApp
         }
 
 
-    class EventArgsConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return (value as View.ListBoxCriteria.CriteriaMetEventArgs).Indices;
-        }
+    //class EventArgsConverter : IValueConverter
+    //{
+    //    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    //    {
+    //        return (value as View.ListBoxCriteria.CriteriaMetEventArgs).Indices;
+    //    }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
-    }
+    //    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    //    {
+    //        throw new NotImplementedException();
+    //    }
+    //}
 
 
     class ListConverter : IValueConverter
