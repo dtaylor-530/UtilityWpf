@@ -63,6 +63,10 @@
             <TabItem Header="Slider">
                 <local:SliderItemsUserControl></local:SliderItemsUserControl>
             </TabItem>
+
+            <TabItem Header="TreeView">
+                <local:TreeViewUserControl></local:TreeViewUserControl>
+            </TabItem>
         </TabControl>
 
     </Grid>

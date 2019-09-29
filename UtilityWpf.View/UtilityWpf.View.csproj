@@ -150,6 +150,7 @@
     <Compile Include="Control\StructDataGrid.cs" />
     <Compile Include="Control\TenseControl.cs" />
     <Compile Include="Control\ToggleButtonEx.cs" />
+    <Compile Include="Control\TreeViewFirst.cs" />
     <Compile Include="Control\TwoColumnGrid.cs" />
     <Compile Include="Control\XButton.cs" />
     <Compile Include="Converter\AlternationEqualityConverter.cs" />

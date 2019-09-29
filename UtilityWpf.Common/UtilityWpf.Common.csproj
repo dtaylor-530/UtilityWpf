@@ -77,6 +77,8 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\ItemsSource.cs" />
+    <Compile Include="Behavior\BindableSelectedItemBehavior.cs" />
     <Compile Include="Command\OutputCommand.cs" />
     <Compile Include="Converter\EnumerableToCountConverter.cs" />
     <Compile Include="Converter\FirstItemConverter.cs" />
@@ -91,6 +93,8 @@
     <Compile Include="Behavior\SetterAction.cs" />
     <Compile Include="Behavior\EventCommandExecutor.cs" />
     <Compile Include="PropertyHelper\DependencyPropertyChangeHelper.cs" />
+    <Compile Include="Service\DispatcherEx.cs" />
+    <Compile Include="Service\IContext.cs" />
     <Compile Include="Service\IDelayedConstructor.cs" />
     <Compile Include="Service\IDelayedConstuctorService.cs" />
     <Compile Include="Service\InputOutputService.cs" />
