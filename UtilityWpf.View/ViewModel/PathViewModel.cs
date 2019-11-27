@@ -1,16 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace UtilityWpf.ViewModel
 {
     public class PathViewModel : FileSystemInfo
     {
-        private Func<string, string> _map;
+        private Func<string, string> map;
 
         public string FilePath { get { return base.FullPath; } }
 
@@ -20,17 +16,15 @@ namespace UtilityWpf.ViewModel
         {
             get
             {
-                var name = _map(FilePath);
+                var name = map(FilePath);
                 return String.IsNullOrEmpty(name) ? this.FilePath : name;
             }
-
         }
 
         public PathViewModel(string path, Func<string, string> map)
         {
             base.FullPath = path;
-            _map = map;
-
+            this.map = map;
         }
 
         public string DisplayName { get; set; }
@@ -39,38 +33,24 @@ namespace UtilityWpf.ViewModel
 
         public override string ToString() => FilePath;
 
-
         public override void Delete()
         {
             throw new NotImplementedException();
         }
-
-
-
     }
-
-
-
 
     public class FileViewModel : PathViewModel
     {
-
-
         public FileViewModel(string path, Func<string, string> map = null) : base(path, map ?? ((a) => System.IO.Path.GetFileName(a)))
         {
-
         }
-
     }
 
     public class DirectoryViewModel : PathViewModel
     {
-
         public DirectoryViewModel(string path, Func<string, string> map = null) : base(path, map ?? ((a) => System.IO.Path.GetDirectoryName(a)))
         {
-
         }
-
 
         private ICollection<PathViewModel> subDirectories;
 
@@ -93,18 +73,14 @@ namespace UtilityWpf.ViewModel
                                 subDirectories.Add(new DirectoryViewModel(dir));
                             //else
                             //    subDirectories.Add(new FileViewModel(dir));
-
                         }
                     }
                     catch
                     {
-
                     }
                 }
                 return subDirectories;
             }
         }
     }
-
-
 }

@@ -1,20 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Reactive;
 using System.Collections.ObjectModel;
-using System.Reactive.Linq;
-using System.Collections.Concurrent;
-using System.Windows.Threading;
+using System.Linq;
 using System.Reactive.Concurrency;
+using System.Reactive.Linq;
 
 namespace UtilityWpf.ViewModel
 {
     public class ChartLine : NPC
     {
-
         public ObservableCollection<KeyValuePair<DateTime, double>> Items { get; set; } = new ObservableCollection<KeyValuePair<DateTime, double>>();
 
         public ChartLine(IObservable<KeyValuePair<DateTime, double>> series, IObservable<KeyValuePair<DateTime, double>> level, bool horizontal, IScheduler ds)
@@ -47,16 +41,8 @@ namespace UtilityWpf.ViewModel
                 Items = new ObservableCollection<KeyValuePair<DateTime, double>>(xxl);
                 OnPropertiesChanged(nameof(Items));
             });
-
-
         }
-
-
-
     }
-
-
-
 }
 
 //        {

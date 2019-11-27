@@ -1,24 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
 
 namespace UtilityWpf.Converter
 {
-
     [ValueConversion(typeof(int), typeof(int))]
     public class RounderConverter : IValueConverter
     {
         #region IValueConverter Members
 
-        public object Convert(object value, Type targetType, object parameter,            System.Globalization.CultureInfo culture)
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-
             int param = System.Convert.ToInt32(parameter);
             int val = System.Convert.ToInt32(value);
-            int result = val % param >= param/2 ? val + param - val % param : val - val % param;
+            int result = val % param >= param / 2 ? val + param - val % param : val - val % param;
             return result;
         }
 
@@ -28,10 +22,8 @@ namespace UtilityWpf.Converter
             throw new NotSupportedException();
         }
 
-        #endregion
+        #endregion IValueConverter Members
     }
-
-    
 
     [ValueConversion(typeof(int), typeof(int))]
     public class Rounder2Converter : IValueConverter
@@ -44,7 +36,7 @@ namespace UtilityWpf.Converter
         {
             int val = System.Convert.ToInt32(value);
 
-            return (int)(RoundHelper.Round(val)/Factor);
+            return (int)(RoundHelper.Round(val) / Factor);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter,
@@ -53,7 +45,7 @@ namespace UtilityWpf.Converter
             throw new NotSupportedException();
         }
 
-        #endregion
+        #endregion IValueConverter Members
 
         private class RoundHelper
         {
@@ -67,11 +59,7 @@ namespace UtilityWpf.Converter
                 }
 
                 return (int)value;
-
             }
         }
     }
-
-   
-
 }

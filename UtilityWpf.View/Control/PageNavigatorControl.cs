@@ -1,27 +1,19 @@
 ﻿using DynamicData;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 
 namespace UtilityWpf.View
 {
     public class PageNavigatorControl : Control
     {
+        private SizeControl SizeControl;
 
-        SizeControl SizeControl;
-
-        NavigatorControl NavigatorControl;
-
+        private NavigatorControl NavigatorControl;
 
         public static readonly DependencyProperty ItemsSourceProperty = DependencyProperty.Register("ItemsSource", typeof(IEnumerable), typeof(PageNavigatorControl), new PropertyMetadata(null, ItemsSourceChanged));
 
@@ -31,8 +23,6 @@ namespace UtilityWpf.View
 
         //public static readonly DependencyProperty OutputProperty = DependencyProperty.Register("Output", typeof(int), typeof(PageNavigatorControl), new PropertyMetadata(1, OutputChanged));
 
-
-
         public override void OnApplyTemplate()
         {
             SizeControl = this.GetTemplateChild("SizeControl") as SizeControl;
@@ -41,12 +31,9 @@ namespace UtilityWpf.View
             PageSizeChanges.OnNext(SizeControl.Size);
             NavigatorControl.SelectedIndex += NavigatorControl_SelectedIndex;
             SizeControl.SelectedSizeChanged += SizeControl_SelectedSizeChanged;
-
         }
 
-     
-
-        ISubject<PageRequest> pageRequests = new Subject<PageRequest>();
+        private ISubject<PageRequest> pageRequests = new Subject<PageRequest>();
 
         private void NavigatorControl_SelectedIndex(object sender, RoutedEventArgs e)
         {
@@ -57,19 +44,18 @@ namespace UtilityWpf.View
         {
             pageRequests.OnNext(new PageRequest(NavigatorControl.Current, (e as SizeControl.SelectedSizeChangedRoutedEventArgs).Size));
         }
+
         public IEnumerable ItemsSource
         {
             get { return (IEnumerable)GetValue(ItemsSourceProperty); }
             set { SetValue(ItemsSourceProperty, value); }
         }
 
-
         public IEnumerable FilteredItems
         {
             get { return (IEnumerable)GetValue(FilteredItemsProperty); }
             set { SetValue(FilteredItemsProperty, value); }
         }
-
 
         private static void ItemsSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -90,9 +76,10 @@ namespace UtilityWpf.View
         }
 
         //ISubject<int> OutputChanges = new Subject<int>();
-        ISubject<IEnumerable> ItemsSourceChanges = new Subject<IEnumerable>();
-        ISubject<int> PageSizeChanges = new Subject<int>();
-        ISubject<bool> ControlTemplateChanges = new Subject<bool>();
+        private ISubject<IEnumerable> ItemsSourceChanges = new Subject<IEnumerable>();
+
+        private ISubject<int> PageSizeChanges = new Subject<int>();
+        private ISubject<bool> ControlTemplateChanges = new Subject<bool>();
 
         public PageNavigatorControl()
         {
@@ -101,7 +88,7 @@ namespace UtilityWpf.View
             Style = resourceDictionary["PageNavigatorStyle"] as Style;
             var obs2 = new Subject<PageRequest>();
 
-            //var selectedIndexChanges = 
+            //var selectedIndexChanges =
             //    Observable.FromEventPattern<RoutedEventHandler, NavigatorControl.SelectedIndexRoutedEventArgs>(ev => NavigatorControl.SelectedIndex += ev, ev => NavigatorControl.SelectedIndex -= ev);
             //var obs = outputchanges
             //    .WithLatestFrom(PageSizeChanges, (a, b) =>
@@ -119,14 +106,10 @@ namespace UtilityWpf.View
 
             obs.Subscribe(_ =>
                                                                      {
-
                                                                      });
-
-
 
             ItemsSourceChanges.Subscribe(_ =>
             {
-
             });
 
             var filteredPaginatedVM = new UtilityWpf.ViewModel.FilteredPaginatedViewModel<object>(ItemsSourceChanges.Select(_ => _.Cast<object>().ToObservable()).Switch().ToObservableChangeSet(),
@@ -137,13 +120,11 @@ namespace UtilityWpf.View
             this.Dispatcher.InvokeAsync(() =>
             FilteredItems = filteredPaginatedVM.Items, System.Windows.Threading.DispatcherPriority.Background);
 
-
             filteredPaginatedVM.PageResponse
                 .CombineLatest(ControlTemplateChanges, (a, b) => b ? a : null)
                 .Where(_ => _ != null)
                 .Subscribe(_ =>
                 {
-
                     this.Dispatcher.InvokeAsync(() =>
                         {
                             SizeControl.TotalSize = _.Page;
@@ -151,27 +132,13 @@ namespace UtilityWpf.View
                             NavigatorControl.Size = _.Pages;
                             NavigatorControl.Current = _.TotalSize;
                         }, System.Windows.Threading.DispatcherPriority.Background);
-
                 });
-
-
-
-
-
-
         }
-
-
     }
-
 }
-
-
-
 
 //    public class PageNavigatorControl()
 //        {
-
 //        var obs = (CurrentPageSubject).DistinctUntilChanged().CombineLatest(PageSizeSubject, (a, b) =>
 //        new { page = a, size = b });
 

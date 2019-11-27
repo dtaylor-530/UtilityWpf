@@ -1,31 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Reflection;
-using log4net;
+﻿using log4net;
 using MvvmDialogs;
-
 using MvvmDialogs.FrameworkDialogs.OpenFile;
 using MvvmDialogs.FrameworkDialogs.SaveFile;
-
+using System.Reflection;
 using System.Windows.Input;
-using System.Xml.Linq;
 using UtilityWpf.Commmand;
 
 namespace UtilityWpf.ViewModel
 {
-
-
     /// <summary>
     /// Implements INotifyPropertyChanged for all ViewModel
     /// </summary>
     public abstract class ViewModelBase : NPC
     {
         #region Parameters
+
         private readonly IDialogService DialogService;
 
         /// <summary>
@@ -35,20 +24,20 @@ namespace UtilityWpf.ViewModel
         {
             get { return "WebDataSystem"; }
         }
-        #endregion
+
+        #endregion Parameters
 
         #region Constructors
+
         public ViewModelBase()
         {
             // DialogService is used to handle dialogs
             this.DialogService = new MvvmDialogs.DialogService();
         }
 
-        #endregion
+        #endregion Constructors
 
-        #region Methods
 
-        #endregion
 
         #region Commands
         public RelayCommand<object> SampleCmdWithArgument { get { return new RelayCommand<object>(OnSampleCmdWithArgument); } }
@@ -60,8 +49,15 @@ namespace UtilityWpf.ViewModel
 
         public ICommand ExitCmd { get { return new RelayCommand(OnExitApp, AlwaysTrue); } }
 
-        private bool AlwaysTrue() { return true; }
-        private bool AlwaysFalse() { return false; }
+        private bool AlwaysTrue()
+        {
+            return true;
+        }
+
+        private bool AlwaysFalse()
+        {
+            return false;
+        }
 
         private void OnSampleCmdWithArgument(object obj)
         {
@@ -85,14 +81,17 @@ namespace UtilityWpf.ViewModel
                 Log.Info("Saving file: " + settings.FileName);
             }
         }
+
         private void OnSaveTest()
         {
             // TODO
         }
+
         private void OnNewTest()
         {
             // TODO
         }
+
         private void OnOpenTest()
         {
             var settings = new OpenFileDialogSettings
@@ -114,14 +113,9 @@ namespace UtilityWpf.ViewModel
         {
             System.Windows.Application.Current.MainWindow.Close();
         }
-        #endregion
 
-        #region Events
-
-        #endregion
+        #endregion Commands
 
         protected static readonly ILog Log = log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-
-    
     }
 }

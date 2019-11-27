@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-
 
 namespace UtilityWpf.View
 {
@@ -15,7 +10,6 @@ namespace UtilityWpf.View
         public static readonly DependencyProperty PathProperty = DependencyProperty.Register("Path", typeof(string), typeof(FolderOpenControl), new PropertyMetadata(null, PathChanged));
 
         public static readonly DependencyProperty FolderOpenCommandProperty = DependencyProperty.Register("FolderOpenCommand", typeof(ICommand), typeof(FolderOpenControl));
-
 
         public string Path
         {
@@ -27,10 +21,7 @@ namespace UtilityWpf.View
 
         private static void PathChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-
         }
-
-
 
         public FolderOpenControl()
         {
@@ -40,7 +31,6 @@ namespace UtilityWpf.View
             ResourceDictionary resourceDictionary = (ResourceDictionary)Application.LoadComponent(resourceLocater);
             Style = resourceDictionary["FolderOpenControl"] as Style;
 
-
             foc.PropertyChanged += (sender, e) =>
             {
                 if (e.PropertyName == "Directory")
@@ -48,7 +38,5 @@ namespace UtilityWpf.View
                                    System.Windows.Threading.DispatcherPriority.Background, default(System.Threading.CancellationToken));
             };
         }
-
-
     }
 }

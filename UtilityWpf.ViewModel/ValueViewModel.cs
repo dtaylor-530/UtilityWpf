@@ -1,26 +1,12 @@
-﻿using Reactive.Bindings;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Reactive.Concurrency;
-using System.Reactive.Linq;
-using System.Reactive.Subjects;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace UtilityWpf.ViewModel
+﻿namespace UtilityWpf.ViewModel
 {
-
     //// conside  instead ReactiveProperty
     //public class ValueViewModel<T> : NPC, IOutputService<T>
     //{
-
     //    public T Value { get; private set; }
 
     //    //public IObservable<T> Output { get; private set; }
     //    public IObservable<T> Output { get; } = new ReactiveCommand<T>();
-
 
     //    public ValueViewModel(IObservable<T> measurements, IScheduler ui)
     //    {
@@ -42,16 +28,12 @@ namespace UtilityWpf.ViewModel
     //        else
     //            Console.WriteLine("measurements-service equals null in collectionviewmodel");
 
-
     //        //Output = Observable.Create<T>(observer => Out.Subscribe(_ => observer.OnNext(Value)));
 
     //    }
 
-
-
     //    public ValueViewModel(IEnumerable<T> measurements)
     //    {
-
     //        if (measurements != null)
     //            Value = measurements.Last();
     //        else
@@ -59,16 +41,10 @@ namespace UtilityWpf.ViewModel
 
     //    }
 
-
-
-
     //}
-
-
 
     //public class ValueViewModel2<T> : INPCBase, IOutputViewModel<T>
     //{
-
     //    public T Value { get; private set; }
     //    IObservable<T> output = new Subject<T>();
     //    public IObservable<T> Output => output;
@@ -102,15 +78,10 @@ namespace UtilityWpf.ViewModel
     //        else
     //            Console.WriteLine("measurements-service equals null in collectionviewmodel");
 
-       
-
     //    }
-
-
 
     //    public ValueViewModel2(IEnumerable<T> measurements)
     //    {
-
     //        if (measurements != null)
     //            Value = measurements.Last();
     //        else
@@ -119,9 +90,6 @@ namespace UtilityWpf.ViewModel
     //        output= Observable.Create<T>(observer => Out.Subscribe(_ => observer.OnNext(Value)));
 
     //    }
-
-
-
 
     //}
 }

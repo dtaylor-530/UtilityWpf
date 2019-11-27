@@ -89,6 +89,7 @@
     <Compile Include="Converter\MinMaxDivideConverter.cs" />
     <Compile Include="Converter\PositionItemConverter.cs" />
     <Compile Include="Converter\RounderConverter.cs" />
+    <Compile Include="Converter\TenseToDateTimeConverter.cs" />
     <Compile Include="Converter\YesNoToBooleanConverter.cs" />
     <Compile Include="Behavior\SetterAction.cs" />
     <Compile Include="Behavior\EventCommandExecutor.cs" />

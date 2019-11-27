@@ -1,13 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reactive.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Threading;
-using UtilityWpf;
 
 namespace UtilityWpf.View
 {
@@ -16,21 +8,17 @@ namespace UtilityWpf.View
 
     public class ImageButton : System.Windows.Controls.Button
     {
-
         static ImageButton()
         {
-           DefaultStyleKeyProperty.OverrideMetadata(typeof(ImageButton), new FrameworkPropertyMetadata(typeof(ImageButton)));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(ImageButton), new FrameworkPropertyMetadata(typeof(ImageButton)));
         }
-
 
         public ImageButton() : base()
         {
             Uri resourceLocater = new Uri("/UtilityWpf.View;component/Themes/ImageButton.xaml", System.UriKind.Relative);
             ResourceDictionary resourceDictionary = (ResourceDictionary)Application.LoadComponent(resourceLocater);
             Style = resourceDictionary["ImageButtonStyle"] as Style;
-
         }
-
 
         #region Dependency Properties
 
@@ -89,6 +77,6 @@ namespace UtilityWpf.View
             Application.GetResourceStream(new Uri("pack://application:,,," + (string)e.NewValue));
         }
 
-        #endregion
+        #endregion Dependency Properties
     }
 }

@@ -2,13 +2,8 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Reactive.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Data;
-using System.Windows.Threading;
 
 namespace UtilityWpf.ViewModel
 {
@@ -17,24 +12,22 @@ namespace UtilityWpf.ViewModel
         // the items source to an observablecollection
         public ICollectionViewLiveShaping View { get; set; }
 
-        ObservableCollection<T> _items = new ObservableCollection<T>();
+        private ObservableCollection<T> _items = new ObservableCollection<T>();
 
-        public LiveTableViewModel(IObservable<T> t, string sortonproperty, ListSortDirection lsd= ListSortDirection.Descending)
+        public LiveTableViewModel(IObservable<T> t, string sortonproperty, ListSortDirection lsd = ListSortDirection.Descending)
         {
             View = (ICollectionViewLiveShaping)CollectionViewSource.GetDefaultView(_items);
             View.IsLiveSorting = true;
             ((ICollectionView)View).SortDescriptions.Add(new SortDescription(sortonproperty, lsd));
-            
+
             t.ObserveOnDispatcher().Subscribe(_ => _items.Add(_));
         }
 
-
-
-        public LiveTableViewModel(IObservable<T> t, IObservable<KeyValuePair<string, ListSortDirection>> sortonproperty=null, IObservable<Predicate<object>> filterbyproperty = null)
+        public LiveTableViewModel(IObservable<T> t, IObservable<KeyValuePair<string, ListSortDirection>> sortonproperty = null, IObservable<Predicate<object>> filterbyproperty = null)
         {
             View = (ICollectionViewLiveShaping)CollectionViewSource.GetDefaultView(_items);
             View.IsLiveSorting = true;
-            sortonproperty?.ObserveOnDispatcher().Subscribe(_=>
+            sortonproperty?.ObserveOnDispatcher().Subscribe(_ =>
             ((ICollectionView)View).SortDescriptions.Add(new SortDescription(_.Key, _.Value)));
 
             Predicate<object> a = null;
@@ -43,14 +36,9 @@ namespace UtilityWpf.ViewModel
                 if (a != null) ((ICollectionView)View).Filter -= _;
                 a = _;
                 ((ICollectionView)View).Filter += _;
-
             });
 
             t.ObserveOnDispatcher().Subscribe(_ => _items.Add(_));
         }
-
-
-
-
     }
 }

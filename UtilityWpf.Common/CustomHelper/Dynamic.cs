@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 
 namespace CustomHelper
-{ 
+{
     /// <summary>
     /// This gives an example of using encapsulation to implement
     /// the ICustomTypeProvider - where the base class approach is not
@@ -76,6 +76,7 @@ namespace CustomHelper
         }
 
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
+
         private void RaisePropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChanged(this, new PropertyChangedEventArgs(propertyName));

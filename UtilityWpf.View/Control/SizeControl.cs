@@ -1,11 +1,6 @@
-﻿using DynamicData;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
 using System.Reactive.Linq;
-using System.Reactive.Subjects;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -13,9 +8,7 @@ namespace UtilityWpf.View
 {
     public class SizeControl : Controlx
     {
-
         public static readonly DependencyProperty SizeProperty = DependencyProperty.Register("Size", typeof(int), typeof(Control), new PropertyMetadata(25, Changed, CoerceSize));
-
 
         public static readonly DependencyProperty TotalSizeProperty = DependencyProperty.Register("TotalSize", typeof(int), typeof(Control), new PropertyMetadata(100, Changed, CoerceTotalSize));
 
@@ -35,14 +28,11 @@ namespace UtilityWpf.View
             set { SetValue(SizeProperty, value); }
         }
 
-
-
         public int TotalSize
         {
             get { return (int)GetValue(TotalSizeProperty); }
             set { SetValue(TotalSizeProperty, value); }
         }
-
 
         public SizeControl()
         {
@@ -51,7 +41,6 @@ namespace UtilityWpf.View
             Style = resourceDictionary["SizeControlStyle"] as Style;
 
             base.GetSubject(nameof(Size)).Select(_ => (int)_).Subscribe(RaiseSelectedSizeEvent);
-  
         }
 
         public static readonly RoutedEvent SelectedSizeChangedEvent = EventManager.RegisterRoutedEvent("SelectedSizeChanged", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(SizeControl));
@@ -62,12 +51,11 @@ namespace UtilityWpf.View
             remove { RemoveHandler(SelectedSizeChangedEvent, value); }
         }
 
-        void RaiseSelectedSizeEvent(int Size)
+        private void RaiseSelectedSizeEvent(int Size)
         {
             SelectedSizeChangedRoutedEventArgs newEventArgs = new SelectedSizeChangedRoutedEventArgs(SizeControl.SelectedSizeChangedEvent) { Size = Size };
             RaiseEvent(newEventArgs);
         }
-
 
         public class SelectedSizeChangedRoutedEventArgs : RoutedEventArgs
         {
@@ -75,10 +63,7 @@ namespace UtilityWpf.View
 
             public SelectedSizeChangedRoutedEventArgs(RoutedEvent @event) : base(@event)
             {
-
             }
-
         }
-
     }
 }

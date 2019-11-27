@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows;
 
 namespace UtilityWpf.View
 {
     public partial class Ex : DependencyObject
     {
-        public static readonly DependencyProperty SecurityIdProperty = DependencyProperty.RegisterAttached("SecurityId", typeof(object), typeof(Ex), new PropertyMetadata(null,asaas));
+        public static readonly DependencyProperty SecurityIdProperty = DependencyProperty.RegisterAttached("SecurityId", typeof(object), typeof(Ex), new PropertyMetadata(null, asaas));
 
         private static void asaas(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -29,7 +23,6 @@ namespace UtilityWpf.View
 
         public static readonly DependencyProperty KeyProperty = DependencyProperty.RegisterAttached("Key", typeof(object), typeof(Ex), new PropertyMetadata(null, asaas));
 
-
         public static string GetKey(DependencyObject d)
         {
             return (string)d.GetValue(KeyProperty);
@@ -39,6 +32,5 @@ namespace UtilityWpf.View
         {
             d.SetValue(KeyProperty, value);
         }
-
     }
 }

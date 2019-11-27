@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -12,11 +8,10 @@ namespace UtilityWpf
 {
     public class LastItemConverter : IMultiValueConverter
     {
-
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
             ItemsControl itemscontrol = values[0] as ItemsControl;
-            int count=itemscontrol.Items.Count;
+            int count = itemscontrol.Items.Count;
 
             if (values != null && values.Length == 2 && count > 0)
             {

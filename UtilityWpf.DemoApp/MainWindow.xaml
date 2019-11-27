@@ -4,70 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UtilityWpf.DemoApp"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:local1="clr-namespace:UtilityWpf.Behavior;assembly=UtilityWpf.Common"
+        xmlns:view="clr-namespace:UtilityWpf.View;assembly=UtilityWpf.View"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        <TabControl>
-         
-
-           <TabItem Header="listboxex">
-                <local:ListBoxExUserControl></local:ListBoxExUserControl>
-            </TabItem>
-             <TabItem Header="PathButton">
-                <local:PathButtonUserControl></local:PathButtonUserControl>
-            </TabItem>
-            <TabItem Header="DoubleClick">
-                <local:DoubleClickUserControl></local:DoubleClickUserControl>
-
-            </TabItem>
-            <TabItem Header="Dictionary">
-                <local:DictionaryUserControl></local:DictionaryUserControl>
-
-            </TabItem>
-
-            <TabItem Header="Dynamic Data Grid">
-                <local:DynamicDataGridUserControl></local:DynamicDataGridUserControl>
-
-            </TabItem>
-
-            <TabItem Header="ListBox Criteria">
-                <local:ListBoxCriteriaUserControl></local:ListBoxCriteriaUserControl>
-
-            </TabItem>
-
-            <TabItem Header="MultiSelect TreeView">
-                <local:MultiSelectTreeView></local:MultiSelectTreeView>
-
-            </TabItem>
-            <TabItem Header="Player">
-                <local:PlayerUserControl></local:PlayerUserControl>
-
-            </TabItem>
-            <TabItem Header="StructDataGrid">
-                <local:StructDataGridUserControl></local:StructDataGridUserControl>
-            </TabItem>
-            <TabItem Header="FirstItemConverter">
-                <local:ItemsControlFirstLastConverter></local:ItemsControlFirstLastConverter>
-            </TabItem>
-            <TabItem Header="Pagination">
-                <local:FilteredPaginatedUserControl></local:FilteredPaginatedUserControl>
-            </TabItem>
-            <TabItem Header="Open Folder">
-                <local:FolderOpenUserControl></local:FolderOpenUserControl>
-            </TabItem>
-
-            <TabItem Header="Style Change">
-                <local:StyleChange></local:StyleChange>
-            </TabItem>
-
-            <TabItem Header="Slider">
-                <local:SliderItemsUserControl></local:SliderItemsUserControl>
-            </TabItem>
-
-            <TabItem Header="TreeView">
-                <local:TreeViewUserControl></local:TreeViewUserControl>
-            </TabItem>
-        </TabControl>
-
+        <view:HostUserControl></view:HostUserControl>
     </Grid>
 </Window>

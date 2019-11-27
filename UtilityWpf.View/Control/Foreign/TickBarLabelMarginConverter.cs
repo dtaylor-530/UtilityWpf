@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -11,7 +7,7 @@ using System.Windows.Data;
 
 namespace UtilityWpf.View.Foreign
 {
-    class TickBarLabelMarginConverter : IMultiValueConverter
+    internal class TickBarLabelMarginConverter : IMultiValueConverter
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
@@ -33,11 +29,13 @@ namespace UtilityWpf.View.Foreign
                         left = -(tickBar.ActualWidth / 2 - positionMinimum - scalingValue * (System.Convert.ToDouble(values[1]) - tickBar.Minimum)) * 2;
                         top = System.Convert.ToDouble(values[2]);
                         break;
+
                     case Orientation.Vertical:
                         scalingValue = (tickBar.ActualHeight - tickBar.ReservedSpace) / (tickBar.Maximum - tickBar.Minimum);
                         left = System.Convert.ToDouble(values[1]);
                         top = (tickBar.ActualHeight / 2 - positionMinimum - scalingValue * (System.Convert.ToDouble(values[2]) - tickBar.Minimum)) * 2;
                         break;
+
                     default:
                         break;
                 }

@@ -2,8 +2,6 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:UtilityWpf.View">
 
-
-
     <SolidColorBrush x:Key="NormalBackgroundBrush" Color="#00000000" />
     <SolidColorBrush x:Key="NormalBorderBrush" Color="#FFFFFFFF" />
     <SolidColorBrush x:Key="NormalForegroundBrush" Color="#FF8f949b" />
@@ -14,6 +12,4 @@
     <SolidColorBrush x:Key="PressedBackgroundBrush" Color="#FF431e20" />
     <SolidColorBrush x:Key="PressedBorderBrush" Color="#FF110033" />
     <SolidColorBrush x:Key="PressedForegroundBrush" Color="#FFf9ebeb" />
-
-
 </ResourceDictionary>

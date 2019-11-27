@@ -1,44 +1,29 @@
-﻿
-using DynamicData.Binding;
-using Reactive.Bindings;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
-using System.Text;
-using System.Threading.Tasks;
-using UtilityInterface;
 using UtilityInterface.Generic;
 using UtilityWpf.Commmand;
 
 namespace UtilityWpf.ViewModel
 {
-
     public class SHDOObject : SHDObject<object>
     {
         public SHDOObject() : base(null)
         {
-
-
         }
 
         public SHDOObject(object o) : base(o)
         {
-
-
         }
 
         public SHDOObject(object @object, IObservable<Predicate<object>> visible = null, IObservable<Predicate<object>> enable = null, IConvertible id = null) : base(@object, visible, enable, id)
         {
-
         }
-        public SHDOObject(object @object, bool? expanded, bool? selected, bool? @checked, bool? visible, bool? enable, bool isReadOnly,IConvertible id = null) : base(@object, expanded, selected, @checked, visible, enable,isReadOnly, id)
+
+        public SHDOObject(object @object, bool? expanded, bool? selected, bool? @checked, bool? visible, bool? enable, bool isReadOnly, IConvertible id = null) : base(@object, expanded, selected, @checked, visible, enable, isReadOnly, id)
         {
-
         }
-
     }
 
     // Selectable / Hideable / Disableable
@@ -47,7 +32,7 @@ namespace UtilityWpf.ViewModel
         // set needs to be exposed for LiteDbToWork
         public T Object { get; set; }
 
-        public IConvertible Id { get;  }
+        public IConvertible Id { get; }
 
         private bool? _isExpanded;
         private bool? _isSelected;
@@ -61,18 +46,17 @@ namespace UtilityWpf.ViewModel
 
         public RelayCommand DeleteCommand { get; }
 
-
-        public SHDObject(T @object, IObservable<Predicate<T>> visible = null, IObservable<Predicate<T>> enable = null,IConvertible id=null)
+        public SHDObject(T @object, IObservable<Predicate<T>> visible = null, IObservable<Predicate<T>> enable = null, IConvertible id = null)
         {
             Object = @object;
 
             if (visible != null)
-                visible.Select(_ => _(Object)).StartWith(true).Subscribe(_=>IsVisible=true);
+                visible.Select(_ => _(Object)).StartWith(true).Subscribe(_ => IsVisible = true);
             else
-                IsVisible =true;
+                IsVisible = true;
 
             if (enable != null)
-               enable.StartWith(_ => true).Select(_ => _(Object)).Subscribe(_ => IsEnabled = true);
+                enable.StartWith(_ => true).Select(_ => _(Object)).Subscribe(_ => IsEnabled = true);
             else
                 IsEnabled = true;
 
@@ -84,8 +68,7 @@ namespace UtilityWpf.ViewModel
             Id = id;
         }
 
-
-        public SHDObject(T @object, bool? expanded,bool? selected,bool? @checked, bool? visible, bool? enable, bool isReadOnly,IConvertible id = null)
+        public SHDObject(T @object, bool? expanded, bool? selected, bool? @checked, bool? visible, bool? enable, bool isReadOnly, IConvertible id = null)
         {
             Object = @object;
 
@@ -111,7 +94,6 @@ namespace UtilityWpf.ViewModel
 
         public SHDObject()
         {
-
         }
 
         // properties don't work as reactive properties
@@ -128,7 +110,6 @@ namespace UtilityWpf.ViewModel
                 //}
             }
         }
-
 
         public virtual bool? IsSelected
         {
@@ -155,6 +136,7 @@ namespace UtilityWpf.ViewModel
                 //}
             }
         }
+
         public virtual bool? IsVisible
         {
             get { return _isVisible; }
@@ -167,6 +149,7 @@ namespace UtilityWpf.ViewModel
                 //}
             }
         }
+
         public virtual bool? IsEnabled
         {
             get { return _isEnabled; }
@@ -179,6 +162,7 @@ namespace UtilityWpf.ViewModel
                 //}
             }
         }
+
         public virtual bool IsDoubleClicked
         {
             get { return _isDoubleClicked; }
@@ -204,16 +188,5 @@ namespace UtilityWpf.ViewModel
                 //}
             }
         }
-
     }
-
-
 }
-
-
-
-
-
-
-
-

@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Reactive.Subjects;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -14,7 +10,6 @@ using UtilityHelper.NonGeneric;
 
 namespace UtilityWpf.View
 {
-
     public partial class ItemsControlEx : ItemsControl
     {
         public static readonly DependencyProperty NewItemProperty = DependencyProperty.RegisterAttached("NewItem", typeof(object), typeof(ItemsControlEx), new PropertyMetadata(null, NewItemChange));
@@ -34,7 +29,6 @@ namespace UtilityWpf.View
             var x = (d as ItemsControl).Items?.Cast<object>()?.ToObservableCollection() ?? new ObservableCollection<object>();
             x.Add(e.NewValue);
             Application.Current.Dispatcher.InvokeAsync(() => (d as ItemsControl).ItemsSource = x, System.Windows.Threading.DispatcherPriority.Background, default(System.Threading.CancellationToken));
-
         }
 
         public static string GetVariable(DependencyObject d)
@@ -47,9 +41,7 @@ namespace UtilityWpf.View
             d.SetValue(VariableProperty, value);
         }
 
-
         public static readonly DependencyProperty VariableProperty = DependencyProperty.RegisterAttached("Variable", typeof(string), typeof(ItemsControlEx), new PropertyMetadata(null, VariableChanged));
-
 
         private static void VariableChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -70,7 +62,6 @@ namespace UtilityWpf.View
             d.SetValue(ItemsSourceExProperty, value);
         }
 
-
         public static readonly DependencyProperty ItemsSourceExProperty = DependencyProperty.RegisterAttached("ItemsSourceEx", typeof(IEnumerable), typeof(ItemsControlEx), new PropertyMetadata(null, ItemsSourceExChanged));
 
         private static void ItemsSourceExChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -84,8 +75,6 @@ namespace UtilityWpf.View
             ;
         }
 
-
-
         public static string GetFilter(DependencyObject d)
         {
             return (string)d.GetValue(FilterProperty);
@@ -96,9 +85,7 @@ namespace UtilityWpf.View
             d.SetValue(FilterProperty, value);
         }
 
-
         public static readonly DependencyProperty FilterProperty = DependencyProperty.RegisterAttached("Filter", typeof(string), typeof(ItemsControlEx), new PropertyMetadata(null, FilterChanged));
-
 
         private static void FilterChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -110,17 +97,10 @@ namespace UtilityWpf.View
             }
         }
 
-
-
         //private void txtFilter_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         //{
         //    CollectionViewSource.GetDefaultView(lvUsers.ItemsSource).Refresh();
         //}
-
-
-
-
-
 
         //      CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(lvUsers.ItemsSource);
         //      view.Filter = UserFilter;
@@ -139,9 +119,6 @@ namespace UtilityWpf.View
         //      CollectionViewSource.GetDefaultView(lvUsers.ItemsSource).Refresh();
         //  }
 
-
-
-
         // public static EventHandler OnValueChanged { get; private set; }
         //    var property = (string)e.NewValue;
 
@@ -152,8 +129,6 @@ namespace UtilityWpf.View
         //    i = null;
         //    GC.Collect();
         //    bool isAlive = wr.IsAlive;
-
-
 
         //    //(d as PropertyListControl).PropertyChanges.OnNext((string)e.NewValue);
         //    if ((d as ItemsControl).ItemsSourceEx.First().GetType().GetProperties().SingleOrDefault(a => a.Name == _).PropertyType.GetInterfaces().Contains(typeof(System.Collections.IEnumerable)))
@@ -170,7 +145,5 @@ namespace UtilityWpf.View
         //    //Style = resourceDictionary["PropertyControlStyle"] as Style;
 
         //}
-
-
     }
 }

@@ -1,9 +1,7 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-
 
 namespace SoftwareArchitects.Windows.Controls
 {
@@ -121,6 +119,7 @@ namespace SoftwareArchitects.Windows.Controls
         }
 
 #if !SILVERLIGHT
+
         /// <summary>
         /// Occurs, when the scroll offset of one scrollviewer has changed.
         /// </summary>
@@ -134,6 +133,7 @@ namespace SoftwareArchitects.Windows.Controls
                 Scroll(changedScrollViewer);
             }
         }
+
 #endif
 
 #if SILVERLIGHT

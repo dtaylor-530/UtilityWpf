@@ -1,11 +1,4 @@
-﻿using DynamicData;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace UtilityWpf.ViewModel
+﻿namespace UtilityWpf.ViewModel
 {
     //public class LogEntryService : IDisposable //, ILogEntryService
     //{
@@ -15,7 +8,6 @@ namespace UtilityWpf.ViewModel
     //    private readonly object _locker = new object();
 
     //    public IObservableList<LogEntry> Items { get; }
-
 
     //    public LogEntryService(log4net.Repository.Hierarchy.Logger logger)
     //    {
@@ -38,19 +30,12 @@ namespace UtilityWpf.ViewModel
     //        logger.Info("Log cache has been constructed");
     //    }
 
-
-
-
     //    public void Dispose()
     //    {
     //        _disposer.Dispose();
     //    }
 
-
-
     //}
-
-
 
     //public static class Helper
     //{

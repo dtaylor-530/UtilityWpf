@@ -42,6 +42,9 @@
     <Reference Include="MaterialDesignThemes.Wpf, Version=2.5.0.1205, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignThemes.2.5.0.1205\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.3\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="PropertyTools, Version=2.0.1.0, Culture=neutral, PublicKeyToken=ea0c9f2b460934d0, processorArchitecture=MSIL">
@@ -119,6 +122,7 @@
     <Compile Include="Control\AnimatedWrapPanel.cs" />
     <Compile Include="Control\ButtonDefinitionsControl.cs" />
     <Compile Include="Control\Controlx.cs" />
+    <Compile Include="Control\DatesList.cs" />
     <Compile Include="Control\Foreign\TickBarLabelMarginConverter.cs" />
     <Compile Include="Control\ListBoxCriteria.cs" />
     <Compile Include="Control\ListBoxWithSelectedItemIndicator.cs" />
@@ -148,7 +152,7 @@
     <Compile Include="Control\SkipControl.cs" />
     <Compile Include="Control\SliderItemsControl.cs" />
     <Compile Include="Control\StructDataGrid.cs" />
-    <Compile Include="Control\TenseControl.cs" />
+    <Compile Include="Control\TenseSwitch.cs" />
     <Compile Include="Control\ToggleButtonEx.cs" />
     <Compile Include="Control\TreeViewFirst.cs" />
     <Compile Include="Control\TwoColumnGrid.cs" />
@@ -159,6 +163,9 @@
     <Compile Include="Converter\SelectedIndexEventArgsToNumber.cs" />
     <Compile Include="Converter\TimeSpanMultiConverter.cs" />
     <Compile Include="Common\PropertyDataTemplateSelector.cs" />
+    <Compile Include="UserControl\HostUserControl.xaml.cs">
+      <DependentUpon>HostUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\ButtonDefinition.cs" />
     <Compile Include="ViewModel\FilteredPaginatedViewModel.cs" />
     <Compile Include="ViewModel\InteractiveCollection\InteractiveCollectionBase.cs" />
@@ -172,11 +179,15 @@
     <Compile Include="ViewModel\PathViewModel.cs" />
     <Compile Include="ViewModel\SEObject.cs" />
     <Compile Include="ViewModel\SHDObject.cs" />
+    <Page Include="Themes\DatesList.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Themes\CriteriaItem.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\TenseControl.xaml">
+    <Page Include="Themes\TenseSwitch.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -353,6 +364,10 @@
     <Page Include="DataTemplate\NumberBoxDataTemplate.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControl\HostUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControl\TableUserControl.xaml">
       <Generator>MSBuild:Compile</Generator>

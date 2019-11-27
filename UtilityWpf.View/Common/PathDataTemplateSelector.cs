@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 
 namespace UtilityWpf.View
 {
@@ -13,13 +7,12 @@ namespace UtilityWpf.View
         public DataTemplate DirectoryDataTemplate { get; set; }
         public DataTemplate FileDataTemplate { get; set; }
         public DataTemplate DefaultDataTemplate { get; set; }
-         public DataTemplate ContentPresenterTemplate { get; set; }
-
+        public DataTemplate ContentPresenterTemplate { get; set; }
 
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
             if (item == null)
-                return null;;
+                return null; ;
 
             var type = item.GetType();
 
@@ -34,10 +27,7 @@ namespace UtilityWpf.View
             }
             catch
             {
-
             }
-
-
 
             if (item is ViewModel.FileViewModel)
                 return FileDataTemplate;
@@ -45,10 +35,8 @@ namespace UtilityWpf.View
                 return DirectoryDataTemplate;
             else
                 return DefaultDataTemplate;
-
         }
     }
-
 
     //public class ObjectDataTemplateSelector : System.Windows.Controls.DataTemplateSelector
     //{
@@ -80,9 +68,7 @@ namespace UtilityWpf.View
     //        }
     //        catch
     //        {
-
     //        }
-
 
     //        var interfaces = type.GetInterfaces();
     //        if ((interfaces.Contains(typeof(IConvertible))))
@@ -94,5 +80,4 @@ namespace UtilityWpf.View
 
     //    }
     //}
-
 }

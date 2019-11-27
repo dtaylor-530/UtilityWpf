@@ -1,14 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reactive.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Threading;
-using UtilityWpf;
 
 namespace UtilityWpf.View
 {
@@ -20,13 +12,11 @@ namespace UtilityWpf.View
 
         public System.Windows.Controls.Image MainImage { get; set; }
 
-
         public Uri FrontImageSource
         {
             get { return (Uri)GetValue(FrontImageSourceProperty); }
             set { SetValue(FrontImageSourceProperty, value); }
         }
-
 
         public Uri BackImageSource
         {
@@ -34,49 +24,31 @@ namespace UtilityWpf.View
             set { SetValue(BackImageSourceProperty, value); }
         }
 
-
         static ToggleButtonEx()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ToggleButtonEx), new FrameworkPropertyMetadata(typeof(ToggleButtonEx)));
         }
-
-
 
         public ToggleButtonEx() : base()
         {
             Uri resourceLocater = new Uri("/UtilityWpf.View;component/Themes/ToggleButtonEx.xaml", System.UriKind.Relative);
             ResourceDictionary resourceDictionary = (ResourceDictionary)Application.LoadComponent(resourceLocater);
             Style = resourceDictionary["ToggleExStyle"] as Style;
-
-
         }
-
-
 
         private static void OnFrontImageSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             //(d as ToggleButtonEx ).
             //if ((d as ToggleButtonEx).MainImage != null)
             //    (d as ToggleButtonEx).MainImage.Source = new System.Windows.Media.Imaging.BitmapImage((Uri)e.NewValue);
-
         }
 
         // the inherits property ensure child elements inherit this property FrameworkPropertyMetadataOptions.Inherits,
- 
-
-
 
         private static void OnBackImageSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-
             //if ((d as ToggleButtonEx).MainImage != null)
             //    (d as ToggleButtonEx).MainImage.Source = new System.Windows.Media.Imaging.BitmapImage((Uri)e.NewValue);
         }
-
-
-
-
-
-
     }
 }

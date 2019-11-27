@@ -49,6 +49,6 @@ namespace UtilityWpf
             return !Equals(left, right);
         }
 
-        #endregion
+        #endregion Equality members
     }
 }

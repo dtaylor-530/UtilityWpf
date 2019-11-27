@@ -3,8 +3,6 @@
                     xmlns:local="clr-namespace:UtilityWpf.View"
                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
 
-
-
     <Style x:Key="SkipStyle"  TargetType="{x:Type  local:SkipControl  }">
         <Setter Property="Template">
             <Setter.Value>
@@ -31,13 +29,12 @@
                 Padding="0"
                 Command="{TemplateBinding PreviousCommand}"
                 ToolTip="Move to previous page">
-                                    
+
                                     <materialDesign:PackIcon
                     Width="24"
                     Height="24"
                     Kind="SkipPrevious" />
                                 </RepeatButton>
-
 
                                 <RepeatButton
                 Height="26"
@@ -45,7 +42,7 @@
                 Padding="0"
                 Command="{TemplateBinding NextCommand}"
                 ToolTip="Move to next page">
-                      
+
                                     <materialDesign:PackIcon
                     Width="24"
                     Height="24"
@@ -58,6 +55,4 @@
             </Setter.Value>
         </Setter>
     </Style>
-
-
 </ResourceDictionary>

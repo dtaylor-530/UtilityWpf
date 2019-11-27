@@ -1,18 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using UtilityInterface;
 using UtilityInterface.Generic;
 
 namespace UtilityWpf.DemoApp
@@ -29,10 +17,8 @@ namespace UtilityWpf.DemoApp
         }
     }
 
-
     public class TreeViewModel
     {
-
         public TreeViewModel()
         {
             RootNodes = BuildTreeModel();
@@ -40,7 +26,7 @@ namespace UtilityWpf.DemoApp
 
         private static IList<TreeItemModel> BuildTreeModel()
         {
-            return new []
+            return new[]
             {
                 new TreeItemModel("", 1),
                          new TreeItemModel("",2)
@@ -77,28 +63,22 @@ namespace UtilityWpf.DemoApp
             //};
         }
 
-
-
-        public IList<TreeItemModel> RootNodes { get;  }
+        public IList<TreeItemModel> RootNodes { get; }
     }
 
-
-    public class TreeItemModel:IParent<TreeItemModel>, UtilityWpf.IDelayedConstructor
+    public class TreeItemModel : IParent<TreeItemModel>, UtilityWpf.IDelayedConstructor
     {
         private string _number;
 
         public TreeItemModel(string parent, int number)
         {
-            _number= parent + number;
+            _number = parent + number;
             Name = "Node " + _number;
         }
-
- 
 
         //public bool IsExpanded {
         //    get;
         //    set; }
-
 
         //public bool IsSelected
         //{
@@ -106,11 +86,11 @@ namespace UtilityWpf.DemoApp
         //    set;
         //}
 
-        public string Name { get;  }
+        public string Name { get; }
 
-        public IEnumerable<TreeItemModel> Children { get;  set; }
+        public IEnumerable<TreeItemModel> Children { get; set; }
 
-        public Task<bool> Init(object o)=>
+        public Task<bool> Init(object o) =>
             Task.Run(() =>
             {
                 Children = new[]
@@ -119,7 +99,5 @@ namespace UtilityWpf.DemoApp
                          new TreeItemModel(_number,2)
             }; return true;
             });
-
-        
     }
 }

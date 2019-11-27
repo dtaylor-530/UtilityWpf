@@ -8,10 +8,10 @@ namespace CustomHelper
     // Custom implementation of the PropertyInfo
     internal class CustomPropertyInfoHelper : PropertyInfo
     {
-        readonly string _name;
+        private readonly string _name;
         internal readonly Type _type;
-        readonly MethodInfo _getMethod, _setMethod;
-        readonly List<Attribute> _attributes = new List<Attribute>();
+        private readonly MethodInfo _getMethod, _setMethod;
+        private readonly List<Attribute> _attributes = new List<Attribute>();
 
         public CustomPropertyInfoHelper(string name, Type type, Type ownerType)
         {

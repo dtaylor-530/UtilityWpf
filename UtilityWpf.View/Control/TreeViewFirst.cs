@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 
 namespace UtilityWpf.View
 {
@@ -11,7 +6,6 @@ namespace UtilityWpf.View
     {
         protected override void OnItemsChanged(System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-
             bool b = false;
             foreach (object item in base.Items)
             {
@@ -23,7 +17,6 @@ namespace UtilityWpf.View
                     treeItem.IsExpanded = true; b = true;
                 }
             }
-
         }
 
         private void ExpandAll(ItemsControl items, bool expand)

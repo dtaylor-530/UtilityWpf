@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace UtilityWpf
@@ -15,9 +12,6 @@ namespace UtilityWpf
             return System.Reactive.Linq.Observable
         .FromEventPattern<ExitEventHandler, ExitEventArgs>(h => app.Exit += h, h => app.Exit -= h)
            .Select(_ => _.EventArgs);
-
-
         }
     }
-
 }

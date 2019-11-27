@@ -1,11 +1,6 @@
-﻿using DynamicData;
-using System;
+﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
-using System.Reactive.Subjects;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using UtilityWpf.Commmand;
@@ -14,7 +9,6 @@ namespace UtilityWpf.View
 {
     public class ButtonDefinitionsControl : ItemsControl
     {
-
         //public static readonly DependencyProperty ItemsSourceProperty = DependencyProperty.Register("ItemsSource", typeof(IEnumerable), typeof(ButtonDefinitionsControl), new PropertyMetadata(null, ItemsSourceChanged));
 
         public static readonly DependencyProperty TypeProperty = DependencyProperty.Register("Type", typeof(Type), typeof(ButtonDefinitionsControl), new PropertyMetadata(null, ParametersChange));
@@ -28,7 +22,6 @@ namespace UtilityWpf.View
         public static readonly DependencyProperty OrientationProperty = DependencyProperty.Register("Orientation", typeof(Orientation), typeof(ButtonDefinitionsControl));
 
         private static void ParametersChange(DependencyObject d, DependencyPropertyChangedEventArgs e) => (d as ButtonDefinitionsControl).UpdateButtons();
-       
 
         public Type Type
         {
@@ -36,13 +29,11 @@ namespace UtilityWpf.View
             set { SetValue(TypeProperty, value); }
         }
 
-
         public Type OutputType
         {
             get { return (Type)GetValue(OutputTypeProperty); }
             set { SetValue(OutputTypeProperty, value); }
         }
-
 
         public IEnumerable Parameters
         {
@@ -50,12 +41,10 @@ namespace UtilityWpf.View
             set { SetValue(ParametersProperty, value); }
         }
 
-
         public object Output
         {
             get { return GetValue(OutputProperty); }
             set { SetValue(OutputProperty, value); }
-
         }
 
         public Orientation Orientation
@@ -64,26 +53,20 @@ namespace UtilityWpf.View
             set { SetValue(OrientationProperty, value); }
         }
 
-
         static ButtonDefinitionsControl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ButtonDefinitionsControl), new FrameworkPropertyMetadata(typeof(ButtonDefinitionsControl)));
         }
 
-
         public ButtonDefinitionsControl()
         {
-
             Uri resourceLocater = new Uri("/UtilityWpf.View;component/Themes/ButtonDefinitionsControl.xaml", System.UriKind.Relative);
             ResourceDictionary resourceDictionary = (ResourceDictionary)Application.LoadComponent(resourceLocater);
             Style = resourceDictionary["BDStyle"] as Style;
-
         }
 
-
-        void UpdateButtons()
+        private void UpdateButtons()
         {
-
             Action<object> av = (a) =>/* _output.OnNext(a)*/
                          this.Dispatcher.InvokeAsync(() => Output = a, System.Windows.Threading.DispatcherPriority.Background, default(System.Threading.CancellationToken));
 
@@ -98,21 +81,12 @@ namespace UtilityWpf.View
             if (items == null) Console.WriteLine("measurements-service equals null in collectionviewmodel");
 
             this.Dispatcher.InvokeAsync(() => ItemsSource = items.ToList(), System.Windows.Threading.DispatcherPriority.Background, default(System.Threading.CancellationToken));
-
         }
     }
-
-
-
 }
-
-
-
-
 
 //public class ButtonDefinitionsViewModel<T> : ICollectionViewModel<ButtonDefinition>, IOutputViewModel<T>
 //{
-
 //    public IObservable<T> Output => _output;
 
 //    public ICollection<ButtonDefinition> Items => _items;
@@ -137,12 +111,10 @@ namespace UtilityWpf.View
 //                {
 //                    _items.Add(new ButtonDefinition { Command = new RelayCommand(() => av(meas.Value())), Content = meas.Key });
 
-
 //                }
 //            });
 //        else
 //            Console.WriteLine("measurements-service equals null in collectionviewmodel");
-
 
 //    }
 
@@ -158,7 +130,6 @@ namespace UtilityWpf.View
 //                 _items.Add(new ButtonDefinition { Command = new RelayCommand(() => av(meas.Value())), Content = meas.Key }));
 //        else
 //            Console.WriteLine("measurements-service equals null in collectionviewmodel");
-
 
 //    }
 

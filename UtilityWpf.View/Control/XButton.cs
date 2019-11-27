@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media;
 
 namespace UtilityWpf.View
 {
     public class XButton : PathButton
     {
-
         public XButton()
         {
             var myResourceDictionary = new System.Windows.ResourceDictionary();
@@ -19,6 +14,5 @@ namespace UtilityWpf.View
 
             HoverBackground = new System.Windows.Media.SolidColorBrush(Colors.IndianRed);
         }
-
     }
 }

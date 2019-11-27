@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Reactive.Linq;
 using System.ComponentModel;
+using System.Linq;
+using System.Reactive.Linq;
 
 namespace UtilityWpf
 {
-
     public static class NotificationExtensions
     {
         /// <summary>
@@ -26,9 +23,7 @@ namespace UtilityWpf
                             .Select(_ => source);
         }
 
-
-
-        public static IObservable<R> OnPropertyChange<T,R>(this T source,string name)
+        public static IObservable<R> OnPropertyChange<T, R>(this T source, string name)
             where T : INotifyPropertyChanged
         {
             var xx = typeof(T).GetProperty(name);
@@ -36,11 +31,11 @@ namespace UtilityWpf
                                 handler => handler.Invoke,
                                 h => source.PropertyChanged += h,
                                 h => source.PropertyChanged -= h)
-                               .Where(_=>_.EventArgs.PropertyName==name)
-                            .Select(_ =>UtilityHelper.PropertyHelper.GetPropertyValue<R>(source,xx));
+                               .Where(_ => _.EventArgs.PropertyName == name)
+                            .Select(_ => UtilityHelper.PropertyHelper.GetPropertyValue<R>(source, xx));
         }
 
-        public static IObservable<Tuple<T,R>> OnPropertyChangeWithSource<T, R>(this T source, string name)
+        public static IObservable<Tuple<T, R>> OnPropertyChangeWithSource<T, R>(this T source, string name)
     where T : INotifyPropertyChanged
         {
             var xx = typeof(T).GetProperty(name);
@@ -49,8 +44,7 @@ namespace UtilityWpf
                                 h => source.PropertyChanged += h,
                                 h => source.PropertyChanged -= h)
                                 .Where(_ => _.EventArgs.PropertyName == name)
-                                .Select(_ => Tuple.Create(source, UtilityHelper.PropertyHelper.GetPropertyValue<R>(source,xx)));
-                          
+                                .Select(_ => Tuple.Create(source, UtilityHelper.PropertyHelper.GetPropertyValue<R>(source, xx)));
         }
     }
 }

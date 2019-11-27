@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace UtilityWpf.Command
@@ -15,7 +11,6 @@ namespace UtilityWpf.Command
         private readonly Action _execute;
         private readonly Func<bool> _canExecute;
 
-
         public Command(Action execute, Func<bool> canExecute = null)
         {
             if (execute == null) throw new ArgumentNullException("execute");
@@ -23,7 +18,6 @@ namespace UtilityWpf.Command
             _execute = execute;
             _canExecute = canExecute ?? (() => true);
         }
-
 
         public bool CanExecute(object parameter)
         {

@@ -1,20 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 
 namespace UtilityWpf.View
 {
     public class EnumToggleButton : ToggleSwitch.HorizontalToggleSwitch
     {
-
-
         public object Enum
         {
             get { return (object)GetValue(EnumProperty); }
@@ -25,9 +18,7 @@ namespace UtilityWpf.View
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(EnumToggleButton), new FrameworkPropertyMetadata(typeof(EnumToggleButton)));
             IsCheckedProperty.OverrideMetadata(typeof(EnumToggleButton), new FrameworkPropertyMetadata(false, null, IsCheckedChanged));
-
         }
-
 
         private static object IsCheckedChanged(DependencyObject d, object baseValue)
         {
@@ -37,10 +28,8 @@ namespace UtilityWpf.View
             else
                 (d as EnumToggleButton).Output = vals.Cast<object>().Last();
 
-
             return baseValue;
         }
-
 
         public static readonly DependencyProperty EnumProperty = DependencyProperty.Register("Enum", typeof(object), typeof(EnumToggleButton), new PropertyMetadata(typeof(Switch), null, EnumCoerce));
 
@@ -57,8 +46,6 @@ namespace UtilityWpf.View
             return baseValue;
         }
 
-
-
         public bool UseEnumAsContent
         {
             get { return (bool)GetValue(UseEnumAsContentProperty); }
@@ -68,8 +55,9 @@ namespace UtilityWpf.View
         // Using a DependencyProperty as the backing store for UseEnumAsContent.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty UseEnumAsContentProperty =
             DependencyProperty.Register("UseEnumAsContent", typeof(bool), typeof(EnumToggleButton), new PropertyMetadata(true, UseEnumAsContentChanged));
-        ISubject<bool> subject = new Subject<bool>();
-        ISubject<Array> enumSubject = new Subject<Array>();
+
+        private ISubject<bool> subject = new Subject<bool>();
+        private ISubject<Array> enumSubject = new Subject<Array>();
 
         private static void UseEnumAsContentChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -80,24 +68,22 @@ namespace UtilityWpf.View
         {
             Uri resourceLocater = null;
             ResourceDictionary resourceDictionary = null;
-            subject.StartWith(true).CombineLatest(enumSubject.StartWith(Array.Empty<Enum>()),(a,b)=>new { a, b }).Subscribe(_ =>
-            {
-                if (!_.a)
+            subject.StartWith(true).CombineLatest(enumSubject.StartWith(Array.Empty<Enum>()), (a, b) => new { a, b }).Subscribe(_ =>
                 {
-                    resourceLocater = resourceLocater ?? new Uri("/UtilityWpf.View;component/Themes/EnumToggleButton.xaml", System.UriKind.Relative);
-                    resourceDictionary = resourceDictionary ?? (ResourceDictionary)Application.LoadComponent(resourceLocater);
+                    if (!_.a)
+                    {
+                        resourceLocater = resourceLocater ?? new Uri("/UtilityWpf.View;component/Themes/EnumToggleButton.xaml", System.UriKind.Relative);
+                        resourceDictionary = resourceDictionary ?? (ResourceDictionary)Application.LoadComponent(resourceLocater);
                     //Style = resourceDictionary["EnumToggleButtonStyle"] as Style;
                     (this as ToggleSwitch.ToggleSwitchBase).CheckedContent = resourceDictionary["Tick"];
-                    (this as ToggleSwitch.ToggleSwitchBase).UncheckedContent = resourceDictionary["Cross"];
-                }
-                else if(_.b.Length>0)
-                {
-                    (this as ToggleSwitch.ToggleSwitchBase).CheckedContent = _.b.Cast<Enum>().First();
-                    (this as ToggleSwitch.ToggleSwitchBase).UncheckedContent = _.b.Cast<Enum>().Last();
-                }
-
-            });
-
+                        (this as ToggleSwitch.ToggleSwitchBase).UncheckedContent = resourceDictionary["Cross"];
+                    }
+                    else if (_.b.Length > 0)
+                    {
+                        (this as ToggleSwitch.ToggleSwitchBase).CheckedContent = _.b.Cast<Enum>().First();
+                        (this as ToggleSwitch.ToggleSwitchBase).UncheckedContent = _.b.Cast<Enum>().Last();
+                    }
+                });
 
             base.Checked += EnumToggleButton_Checked;
             base.Unchecked += EnumToggleButton_Unchecked;
@@ -110,7 +96,7 @@ namespace UtilityWpf.View
 
         private void EnumToggleButton_Checked(object sender, RoutedEventArgs e)
         {
-            RaiseEvent(new EnumEventArgs(EnumToggleButton.SelectedEvent,true));
+            RaiseEvent(new EnumEventArgs(EnumToggleButton.SelectedEvent, true));
         }
 
         public object Output
@@ -126,9 +112,8 @@ namespace UtilityWpf.View
             On, Off
         }
 
-
         // Register the routed event
-        public static readonly RoutedEvent SelectedEvent =            EventManager.RegisterRoutedEvent("Selected", RoutingStrategy.Bubble,            typeof(RoutedEventHandler), typeof(EnumToggleButton));
+        public static readonly RoutedEvent SelectedEvent = EventManager.RegisterRoutedEvent("Selected", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(EnumToggleButton));
 
         // .NET wrapper
         public event RoutedEventHandler Selected
@@ -141,12 +126,11 @@ namespace UtilityWpf.View
         public class EnumEventArgs : RoutedEventArgs
         {
             public bool IsChecked;
-            public EnumEventArgs(RoutedEvent routedEvent,bool isChecked) : base(routedEvent)
+
+            public EnumEventArgs(RoutedEvent routedEvent, bool isChecked) : base(routedEvent)
             {
                 IsChecked = isChecked;
             }
         }
     }
-
-
 }

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 
@@ -22,10 +18,10 @@ namespace UtilityWpf
         {
             if (targetType != typeof(Visibility))
                 throw new InvalidOperationException("The target must be a boolean");
-            if(Invert)
-            return (bool)value ? Collapse ? Visibility.Collapsed:Visibility.Hidden : Visibility.Visible;
+            if (Invert)
+                return (bool)value ? Collapse ? Visibility.Collapsed : Visibility.Hidden : Visibility.Visible;
             else
-                return (bool)value ?  Visibility.Visible: Collapse ? Visibility.Collapsed : Visibility.Hidden;
+                return (bool)value ? Visibility.Visible : Collapse ? Visibility.Collapsed : Visibility.Hidden;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter,
@@ -34,6 +30,6 @@ namespace UtilityWpf
             throw new NotSupportedException();
         }
 
-        #endregion
+        #endregion IValueConverter Members
     }
 }

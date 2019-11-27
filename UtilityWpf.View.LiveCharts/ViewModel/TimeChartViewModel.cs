@@ -1,24 +1,15 @@
-﻿
-using LiveCharts;
-using LiveCharts.Defaults;
+﻿using LiveCharts;
 using LiveCharts.Configurations;
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
 using System.Reactive.Concurrency;
 using System.Reactive.Linq;
-
 
 namespace UtilityWpf.ViewModel.Livecharts
 {
     using System.Collections;
-    using static LiveChartsHelper;
-
 
     public class TimeChartViewModel
     {
@@ -29,10 +20,8 @@ namespace UtilityWpf.ViewModel.Livecharts
 
         private IDisposable disposable;
 
-
         public TimeChartViewModel(IObservable<KeyValuePair<DateTime, double>> observable, string name, IScheduler scheduler) : this()
         {
-
             disposable = observable
                  .ObserveOn(scheduler)
                  .Subscribe(_ =>
@@ -46,13 +35,10 @@ namespace UtilityWpf.ViewModel.Livecharts
                  }
                 , ex =>
                 Console.WriteLine("Error in graph view model"));//.Dispose();
-
-
         }
 
         public TimeChartViewModel(IEnumerable<KeyValuePair<DateTime, double>> series, string name, System.Windows.Threading.Dispatcher dispatcher) : this()
         {
-
             dispatcher.Invoke(() =>
             {
                 var line = SeriesCollection.GetLineOrNew(name);
@@ -63,7 +49,6 @@ namespace UtilityWpf.ViewModel.Livecharts
                         Value = _.Value,
                     });
             });
-
         }
 
         public TimeChartViewModel(IObservable<KeyValuePair<object, KeyValuePair<DateTime, double>>> observable, IScheduler scheduler) : this()
@@ -82,10 +67,7 @@ namespace UtilityWpf.ViewModel.Livecharts
                 }
                 , ex =>
                Console.WriteLine("Error in graph view model"));//.Dispose();
-
         }
-
-
 
         public TimeChartViewModel(IEnumerable<KeyValuePair<object, SortedList<DateTime, double>>> lines) : this()
         {
@@ -98,6 +80,7 @@ namespace UtilityWpf.ViewModel.Livecharts
             foreach (var kvp in lines)
                 SeriesCollection.AddSeries(kvp.Key.ToString(), kvp.Value);
         }
+
         public TimeChartViewModel(IEnumerable lines) : this()
         {
             //foreach (var kvp in lines)
@@ -110,17 +93,11 @@ namespace UtilityWpf.ViewModel.Livecharts
                 SeriesCollection.AddSeries(kvp.Key, kvp.Value.ToList());
         }
 
-
-
-
-
         public TimeChartViewModel(IEnumerable<IEnumerable<Tuple<DateTime, double>>> lines) : this()
         {
             foreach (var kvp in lines)
                 SeriesCollection.AddSeries("", kvp.ToList());
-
         }
-
 
         public TimeChartViewModel(IObservable<KeyValuePair<string, KeyValuePair<DateTime, Tuple<double, double>>>> measurements, IScheduler scheduler) : this()
         {
@@ -142,8 +119,7 @@ namespace UtilityWpf.ViewModel.Livecharts
             });
         }
 
-
-        TimeChartViewModel()
+        private TimeChartViewModel()
         {
             var dayConfig = Initialise();
 
@@ -153,7 +129,6 @@ namespace UtilityWpf.ViewModel.Livecharts
             SeriesCollection = new LiveCharts.SeriesCollection(dayConfig);
         }
 
-
         private CartesianMapper<DateModel> Initialise()
         {
             return
@@ -162,17 +137,11 @@ namespace UtilityWpf.ViewModel.Livecharts
             .Y(dayModel => dayModel.Value);
         }
 
-
-
-
         public void Dispose()
         {
             disposable?.Dispose();
         }
 
-
-
-     
         //public TimeChartViewModel(IObservable<KeyValuePair<DateTime, double>> observable, string name, IScheduler scheduler)
 
         //{
@@ -192,8 +161,6 @@ namespace UtilityWpf.ViewModel.Livecharts
         //        , ex =>
         //        Console.WriteLine("Error in graph view model"));//.Dispose();
         //}
-
-
 
         //public TimeChartViewModel(IEnumerable<KeyValuePair<DateTime,Tuple< double,double>>> series, string name,string name2, System.Windows.Threading.Dispatcher dispatcher)
         //{
@@ -244,13 +211,11 @@ namespace UtilityWpf.ViewModel.Livecharts
 
         //}
 
-
         //public TimeChartViewModel2(IObservable<KeyValuePair<string, KeyValuePair<DateTime, double>>> observable, IScheduler scheduler)
         //{
         //    Initialise();
         //    observable.Subscribe(ff =>
         //                Console.WriteLine("price subscription " + ff.Value));
-
 
         //    disposable = observable
         //        .ObserveOn(scheduler)
@@ -270,11 +235,6 @@ namespace UtilityWpf.ViewModel.Livecharts
 
         //}
 
-
-
-
-
-
         public void AddValue(string title, DateTime dt, double value)
         {
             System.Windows.Application.Current.Dispatcher.Invoke(() =>
@@ -285,10 +245,8 @@ namespace UtilityWpf.ViewModel.Livecharts
                  DateTime = dt,
                  Value = value
              });
-
             });
         }
-
 
         public void AddValues(string title, IEnumerable<Tuple<DateTime, double>> values)
         {
@@ -301,10 +259,8 @@ namespace UtilityWpf.ViewModel.Livecharts
                         DateTime = val.Item1,
                         Value = val.Item2
                     });
-
             });
         }
-
 
         internal void RemoveLines(Func<LiveCharts.Definitions.Series.ISeriesView, bool> p)
         {
@@ -312,18 +268,7 @@ namespace UtilityWpf.ViewModel.Livecharts
             {
                 if (p(ls))
                     SeriesCollection.Remove(ls);
-
             }
         }
-
-
-
-
-
     }
-
-
-
-
-
 }

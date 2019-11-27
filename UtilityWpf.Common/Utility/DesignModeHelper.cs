@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace UtilityWpf
 {
     public class DesignModeHelper
     {
-
         private static bool? _isInDesignMode;
 
         /// <summary>
@@ -24,13 +18,11 @@ namespace UtilityWpf
             {
                 if (!_isInDesignMode.HasValue)
                 {
-
                     var prop = DesignerProperties.IsInDesignModeProperty;
                     _isInDesignMode
                         = (bool)DependencyPropertyDescriptor
                         .FromProperty(prop, typeof(System.Windows.FrameworkElement))
                         .Metadata.DefaultValue;
-
                 }
 
                 return _isInDesignMode.Value;

@@ -1,9 +1,6 @@
-﻿
-using System;
-using System.ComponentModel;
+﻿using System;
 using System.Windows.Forms;
 using System.Windows.Input;
-using UtilityWpf;
 
 namespace UtilityWpf.View
 {
@@ -12,7 +9,6 @@ namespace UtilityWpf.View
         private string directory;
 
         public event EventHandler CanExecuteChanged;
- 
 
         public bool CanExecute(object parameter)
         {
@@ -22,7 +18,7 @@ namespace UtilityWpf.View
         public string Directory
         {
             get { return directory; }
-            set { this.OnPropertyChanged(ref directory,value); }
+            set { this.OnPropertyChanged(ref directory, value); }
         }
 
         public void Execute(object parameter)

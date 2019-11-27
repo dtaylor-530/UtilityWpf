@@ -9,14 +9,14 @@ namespace CustomHelper
         internal class CustomType : Type
         {
             private readonly Type _baseType;
-            
+
             public CustomType(Type delegatingType)
             {
                 if (delegatingType == null)
                     throw new ArgumentNullException("delegatingType");
                 _baseType = delegatingType;
             }
-            
+
             public override Assembly Assembly
             {
                 get { return _baseType.Assembly; }

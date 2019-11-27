@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace UtilityWpf.View
 {
@@ -14,11 +12,9 @@ namespace UtilityWpf.View
             .SelectMany(_ => System.IO.Directory.GetFiles(_.FullName, "*.*", SearchOption.AllDirectories))
             .ToArray();
 
-
         public static string FileMap(string path)
             => DateTime
             .FromFileTime(Convert.ToInt64(System.IO.Path.GetFileName(path).Replace(System.IO.Path.GetExtension(path), "")))
             .ToShortDateString();
-        
     }
 }

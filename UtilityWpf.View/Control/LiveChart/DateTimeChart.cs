@@ -1,18 +1,7 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using UtilityWpf.ViewModel;
-
-namespace UtilityWpf.View.LiveChart
+﻿namespace UtilityWpf.View.LiveChart
 {
     //public class DateTimeChart : Control
     //{
-
     //    public static readonly DependencyProperty ItemsProperty = DependencyProperty.Register("Items", typeof(IEnumerable), typeof(DateTimeChart), new PropertyMetadata(null, SeriesChanged));
 
     //    private static void SeriesChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -41,7 +30,6 @@ namespace UtilityWpf.View.LiveChart
     //        DefaultStyleKeyProperty.OverrideMetadata(typeof(DateTimeChart), new FrameworkPropertyMetadata(typeof(DateTimeChart)));
     //        //SeriesProperty.OverrideMetadata(typeof(DateTimeChart), new FrameworkPropertyMetadata(typeof(DateTimeChart), FrameworkPropertyMetadataOptions.None, null, SeriesChanged));
     //    }
-
 
     //    public DateTimeChart()
     //    {

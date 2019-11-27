@@ -7,7 +7,6 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -19,6 +18,7 @@ namespace UtilityWpf.View
     {
         //Dictionary<string, Subject<object>> dict = typeof(SliderItemsControl).GetDependencyProperties().ToDictionary(_ => _.Name.Substring(0, _.Name.Length - 8), _ => new Subject<object>());
         private ItemsControl ItemsControl;
+
         private StackPanel KeyValuePanel;
         private TextBlock at;
         private TextBlock bt;
@@ -50,7 +50,6 @@ namespace UtilityWpf.View
                 at.Text = keyValuePairRoutedEventArgs.KeyValuePair.Key;
                 bt.Text = keyValuePairRoutedEventArgs.KeyValuePair.Value.ToString("00.###");
             });
-
         }
 
         public bool ShowKeyValuePanel
@@ -62,8 +61,6 @@ namespace UtilityWpf.View
         // Using a DependencyProperty as the backing store for ShowKeyValuePanel.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ShowKeyValuePanelProperty =
             DependencyProperty.Register("ShowKeyValuePanel", typeof(bool), typeof(SliderItemsControl), new PropertyMetadata(true, Changed));
-
-
 
         public object KeyValuePair
         {
@@ -89,8 +86,6 @@ namespace UtilityWpf.View
 
         public static readonly DependencyProperty DataProperty = DependencyProperty.Register("Data", typeof(IEnumerable), typeof(SliderItemsControl), new PropertyMetadata(null, Changed));
 
-
-
         public string Value
         {
             get { return (string)GetValue(ValueProperty); }
@@ -99,18 +94,13 @@ namespace UtilityWpf.View
 
         public static readonly DependencyProperty ValueProperty = DependencyProperty.Register("Value", typeof(string), typeof(SliderItemsControl), new PropertyMetadata(null, Changed));
 
-
         public string Key
         {
             get { return (string)GetValue(KeyProperty); }
             set { SetValue(KeyProperty, value); }
         }
 
-
         public static readonly DependencyProperty KeyProperty = DependencyProperty.Register("Key", typeof(string), typeof(SliderItemsControl), new PropertyMetadata(null, Changed));
-
-
-
 
         public string Min
         {
@@ -118,10 +108,7 @@ namespace UtilityWpf.View
             set { SetValue(MinProperty, value); }
         }
 
-
         public static readonly DependencyProperty MinProperty = DependencyProperty.Register("Min", typeof(string), typeof(SliderItemsControl), new PropertyMetadata(null, Changed));
-
-
 
         public string Max
         {
@@ -131,13 +118,10 @@ namespace UtilityWpf.View
 
         public static readonly DependencyProperty MaxProperty = DependencyProperty.Register("Max", typeof(string), typeof(SliderItemsControl), new PropertyMetadata(null, Changed));
 
-
-
         //private static void Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
         //{
         //    (d as SliderItemsControl).dict[e.Property.Name].OnNext(e.NewValue);
         //}
-
 
         public SliderItemsControl()
         {
@@ -167,7 +151,6 @@ namespace UtilityWpf.View
            }, System.Windows.Threading.DispatcherPriority.Background, default(System.Threading.CancellationToken))));
         });
 
-
             GetSubject(nameof(ShowKeyValuePanel)).Subscribe(_ =>
             {
                 this.Dispatcher.Invoke(() =>
@@ -190,13 +173,10 @@ namespace UtilityWpf.View
                 data.Cast<object>().Select(_ =>
               type[max].GetValue(_)).ToList().Select(_ => Convert.ToDouble(_)) : null : null;
 
-
               var xxx = Factory.Create(keys, values, mins, maxs);
 
               return xxx;
-
           });
-
 
         private void Xx_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
@@ -209,10 +189,7 @@ namespace UtilityWpf.View
             }, System.Windows.Threading.DispatcherPriority.Background);
         }
 
-
-
         public static readonly RoutedEvent ValueChangedEvent = EventManager.RegisterRoutedEvent("ValueChanged", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(SliderItemsControl));
-
 
         public event RoutedEventHandler ValueChanged
         {
@@ -226,24 +203,19 @@ namespace UtilityWpf.View
             RaiseEvent(newEventArgs);
         }
 
-
         public class KeyValuePairRoutedEventArgs : RoutedEventArgs
         {
             public KeyValuePair<string, double> KeyValuePair { get; set; }
 
             public KeyValuePairRoutedEventArgs(RoutedEvent @event) : base(@event)
             {
-
             }
-
         }
 
-        class Factory
+        private class Factory
         {
-
             public static IEnumerable<KeyRange> Create(IEnumerable<string> keys, IEnumerable<double> values, IEnumerable<double> mins, IEnumerable<double> maxs)
             {
-
                 using (var b = keys.GetEnumerator())
                 using (var c = values.GetEnumerator())
                 using (var d = mins?.GetEnumerator())
@@ -254,26 +226,22 @@ namespace UtilityWpf.View
                         var ff = new KeyRange(b.Current, c.Current, d?.Current, e?.Current);
                         yield return ff;
                     }
-
                 }
             }
-
-
         }
-
     }
+
     public class KeyRange : INotifyPropertyChanged
     {
-        double value;
+        private double value;
+
         public KeyRange(string key, double value, double? min = null, double? max = null)
         {
             Key = key;
             Value = value;
             Min = min ?? 0;
             Max = max ?? value * 2;
-
         }
-
 
         public int TickFrequency => (int)((Max - Min) / 10);
         public string Key { get; set; }
@@ -283,5 +251,4 @@ namespace UtilityWpf.View
 
         public event PropertyChangedEventHandler PropertyChanged;
     }
-
 }

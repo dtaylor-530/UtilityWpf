@@ -1,5 +1,4 @@
-﻿
-//using LiveCharts;
+﻿//using LiveCharts;
 //using LiveCharts.Defaults;
 
 //using System;
@@ -13,22 +12,12 @@
 //using System.Reactive.Concurrency;
 //using System.Reactive.Linq;
 
-
 //namespace UtilityWpf.ViewModel
 //{
-
-
-
-
-
 //    public static class LiveChartsHelper
 //    {
-
-
-
 //        public static void AddSeries(this SeriesCollection seriesCollection, string name, IEnumerable<Tuple<DateTime, double>> line = null)
 //        {
-
 //            if (line != null)
 //                seriesCollection.Add(line.ToLineSeries(name));
 
@@ -43,7 +32,6 @@
 //        }
 //        public static void AddSeries(this SeriesCollection seriesCollection, string name, IEnumerable<KeyValuePair<DateTime, double>> line = null)
 //        {
-
 //            if (line != null)
 //                seriesCollection.Add(line.ToLineSeries(name));
 
@@ -71,7 +59,6 @@
 
 //        public static LiveCharts.Wpf.LineSeries ToLineSeries(this IEnumerable<Tuple<DateTime, double>> lst, string title = null)
 //        {
-
 //            return new LiveCharts.Wpf.LineSeries
 //            {
 //                Title = title,
@@ -90,7 +77,6 @@
 //        }
 //        public static LiveCharts.Wpf.LineSeries ToLineSeries(this IEnumerable<KeyValuePair<DateTime, double>> lst, string title = null)
 //        {
-
 //            return new LiveCharts.Wpf.LineSeries
 //            {
 //                Title = title,
@@ -108,8 +94,6 @@
 //            };
 //        }
 
-
-
 //        public static LiveCharts.Definitions.Series.ISeriesView GetLineOrNew(this SeriesCollection seriesCollection, string title)
 //        {
 //            LiveCharts.Definitions.Series.ISeriesView result;
@@ -126,22 +110,14 @@
 //            return result;
 //        }
 
-
-
-
 //        public static void TransformAll(this SeriesCollection seriesCollection, Func<LiveCharts.Wpf.LineSeries, LiveCharts.Wpf.LineSeries> transform)
 //        {
-
 //            foreach (LiveCharts.Wpf.LineSeries series in seriesCollection)
 //            {
 //                seriesCollection.Add(transform(series));
 //            }
 
-
 //        }
-
-
-
 
 //    }
 //}

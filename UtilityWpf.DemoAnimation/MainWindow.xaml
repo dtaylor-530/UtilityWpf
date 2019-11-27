@@ -20,7 +20,6 @@
                         <ani:BarControl Size="{Binding ElementName=height1,Path=Number}" Duration="{Binding ElementName=duration,Path=Number}"></ani:BarControl>
                     </Grid>
                 </DockPanel>
-         
             </TabItem>
             <TabItem Header="BlinkControl">
                 <DockPanel>
@@ -30,10 +29,7 @@
                     <Grid>
                         <ani:BlinkControl  Duration="{Binding ElementName=duration1,Path=Number}"></ani:BlinkControl>
                     </Grid>
-
-
                 </DockPanel>
-              
             </TabItem>
 
             <TabItem Header="BeatControl">
@@ -47,10 +43,7 @@
                     <Grid>
                         <ani:BeatControl  Beat="{Binding Beat.Value}"></ani:BeatControl>
                     </Grid>
-
-
                 </DockPanel>
-
             </TabItem>
         </TabControl>
     </Grid>

@@ -8,13 +8,8 @@ xmlns:viewmodel="clr-namespace:UtilityWpf.ViewModel"
         <StackPanel Orientation="Horizontal">
             <Label Content="{Binding Title}"></Label>
             <pt:SpinControl Value="{Binding Output.Value}"  Height="20"  Width="60" Margin="5" Minimum="{Binding Minimum}" Maximum="{Binding Maximum}" SmallChange="1" LargeChange="10">
-                <TextBox Text="{Binding Output.Value}" BorderThickness="0" HorizontalContentAlignment="Center"/>
+                <TextBox Text="{Binding Output.Value}" BorderThickness="0" HorizontalContentAlignment="Center" />
             </pt:SpinControl>
         </StackPanel>
     </DataTemplate>
-
-
-
-
-
 </ResourceDictionary>

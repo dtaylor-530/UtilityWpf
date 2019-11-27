@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
 
 namespace UtilityWpf.Converter
@@ -16,7 +12,7 @@ namespace UtilityWpf.Converter
 
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            int param =  System.Convert.ToInt32(parameter);
+            int param = System.Convert.ToInt32(parameter);
             int val = System.Convert.ToInt32(value);
 
             return (param > val) == (!Invert);
@@ -28,6 +24,6 @@ namespace UtilityWpf.Converter
             throw new NotSupportedException();
         }
 
-        #endregion
+        #endregion IValueConverter Members
     }
 }

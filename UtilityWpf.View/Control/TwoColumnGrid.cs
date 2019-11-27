@@ -1,23 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Windows.Controls;
 using System.Windows;
-using System.Windows.Controls.Primitives;
+using System.Windows.Controls;
 
 namespace UtilityWpf.View
 {
     /// <summary>
-    /// Defines a table that has two columns with any number of rows. 
+    /// Defines a table that has two columns with any number of rows.
     /// </summary>
     /// <remarks>
     /// This panel is designed for use in configuration/settings windows where you typically
     /// have a pairs of "Label: SomeControl" organized in rows.
-    /// 
-    /// The width of the first column is determined by the widest item that column and the width of the 
+    ///
+    /// The width of the first column is determined by the widest item that column and the width of the
     /// second column is expanded to occupy all remaining space.
-    /// 
+    ///
     /// Written by: Isak Savo, isak.savo@gmail.com
     /// <see href="https://www.codeproject.com/Articles/238307/A-Two-Column-Grid-for-WPF"></see>
     /// Licensed under the Code Project Open License http://www.codeproject.com/info/cpol10.aspx
@@ -58,7 +56,6 @@ namespace UtilityWpf.View
         public static readonly DependencyProperty ColumnSpacingProperty =
             DependencyProperty.Register("ColumnSpacing", typeof(double), typeof(TwoColumnGrid),
             new FrameworkPropertyMetadata(0.0d, FrameworkPropertyMetadataOptions.AffectsArrange | FrameworkPropertyMetadataOptions.AffectsMeasure));
-
 
         /// <summary>
         /// Measures the size required for all the child elements in this panel.
@@ -124,6 +121,5 @@ namespace UtilityWpf.View
             }
             return base.ArrangeOverride(arrangeSize);
         }
-
     }
 }

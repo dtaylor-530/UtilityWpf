@@ -1,12 +1,7 @@
-﻿
-using System;
+﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
-
 
 namespace UtilityWpf
 {
@@ -18,7 +13,6 @@ namespace UtilityWpf
         public object Convert(object value, Type targetType, object parameter,
             System.Globalization.CultureInfo culture)
         {
-
             return ((IEnumerable)value).Cast<object>().Count();
         }
 
@@ -28,6 +22,6 @@ namespace UtilityWpf
             throw new NotSupportedException();
         }
 
-        #endregion
+        #endregion IValueConverter Members
     }
 }

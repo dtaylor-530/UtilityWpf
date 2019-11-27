@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
@@ -10,7 +6,7 @@ using System.Windows.Shapes;
 
 namespace UtilityWpf.Animation
 {
-    public class BeatControl:Control
+    public class BeatControl : Control
     {
         static BeatControl()
         {
@@ -19,8 +15,6 @@ namespace UtilityWpf.Animation
 
         public BeatControl()
         {
-
-
         }
 
         private Rectangle rctMovingObject;
@@ -28,7 +22,6 @@ namespace UtilityWpf.Animation
         public override void OnApplyTemplate()
         {
             rctMovingObject = this.GetTemplateChild("PART_MovingObject") as Rectangle;
-
         }
 
         public object Beat
@@ -37,19 +30,15 @@ namespace UtilityWpf.Animation
             set { SetValue(BeatProperty, value); }
         }
 
-
         public static readonly DependencyProperty BeatProperty = DependencyProperty.Register("Beat", typeof(object), typeof(BeatControl), new PropertyMetadata(null, BeatChanged));
 
         private static void BeatChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-
             BeatControl bc = d as BeatControl;
             DoubleAnimation animation = new DoubleAnimation(50, TimeSpan.FromMilliseconds(50));
             animation.From = 0;
-            
+
             bc.rctMovingObject?.BeginAnimation(Rectangle.WidthProperty, animation);
-
-
         }
     }
 }

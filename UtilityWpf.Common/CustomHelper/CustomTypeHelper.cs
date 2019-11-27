@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Reflection;
-using System.ComponentModel;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 
 namespace CustomHelper
@@ -19,8 +19,8 @@ namespace CustomHelper
         public CustomTypeHelper()
         {
             foreach (var property in GetCustomType().GetProperties())
-                if(property.Name!=null)
-                _customPropertyValues.Add(property.Name, null);
+                if (property.Name != null)
+                    _customPropertyValues.Add(property.Name, null);
         }
 
         /// <summary>
@@ -58,7 +58,7 @@ namespace CustomHelper
         /// <param name="propertyType"></param>
         public static void AddProperty(string name, Type propertyType)
         {
-            if (!CheckIfNameExists(name))                
+            if (!CheckIfNameExists(name))
                 CustomProperties.Add(new CustomPropertyInfoHelper(name, propertyType, typeof(T)));
         }
 
@@ -70,7 +70,7 @@ namespace CustomHelper
         /// <param name="attributes"></param>
         public static void AddProperty(string name, Type propertyType, List<Attribute> attributes)
         {
-            if (!CheckIfNameExists(name)) 
+            if (!CheckIfNameExists(name))
                 CustomProperties.Add(new CustomPropertyInfoHelper(name, propertyType, attributes, typeof(T)));
         }
 
@@ -82,26 +82,23 @@ namespace CustomHelper
         public void SetPropertyValue(string propertyName, object value)
         {
             CustomPropertyInfoHelper propertyInfo = CustomProperties.FirstOrDefault(prop => prop.Name == propertyName);
-            if(propertyName!=null)
-            if (propertyInfo == null || !_customPropertyValues.ContainsKey(propertyName)) 
-                throw new Exception("There is no property with the name " + propertyName); 
-            
+            if (propertyName != null)
+                if (propertyInfo == null || !_customPropertyValues.ContainsKey(propertyName))
+                    throw new Exception("There is no property with the name " + propertyName);
+
             if (ValidateValueType(value, propertyInfo._type))
             {
-
                 //   if (_customPropertyValues[propertyName] != value)
                 //{
                 //if (propertyName != null)
                 //{
-
                 _customPropertyValues[propertyName] = value;
-                    RaisePropertyChanged(propertyName);
-               // }
-               // }
-
-            }               
-            else 
-                throw new Exception("Value is of the wrong type or null for a non-nullable type.");                        
+                RaisePropertyChanged(propertyName);
+                // }
+                // }
+            }
+            else
+                throw new Exception("Value is of the wrong type or null for a non-nullable type.");
         }
 
         /// <summary>
@@ -113,7 +110,7 @@ namespace CustomHelper
         {
             if (_customPropertyValues.ContainsKey(propertyName))
                 return _customPropertyValues[propertyName];
-            throw new Exception("There is no property " + propertyName); 
+            throw new Exception("There is no property " + propertyName);
         }
 
         /// <summary>
@@ -124,7 +121,7 @@ namespace CustomHelper
         /// <returns></returns>
         public TV GetPropertyValue<TV>(string propertyName)
         {
-            return (TV) GetPropertyValue(propertyName);
+            return (TV)GetPropertyValue(propertyName);
         }
 
         /// <summary>
@@ -140,7 +137,7 @@ namespace CustomHelper
         /// Gets the custom type provided by this object.
         /// </summary>
         /// <returns>
-        /// The custom type. 
+        /// The custom type.
         /// </returns>
         public Type GetCustomType()
         {
@@ -176,7 +173,7 @@ namespace CustomHelper
 
         private static bool CheckIfNameExists(string name)
         {
-            if (CustomProperties.Any(p => 0 == string.Compare(p.Name, name, StringComparison.OrdinalIgnoreCase)) 
+            if (CustomProperties.Any(p => 0 == string.Compare(p.Name, name, StringComparison.OrdinalIgnoreCase))
                 || typeof(T).GetProperties().Any(p => 0 == string.Compare(p.Name, name, StringComparison.OrdinalIgnoreCase)))
                 throw new Exception("Property with this name already exists: " + name);
 
@@ -184,9 +181,11 @@ namespace CustomHelper
         }
 
         #region Data
+
         private static readonly List<CustomPropertyInfoHelper> CustomProperties = new List<CustomPropertyInfoHelper>();
         private readonly Dictionary<string, object> _customPropertyValues = new Dictionary<string, object>();
         private readonly Lazy<CustomType> _ctype = new Lazy<CustomType>(() => new CustomType(typeof(T)));
-        #endregion
+
+        #endregion Data
     }
 }

@@ -1,6 +1,4 @@
-﻿
-
-namespace UtilityWpf.Behavior
+﻿namespace UtilityWpf.Behavior
 {
     //https://stackoverflow.com/questions/942548/setting-a-property-with-an-eventtrigger
     // Neutrino
@@ -33,7 +31,7 @@ namespace UtilityWpf.Behavior
             DependencyProperty.Register("PropertyName", typeof(string), typeof(SetterAction),
             new PropertyMetadata(String.Empty));
 
-        #endregion
+        #endregion PropertyName
 
         #region Value
 
@@ -50,9 +48,9 @@ namespace UtilityWpf.Behavior
             DependencyProperty.Register("Value", typeof(object), typeof(SetterAction),
             new PropertyMetadata(null));
 
-        #endregion
+        #endregion Value
 
-        #endregion
+        #endregion Properties
 
         #region Overrides
 
@@ -73,7 +71,6 @@ namespace UtilityWpf.Behavior
 
             if (Value == null)
                 convertedValue = null;
-
             else
             {
                 var valueType = Value.GetType();
@@ -81,17 +78,14 @@ namespace UtilityWpf.Behavior
 
                 if (valueType == propertyType)
                     convertedValue = Value;
-
                 else
                 {
                     var propertyConverter = TypeDescriptor.GetConverter(propertyType);
 
                     if (propertyConverter.CanConvertFrom(valueType))
                         convertedValue = propertyConverter.ConvertFrom(Value);
-
                     else if (valueType.IsSubclassOf(propertyType))
                         convertedValue = Value;
-
                     else
                         throw new ArgumentException(String.Format("Cannot convert type '{0}' to '{1}'.", valueType, propertyType));
                 }
@@ -100,7 +94,6 @@ namespace UtilityWpf.Behavior
             property.SetValue(target, convertedValue);
         }
 
-        #endregion
-
+        #endregion Overrides
     }
 }

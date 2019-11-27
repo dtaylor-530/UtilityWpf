@@ -1,20 +1,12 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
-
 
 namespace UtilityWpf.View
 {
     public class ListBoxCriteria : ListBox
     {
-
         protected override DependencyObject GetContainerForItemOverride()
         {
             var criteriaItem = new CriteriaItem();
@@ -22,9 +14,8 @@ namespace UtilityWpf.View
             return criteriaItem;
         }
 
-        protected override bool IsItemItsOwnContainerOverride(object item) => 
+        protected override bool IsItemItsOwnContainerOverride(object item) =>
             item is CriteriaItem;
-
 
         public ListBoxCriteria() : base()
         {
@@ -35,7 +26,6 @@ namespace UtilityWpf.View
             get { return (bool)GetValue(IsCriteriaMetProperty); }
             set { SetValue(IsCriteriaMetProperty, value); }
         }
-
 
         public static readonly DependencyProperty IsCriteriaMetProperty = DependencyProperty.Register("IsCriteriaMet", typeof(bool), typeof(ListBoxCriteria), new PropertyMetadata(false));
 
@@ -66,7 +56,6 @@ namespace UtilityWpf.View
             }
 
             RaiseEvent(new CriteriaMetEventArgs(ListBoxCriteria.CriteriaMetEvent) { Indices = indices.ToArray() });
-
         }
 
         public static readonly RoutedEvent CriteriaMetEvent = EventManager.RegisterRoutedEvent("CriteriaMet", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(CriteriaItem));
@@ -84,14 +73,7 @@ namespace UtilityWpf.View
             public CriteriaMetEventArgs(RoutedEvent @event) : base(@event)
             { }
         }
-
-
-
     }
-
-
-
-
 
     public class CriteriaItem : ListBoxItem
     {
@@ -110,7 +92,6 @@ namespace UtilityWpf.View
 
         private void CriteriaItem_Loaded(object sender, RoutedEventArgs e)
         {
-            
         }
 
         public bool MeetsCriteria
@@ -119,9 +100,8 @@ namespace UtilityWpf.View
             set { SetValue(MeetsCriteriaProperty, value); }
         }
 
-
         public static readonly DependencyProperty MeetsCriteriaProperty =
-            DependencyProperty.Register("MeetsCriteria", typeof(bool), typeof(CriteriaItem), new FrameworkPropertyMetadata(false,MeetsCriteriaChanged));
+            DependencyProperty.Register("MeetsCriteria", typeof(bool), typeof(CriteriaItem), new FrameworkPropertyMetadata(false, MeetsCriteriaChanged));
 
         private static void MeetsCriteriaChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -130,13 +110,11 @@ namespace UtilityWpf.View
 
         public static readonly RoutedEvent CriteriaChangedEvent = EventManager.RegisterRoutedEvent("CriteriaChanged", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(CriteriaItem));
 
-
         public event RoutedEventHandler CriteriaChanged
         {
             add { AddHandler(CriteriaChangedEvent, value); }
             remove { RemoveHandler(CriteriaChangedEvent, value); }
         }
-
 
         public class CriteriaChangedEventArgs : RoutedEventArgs
         {

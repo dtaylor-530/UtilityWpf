@@ -1,32 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Threading;
-using UtilityWpf;
 
 namespace UtilityWpf.View
 {
-
     public class ProgressTimeBar : ProgressBar
     {
-
-
         public TimeSpan MTime
         {
             get { return (TimeSpan)GetValue(MTimeProperty); }
             set { SetValue(MTimeProperty, value); }
         }
 
-
         public static readonly DependencyProperty MTimeProperty =
             DependencyProperty.Register("MTime", typeof(TimeSpan), typeof(ProgressTimeBar), new PropertyMetadata(default(TimeSpan)));
-
-
 
         static ProgressTimeBar()
         {
@@ -42,11 +31,8 @@ namespace UtilityWpf.View
             TimeFunction();
         }
 
-
-
         protected virtual void TimeFunction()
         {
-
             var obs = Observable
       .FromEventPattern<RoutedPropertyChangedEventHandler<double>, RoutedPropertyChangedEventArgs<double>>(h => this.ValueChanged += h, h => this.ValueChanged -= h);
 
@@ -63,8 +49,5 @@ namespace UtilityWpf.View
                 this.Dispatcher.InvokeAsync(() => MTime = TimeSpan.FromMilliseconds((long)((double)_) * 10), System.Windows.Threading.DispatcherPriority.Background, default(System.Threading.CancellationToken));
             });
         }
-
-
-
     }
 }

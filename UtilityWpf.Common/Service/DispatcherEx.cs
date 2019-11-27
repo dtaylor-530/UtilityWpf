@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Threading;
 
 namespace UtilityWpf
@@ -15,8 +11,6 @@ namespace UtilityWpf
 
         public void BeginInvoke(Action action) => dispatcher.BeginInvoke(action);
 
-
         public void Invoke(Action action) => dispatcher.Invoke(action);
-
     }
 }

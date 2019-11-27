@@ -1,22 +1,15 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UtilityHelper;
 using UtilityHelper.NonGeneric;
-using UtilityWpf;
 
 namespace CustomHelper
 {
     public static class DynmamicHelper
     {
-
-
         public static List<Dynamic> OnGetData(IEnumerable enumerable, string key, string value)
         {
-
             var keys = ((IEnumerable)enumerable.First()).GetPropertyValues<object>(key);
             //var values= ((IEnumerable)enumerable.First()).GetPropertyValues(value);
 
@@ -27,7 +20,6 @@ namespace CustomHelper
             }
             catch
             {
-
             }
             var Customers = new List<Dynamic>();
 
@@ -37,7 +29,6 @@ namespace CustomHelper
                 Dynamic customer1 = new Dynamic();// { FirstName = "Julie", LastName = "Smith" };
                 foreach (var val in values.Cast<object>().Zip(keys.Cast<object>(), (a, b) => new { a, b }))
                     customer1.SetPropertyValue((string)val.b, val.a);
-
 
                 Customers.Add(customer1);
             }

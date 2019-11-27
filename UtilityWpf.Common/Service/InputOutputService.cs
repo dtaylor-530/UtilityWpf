@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reactive.Linq;
-using System.Reactive.Threading.Tasks;
-using System.Text;
-using System.Threading.Tasks;
-using UtilityInterface;
-using UtilityInterface.Generic;
-
-namespace UtilityWpf
+﻿namespace UtilityWpf
 {
     //public abstract class InputOutputService<T,R>: IOutputService<R>
     //{

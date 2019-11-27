@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
-
 
 namespace UtilityWpf.Animation
 {
@@ -15,14 +10,12 @@ namespace UtilityWpf.Animation
     {
         public static readonly DependencyProperty DurationProperty = DependencyProperty.Register("Duration", typeof(int), typeof(BlinkControl), new PropertyMetadata(1000, DurationChanged));
 
-
         private Ellipse ellipse;
 
         public override void OnApplyTemplate()
         {
             ellipse = this.GetTemplateChild("PART_Ellipse") as Ellipse;
         }
-
 
         public int Duration
         {
@@ -35,17 +28,12 @@ namespace UtilityWpf.Animation
             DefaultStyleKeyProperty.OverrideMetadata(typeof(BlinkControl), new FrameworkPropertyMetadata(typeof(BlinkControl)));
         }
 
-
-
         public BlinkControl()
         {
-
         }
-
 
         private static void DurationChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-
             BlinkControl bc = d as BlinkControl;
             if (bc.ellipse != null)
             {
@@ -66,12 +54,6 @@ namespace UtilityWpf.Animation
                 blinkStoryboard.Children.Add(blinkAnimation);
                 blinkStoryboard.Begin();
             }
-
         }
-
-
-
-
-
     }
 }

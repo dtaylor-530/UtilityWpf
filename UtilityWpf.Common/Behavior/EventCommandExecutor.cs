@@ -1,10 +1,5 @@
 ﻿using Microsoft.Xaml.Behaviors;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -27,7 +22,7 @@ namespace UtilityWpf.Behavior
             Culture = culture;
         }
 
-        #endregion
+        #endregion Constructors
 
         #region Properties
 
@@ -42,7 +37,7 @@ namespace UtilityWpf.Behavior
         public static readonly DependencyProperty CommandProperty =
             DependencyProperty.Register("Command", typeof(ICommand), typeof(EventCommandExecuter), new PropertyMetadata(null));
 
-        #endregion
+        #endregion Command
 
         #region EventArgsConverterParameter
 
@@ -55,13 +50,13 @@ namespace UtilityWpf.Behavior
         public static readonly DependencyProperty EventArgsConverterParameterProperty =
             DependencyProperty.Register("EventArgsConverterParameter", typeof(object), typeof(EventCommandExecuter), new PropertyMetadata(null));
 
-        #endregion
+        #endregion EventArgsConverterParameter
 
         public IValueConverter EventArgsConverter { get; set; }
 
         public CultureInfo Culture { get; set; }
 
-        #endregion
+        #endregion Properties
 
         protected override void Invoke(object parameter)
         {

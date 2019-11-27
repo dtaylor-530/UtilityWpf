@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -17,7 +12,6 @@ namespace UtilityWpf.Command
             get { return (object)GetValue(OutputProperty); }
             set { SetValue(OutputProperty, value); }
         }
-
 
         public static readonly DependencyProperty OutputProperty = DependencyProperty.Register("Output", typeof(object), typeof(OutputCommand), new PropertyMetadata(null));
 
@@ -34,7 +28,6 @@ namespace UtilityWpf.Command
         }
     }
 
-
     //public class OutputCommand2 : Control, ICommand
     //{
     //    public IEnumerable Output
@@ -42,7 +35,6 @@ namespace UtilityWpf.Command
     //        get { return (IEnumerable)GetValue(OutputProperty); }
     //        set { SetValue(OutputProperty, value); }
     //    }
-
 
     //    public static readonly DependencyProperty OutputProperty = DependencyProperty.Register("Output", typeof(IEnumerable), typeof(OutputCommand2), new PropertyMetadata(null));
 

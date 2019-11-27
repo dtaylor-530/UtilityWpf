@@ -1,5 +1,4 @@
 ﻿using DynamicData;
-using Reactive.Bindings;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,25 +7,17 @@ using System.Linq;
 using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Markup;
 using UtilityHelper.NonGeneric;
-using UtilityInterface.NonGeneric;
 using UtilityInterface.Generic;
+using UtilityInterface.NonGeneric;
 using UtilityWpf.ViewModel;
 
 namespace UtilityWpf.View
 {
-
     public class ListBoxEx : ListBox
     {
-
-
-
         public new static readonly DependencyProperty SelectedItemProperty = DependencyProperty.Register("SelectedItem", typeof(object), typeof(ListBoxEx), new PropertyMetadata(null, SelectedItemChanged));
 
         public static readonly DependencyProperty DoubleClickedItemProperty = DependencyProperty.Register("DoubleClickedItem", typeof(object), typeof(ListBoxEx), new PropertyMetadata(null, DoubleClickedItemChanged));
@@ -48,24 +39,18 @@ namespace UtilityWpf.View
 
         //public static readonly DependencyProperty ItemsSourceExProperty = DependencyProperty.Register("ItemsSourceEx", typeof(IEnumerable), typeof(ListBoxEx), new PropertyMetadata(null, null, ItemsSourceExChanged));
 
-
-        public bool  IsReadOnly
+        public bool IsReadOnly
         {
-            get { return ( bool )GetValue(IsReadOnlyProperty); }
+            get { return (bool)GetValue(IsReadOnlyProperty); }
             set { SetValue(IsReadOnlyProperty, value); }
         }
 
-
-        public static readonly DependencyProperty IsReadOnlyProperty =            DependencyProperty.Register("IsReadOnly", typeof( bool ), typeof(ListBoxEx), new PropertyMetadata(false,IsReadOnlyChanged));
+        public static readonly DependencyProperty IsReadOnlyProperty = DependencyProperty.Register("IsReadOnly", typeof(bool), typeof(ListBoxEx), new PropertyMetadata(false, IsReadOnlyChanged));
 
         private static void IsReadOnlyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             (d as ListBoxEx).IsReadOnlyChanges.OnNext((bool)e.NewValue);
         }
-
-
-
-
 
         //public IEnumerable ItemsSourceEx
         //{
@@ -73,15 +58,11 @@ namespace UtilityWpf.View
         //    set { SetValue(ItemsSourceExProperty, value); }
         //}
 
-
-
-
         public IEnumerable AllChanges
         {
             get { return (IEnumerable)GetValue(AllChangesProperty); }
             set { SetValue(AllChangesProperty, value); }
         }
-
 
         //public IEnumerable ItemsSource
         //{
@@ -91,15 +72,11 @@ namespace UtilityWpf.View
 
         //public static readonly DependencyProperty ItemsSourceProperty = DependencyProperty.Register("ItemsSource", typeof(IEnumerable), typeof(ListBoxEx), new PropertyMetadata(null, ItemsSourceChanged));
 
-
-
         public IEnumerable Checked
         {
             get { return (IEnumerable)GetValue(CheckedProperty); }
             set { SetValue(CheckedProperty, value); }
         }
-
-
 
         public Orientation Orientation
         {
@@ -107,14 +84,11 @@ namespace UtilityWpf.View
             set { SetValue(OrientationProperty, value); }
         }
 
-
-
         public bool Remove
         {
             get { return (bool)GetValue(RemoveProperty); }
             set { SetValue(RemoveProperty, value); }
         }
-
 
         public IFilter Filter
         {
@@ -136,31 +110,26 @@ namespace UtilityWpf.View
             set { SetValue(KeyProperty, value); }
         }
 
-
         public new object SelectedItem
         {
             get { return (object)GetValue(SelectedItemProperty); }
             set { SetValue(SelectedItemProperty, value); }
-
         }
 
         public object Deleted
         {
             get { return (object)GetValue(DeletedProperty); }
             set { SetValue(DeletedProperty, value); }
-
         }
 
         public object DoubleClickedItem
         {
             get { return (object)GetValue(DoubleClickedItemProperty); }
             set { SetValue(DoubleClickedItemProperty, value); }
-
         }
 
         private static void DoubleClickedItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-
         }
 
         private static void DeletedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -179,7 +148,7 @@ namespace UtilityWpf.View
 
         private static object ItemsSourceCoerce(DependencyObject d, object baseValue)
         {
-            if (baseValue != null && ((IEnumerable<object>)baseValue).Count()>0)
+            if (baseValue != null && ((IEnumerable<object>)baseValue).Count() > 0)
             {
                 var yd = ((IEnumerable<object>)baseValue)?.Select(_ => new { a = _, b = _.GetType().GetProperties().SingleOrDefault(__ => __.Name == "Object") }).ToArray();
 
@@ -198,8 +167,6 @@ namespace UtilityWpf.View
                 return baseValue;
         }
 
-     
-
         private static void FilteredChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             (d as ListBoxEx).FilterSubject.OnNext((IFilter)e.NewValue);
@@ -210,13 +177,12 @@ namespace UtilityWpf.View
             (d as ListBoxEx).RemoveSubject.OnNext((bool)e.NewValue);
         }
 
-
         private static void SelectedItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             (d as ListBoxEx).SelectedItemSubject.OnNext(((object)e.NewValue));
         }
-        
-        protected ISubject<bool> IsReadOnlyChanges= new Subject<bool>();
+
+        protected ISubject<bool> IsReadOnlyChanges = new Subject<bool>();
         protected ISubject<object> SelectedItemSubject = new Subject<object>();
         protected ISubject<IEnumerable> ItemsSourceSubject = new Subject<IEnumerable>();
         protected ISubject<string> KeySubject = new Subject<string>();
@@ -226,25 +192,22 @@ namespace UtilityWpf.View
         protected ISubject<bool> RemoveSubject = new Subject<bool>();
         //protected ISubject<string> FilterOnSubject = new Subject<string>();
 
-        ViewModel.InteractiveCollectionViewModel<object, object> interactivecollection; /*{ get;  set; }*/
+        private ViewModel.InteractiveCollectionViewModel<object, object> interactivecollection; /*{ get;  set; }*/
 
         public IObservable<KeyValuePair<IContain<Object>, ChangeReason>> Changes { get; private set; } = new Subject<KeyValuePair<IContain<Object>, ChangeReason>>();
-        DispatcherScheduler UI;
+        private DispatcherScheduler UI;
 
         static ListBoxEx()
         {
-
             ListBoxEx.ItemsSourceProperty.OverrideMetadata(typeof(ListBoxEx), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.None, ItemsSourceChanged, ItemsSourceCoerce));
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ListBoxEx), new FrameworkPropertyMetadata(typeof(ListBoxEx)));
         }
-
 
         public ListBoxEx(Func<object, object> _keyfunc)
         {
             Uri resourceLocater = new Uri("/UtilityWpf.View;component/Themes/ListBoxEx.xaml", System.UriKind.Relative);
             ResourceDictionary resourceDictionary = (ResourceDictionary)Application.LoadComponent(resourceLocater);
             Style = resourceDictionary["ListBoxExStyle"] as Style;
-
 
             UI = new System.Reactive.Concurrency.DispatcherScheduler(Application.Current.Dispatcher);
 
@@ -255,18 +218,15 @@ namespace UtilityWpf.View
                FilterSubject,
                DeletedSubject.WithLatestFrom(RemoveSubject.StartWith(Remove).DistinctUntilChanged(), (d, r) => r ? d : null).Where(v => v != null),
                ClearedSubject,
-               UI,null,IsReadOnly
+               UI, null, IsReadOnly
             );
             CollectionChanged();
 
-
             Init();
-
         }
 
         public ListBoxEx(string key)
         {
-
             Uri resourceLocater = new Uri("/UtilityWpf.View;component/Themes/ListBoxEx.xaml", System.UriKind.Relative);
             ResourceDictionary resourceDictionary = (ResourceDictionary)Application.LoadComponent(resourceLocater);
             Style = resourceDictionary["ListBoxExStyle"] as Style;
@@ -291,7 +251,6 @@ namespace UtilityWpf.View
 
         public ListBoxEx()
         {
-
             Uri resourceLocater = new Uri("/UtilityWpf.View;component/Themes/ListBoxEx.xaml", System.UriKind.Relative);
             ResourceDictionary resourceDictionary = (ResourceDictionary)Application.LoadComponent(resourceLocater);
             Style = resourceDictionary["ListBoxExStyle"] as Style;
@@ -299,7 +258,6 @@ namespace UtilityWpf.View
             UI = new System.Reactive.Concurrency.DispatcherScheduler(Application.Current.Dispatcher);
             if (Key != null)
             {
-
                 interactivecollection = ViewModel.InteractiveCollectionFactory.Build(
                    GetKeyFunc(Key),
                    ItemsSourceSubject.Select(v => v.Cast<object>()),
@@ -314,11 +272,8 @@ namespace UtilityWpf.View
             Init();
         }
 
-
-
         private void Init()
         {
-
             var key = KeySubject.DistinctUntilChanged().Merge(ItemsSourceSubject.Take(1)
     .Select(_ => GetKey(_))
     .Where(_ => _ != null)).DistinctUntilChanged();
@@ -334,8 +289,8 @@ namespace UtilityWpf.View
             });
         }
 
-        ObservableCollection<object> changeCollection = new ObservableCollection<object>();
- 
+        private ObservableCollection<object> changeCollection = new ObservableCollection<object>();
+
         private IObservable<InteractiveCollectionViewModel<object, object>> Build(IObservable<IEnumerable<object>> observable, IObservable<string> key)
         {
             var UI = new System.Reactive.Concurrency.DispatcherScheduler(Application.Current.Dispatcher);
@@ -347,7 +302,6 @@ namespace UtilityWpf.View
                        DeletedSubject.WithLatestFrom(RemoveSubject.StartWith(Remove).DistinctUntilChanged(), (d, r) => r ? d : null).Where(v => v != null),
                        ClearedSubject,
                        UI);
-
         }
 
         private void CollectionChanged()
@@ -366,7 +320,7 @@ namespace UtilityWpf.View
             interactivecollection.GetRemoved().Subscribe(_ =>
                this.Dispatcher.InvokeAsync(() => Deleted = _, System.Windows.Threading.DispatcherPriority.Background, default(System.Threading.CancellationToken)));
 
-            interactivecollection.Changes.Subscribe(_ => { (Changes as ISubject<KeyValuePair<IContain<Object>, ChangeReason>>).OnNext(_); changeCollection.Add(_); if(_.Value==ChangeReason.Add) ItemsSource = interactivecollection.Items; });
+            interactivecollection.Changes.Subscribe(_ => { (Changes as ISubject<KeyValuePair<IContain<Object>, ChangeReason>>).OnNext(_); changeCollection.Add(_); if (_.Value == ChangeReason.Add) ItemsSource = interactivecollection.Items; });
 
             this.Dispatcher.InvokeAsync(() => AllChanges = changeCollection, System.Windows.Threading.DispatcherPriority.Background, default(System.Threading.CancellationToken));
 
@@ -405,7 +359,6 @@ namespace UtilityWpf.View
             return null;
         }
 
-
         private Func<object, object> GetKeyFunc(string key)
         {
             Func<object, object> f = o =>
@@ -416,8 +369,4 @@ namespace UtilityWpf.View
             return f;
         }
     }
-
-
-
-
 }

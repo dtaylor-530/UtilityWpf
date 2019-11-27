@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -48,30 +44,25 @@ namespace UtilityWpf.View
             return (bool)target.GetValue(IsEqualProperty);
         }
 
-
         private static void Value1Change(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             (d as Equality).Value1Changes.OnNext(e.NewValue);
         }
+
         private static void Value2Change(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             (d as Equality).Value1Changes.OnNext(e.NewValue);
         }
 
-        ISubject<object> Value1Changes = new Subject<object>();
-        ISubject<object> Value2Changes = new Subject<object>();
+        private ISubject<object> Value1Changes = new Subject<object>();
+        private ISubject<object> Value2Changes = new Subject<object>();
+
         public Equality()
         {
-
             Value1Changes.CombineLatest(Value2Changes, (one, two) => new { one, two }).Subscribe(_ =>
                    {
                        this.SetValue(IsEqualProperty, _.one.Equals(_.two));
-
                    });
         }
-
     }
-
-
-
 }

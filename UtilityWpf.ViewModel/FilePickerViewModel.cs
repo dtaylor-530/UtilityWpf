@@ -1,17 +1,13 @@
 ﻿using DynamicData.Binding;
 using PropertyTools.DataAnnotations;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace UtilityWpf.ViewModel
 {
     public class FilePickerViewModel : NPC, IOutputService<string>
     {
-
         private string file;
 
         [InputFilePath(".txt")]
@@ -33,8 +29,6 @@ namespace UtilityWpf.ViewModel
 
         public IObservable<string> Output { get => this.WhenValueChanged(_ => _.File).Where(_ => _ != null); }
 
-
-
         //[Browsable(false)]
         //public ICommand SaveCommand
         //{
@@ -49,7 +43,5 @@ namespace UtilityWpf.ViewModel
         //        }, AlwaysTrue);
         //    }
         //}
-
-
     }
 }

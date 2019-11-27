@@ -2,32 +2,24 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace UtilityWpf
 {
     //class ButtonDefinition
     //{
-
-
-
     public static class ButtonDefinitionHelper
     {
-
-        public static IEnumerable<KeyValuePair<string, Func<object>>> GetCommandOutput(Type type, Type outputType=null, params object[] parameters)
+        public static IEnumerable<KeyValuePair<string, Func<object>>> GetCommandOutput(Type type, Type outputType = null, params object[] parameters)
         {
-
             if (type.IsEnum)
             {
                 return BuildFromEnum(type);
             }
             else if (type.IsInterface)
             {
-                if(parameters?.All(_=>_==null)==null)
-                return type.LoadInterfaces(parameters);
+                if (parameters?.All(_ => _ == null) == null)
+                    return type.LoadInterfaces(parameters);
                 else
                     return type.LoadInterfaces();
             }
@@ -36,14 +28,12 @@ namespace UtilityWpf
                 // user-defined
                 return LoadMethods(type, outputType.Name, parameters);
             }
-   
             else
                 throw new ArgumentException();
         }
 
-        public static IEnumerable<KeyValuePair<string, Func<T>>> GetCommandOutput<T>(Type type=null, params object[] parameters)
+        public static IEnumerable<KeyValuePair<string, Func<T>>> GetCommandOutput<T>(Type type = null, params object[] parameters)
         {
-
             if (type.IsEnum)
             {
                 return BuildFromEnum<T>();
@@ -53,11 +43,9 @@ namespace UtilityWpf
                 // user-defined
                 return LoadMethods<T>(type, parameters);
             }
-
             else
                 throw new ArgumentException();
         }
-
 
         public static IEnumerable<KeyValuePair<string, Func<object>>> BuildFromEnum(Type t)
         {
@@ -66,10 +54,8 @@ namespace UtilityWpf
 
         public static IEnumerable<KeyValuePair<string, Func<T>>> BuildFromEnum<T>()
         {
-            return Enum.GetValues(typeof(T)).Cast<T>().Select(_ => new KeyValuePair<string, Func<T>>(_.ToString(), () =>_));
+            return Enum.GetValues(typeof(T)).Cast<T>().Select(_ => new KeyValuePair<string, Func<T>>(_.ToString(), () => _));
         }
-
-
 
         public static IEnumerable<KeyValuePair<string, Func<object>>> LoadMethods(this Type t, string TypeName, params object[] parameters)
         {
@@ -79,20 +65,17 @@ namespace UtilityWpf
                        // filter by return type
                        .Where(a => a.ReturnType.Name == TypeName)
                         .Select(_ => new KeyValuePair<string, Func<object>>(_.GetDescription(), () => _.Invoke(null, parameters)));
-
         }
-
 
         public static IEnumerable<KeyValuePair<string, Func<object>>> LoadInterfaces(this Type type, params object[] parameters)
         {
             return AppDomain.CurrentDomain.GetAssemblies()
                 .SelectMany(s => s.GetTypes())
-                .Where(p => type.IsAssignableFrom(p) && type !=p)
-               .Select(_ => new KeyValuePair<string, Func<object>>(_.FullName, () => Activator.CreateInstance(_,parameters)));
-
+                .Where(p => type.IsAssignableFrom(p) && type != p)
+               .Select(_ => new KeyValuePair<string, Func<object>>(_.FullName, () => Activator.CreateInstance(_, parameters)));
         }
 
-        public static IEnumerable<KeyValuePair<string, Func<T>>> LoadMethods<T>(this Type t,  params object[] parameters)
+        public static IEnumerable<KeyValuePair<string, Func<T>>> LoadMethods<T>(this Type t, params object[] parameters)
         {
             var typename = typeof(T).Name;
             return Assembly.GetAssembly(t)
@@ -101,15 +84,12 @@ namespace UtilityWpf
                        // filter by return type
                        .Where(a => a.ReturnType.Name == typename)
                         .Select(_ => new KeyValuePair<string, Func<T>>(_.GetDescription(), () => (T)_.Invoke(null, parameters)));
-
         }
-
 
         public static String GetDescription(this MethodInfo methodInfo)
         {
             try
             {
-
                 object[] attribArray = methodInfo.GetCustomAttributes(false);
 
                 if (attribArray.Length > 0)
@@ -145,15 +125,12 @@ namespace UtilityWpf
         //    return Expression.Lambda<Func<T, R>>(
         //        Expression.Call(null, method), null).Compile();
         //}
-
     }
-
 
     //public static class ButtonDefinitionGeneric
     //{
     //    public static IEnumerable<KeyValuePair<string, Func<T>>> GetCommandOutput<T>(Type type, params object[] parameters)
     //    {
-
     //        if (type.IsEnum)
     //        {
     //            return BuildFromEnum<T>();
@@ -184,5 +161,4 @@ namespace UtilityWpf
     //    }
 
     //}
-    
 }

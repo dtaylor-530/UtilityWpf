@@ -1,5 +1,4 @@
-﻿
-//using LiveCharts;
+﻿//using LiveCharts;
 //using LiveCharts.Defaults;
 //using LiveCharts.Configurations;
 
@@ -13,12 +12,10 @@
 //using System.Reactive.Concurrency;
 //using System.Reactive.Linq;
 
-
 //namespace UtilityWpf.ViewModel
 //{
 //    using System.Collections;
 //    using static LiveChartsHelper;
-
 
 //    public class TimeChartViewModel
 //    {
@@ -29,10 +26,8 @@
 
 //        private IDisposable disposable;
 
-
 //        public TimeChartViewModel(IObservable<KeyValuePair<DateTime, double>> observable, string name, IScheduler scheduler) : this()
 //        {
-
 //            disposable = observable
 //                 .ObserveOn(scheduler)
 //                 .Subscribe(_ =>
@@ -47,12 +42,10 @@
 //                , ex =>
 //                Console.WriteLine("Error in graph view model"));//.Dispose();
 
-
 //        }
 
 //        public TimeChartViewModel(IEnumerable<KeyValuePair<DateTime, double>> series, string name, System.Windows.Threading.Dispatcher dispatcher) : this()
 //        {
-
 //            dispatcher.Invoke(() =>
 //            {
 //                var line = SeriesCollection.GetLineOrNew(name);
@@ -85,8 +78,6 @@
 
 //        }
 
-
-
 //        public TimeChartViewModel(IEnumerable<KeyValuePair<object, SortedList<DateTime, double>>> lines) : this()
 //        {
 //            foreach (var kvp in lines)
@@ -110,17 +101,12 @@
 //                SeriesCollection.AddSeries(kvp.Key, kvp.Value.ToList());
 //        }
 
-
-
-
-
 //        public TimeChartViewModel(IEnumerable<IEnumerable<Tuple<DateTime, double>>> lines) : this()
 //        {
 //            foreach (var kvp in lines)
 //                SeriesCollection.AddSeries("", kvp.ToList());
 
 //        }
-
 
 //        public TimeChartViewModel(IObservable<KeyValuePair<string, KeyValuePair<DateTime, Tuple<double, double>>>> measurements, IScheduler scheduler) : this()
 //        {
@@ -142,7 +128,6 @@
 //            });
 //        }
 
-
 //        TimeChartViewModel()
 //        {
 //            var dayConfig = Initialise();
@@ -153,7 +138,6 @@
 //            SeriesCollection = new LiveCharts.SeriesCollection(dayConfig);
 //        }
 
-
 //        private CartesianMapper<DateModel> Initialise()
 //        {
 //            return
@@ -162,17 +146,11 @@
 //            .Y(dayModel => dayModel.Value);
 //        }
 
-
-
-
 //        public void Dispose()
 //        {
 //            disposable?.Dispose();
 //        }
 
-
-
-     
 //        //public TimeChartViewModel(IObservable<KeyValuePair<DateTime, double>> observable, string name, IScheduler scheduler)
 
 //        //{
@@ -192,8 +170,6 @@
 //        //        , ex =>
 //        //        Console.WriteLine("Error in graph view model"));//.Dispose();
 //        //}
-
-
 
 //        //public TimeChartViewModel(IEnumerable<KeyValuePair<DateTime,Tuple< double,double>>> series, string name,string name2, System.Windows.Threading.Dispatcher dispatcher)
 //        //{
@@ -244,13 +220,11 @@
 
 //        //}
 
-
 //        //public TimeChartViewModel2(IObservable<KeyValuePair<string, KeyValuePair<DateTime, double>>> observable, IScheduler scheduler)
 //        //{
 //        //    Initialise();
 //        //    observable.Subscribe(ff =>
 //        //                Console.WriteLine("price subscription " + ff.Value));
-
 
 //        //    disposable = observable
 //        //        .ObserveOn(scheduler)
@@ -270,11 +244,6 @@
 
 //        //}
 
-
-
-
-
-
 //        public void AddValue(string title, DateTime dt, double value)
 //        {
 //            System.Windows.Application.Current.Dispatcher.Invoke(() =>
@@ -288,7 +257,6 @@
 
 //            });
 //        }
-
 
 //        public void AddValues(string title, IEnumerable<Tuple<DateTime, double>> values)
 //        {
@@ -305,7 +273,6 @@
 //            });
 //        }
 
-
 //        internal void RemoveLines(Func<LiveCharts.Definitions.Series.ISeriesView, bool> p)
 //        {
 //            foreach (LiveCharts.Definitions.Series.ISeriesView ls in SeriesCollection)
@@ -316,14 +283,6 @@
 //            }
 //        }
 
-
-
-
-
 //    }
-
-
-
-
 
 //}

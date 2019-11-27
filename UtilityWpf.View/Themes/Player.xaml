@@ -3,36 +3,33 @@
                     xmlns:view="clr-namespace:UtilityWpf.View"
                     xmlns:converter="clr-namespace:UtilityWpf;assembly=UtilityWpf.Common"
                     xmlns:uenm="clr-namespace:UtilityEnum;assembly=UtilityEnum"
-                         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-                    >
+                         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
 
-    <ResourceDictionary.MergedDictionaries >
+    <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/UtilityWpf.View;component/Themes/ProgressTimeBar.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/UtilityWpf.View;component/Themes/Slider.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/UtilityWpf.View;component/Themes/ToggleButtonEx.xaml"></ResourceDictionary>
         <ResourceDictionary Source="/UtilityWpf.View;component/Themes/ProgressBar.xaml"></ResourceDictionary>
-        
     </ResourceDictionary.MergedDictionaries>
 
     <Style x:Key="PlayerStyle"  TargetType="{x:Type view:Player}">
-        <Style.Resources >
+        <Style.Resources>
             <BooleanToVisibilityConverter x:Key="BoolToVis" />
             <converter:BooleanToVisibilityConverter  Invert="True" x:Key="InvBoolToVis"></converter:BooleanToVisibilityConverter>
             <converter:EnumToBooleanConverter  x:Key="EnumBool"></converter:EnumToBooleanConverter>
 
             <converter:TimeSpanStringConverter x:Key="tssc"></converter:TimeSpanStringConverter>
 
-            <x:Array x:Key="paramscancel"  Type="{x:Type uenm:ProcessState}" >
-                <x:Static Member="uenm:ProcessState.Terminated"  />
+            <x:Array x:Key="paramscancel"  Type="{x:Type uenm:ProcessState}">
+                <x:Static Member="uenm:ProcessState.Terminated" />
                 <x:Static Member="uenm:ProcessState.Ready" />
             </x:Array>
-            <x:Array x:Key="paramsplay"  Type="{x:Type uenm:ProcessState}" >
-                <x:Static Member="uenm:ProcessState.Running"  />
+            <x:Array x:Key="paramsplay"  Type="{x:Type uenm:ProcessState}">
+                <x:Static Member="uenm:ProcessState.Running" />
                 <x:Static Member="uenm:ProcessState.Blocked" />
             </x:Array>
-
         </Style.Resources>
-        <Setter Property="Template"   >
+        <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type view:Player}">
                     <Grid>
@@ -40,43 +37,41 @@
                         <!--<view:ProgressTimeBar Width="300" Time="{TemplateBinding Time}" Value="{TemplateBinding Value}"  Maximum="100" x:Name="ProgressTimeBar"></view:ProgressTimeBar>-->
                         <Grid Height="40">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="100" />
                             </Grid.ColumnDefinitions>
 
-                            <view:ToggleButtonEx x:Name="toggle"  
-                                                  Grid.Column="0" 
+                            <view:ToggleButtonEx x:Name="toggle"
+                                                  Grid.Column="0"
                                                 Margin="15,0,15,0"
-                                                FrontImageSource="/UtilityWpf.View;component/Images/Settings.png" 
+                                                FrontImageSource="/UtilityWpf.View;component/Images/Settings.png"
                                                 BackImageSource="/UtilityWpf.View;component/Images/bar-chart.png" />
 
                             <StackPanel Grid.Column="1"
-                                        Orientation="Horizontal" 
+                                        Orientation="Horizontal"
                                                                 Visibility="{Binding ElementName=toggle,
                                         Path=IsChecked,
-                                        Converter={StaticResource InvBoolToVis}}"                                       >
+                                        Converter={StaticResource InvBoolToVis}}">
 
-                                <view:ToggleButtonEx x:Name="PlayPause"          
+                                <view:ToggleButtonEx x:Name="PlayPause"
                                                 Margin="15,0,15,0"
-                                                FrontImageSource="/UtilityWpf.View;component/Images/Play.png" 
+                                                FrontImageSource="/UtilityWpf.View;component/Images/Play.png"
                                                 BackImageSource="/UtilityWpf.View;component/Images/Pause.png"
-                                                 IsChecked="{Binding ProcessState,RelativeSource={RelativeSource TemplatedParent},Converter={StaticResource EnumBool},ConverterParameter={StaticResource paramsplay},Mode=OneWayToSource}"
-                                                      >
+                                                 IsChecked="{Binding ProcessState,RelativeSource={RelativeSource TemplatedParent},Converter={StaticResource EnumBool},ConverterParameter={StaticResource paramsplay},Mode=OneWayToSource}">
                                 </view:ToggleButtonEx>
 
-                                <view:ImageButton x:Name="Cancel"  
+                                <view:ImageButton x:Name="Cancel"
                                                NormalImage="/UtilityWpf.View;component/Images/Stop.png"
                                                 HoverImage="/UtilityWpf.View;component/Images/Stop.png"
                                                 PressedImage="/UtilityWpf.View;component/Images/Stop.png"
                                                 DisabledImage="/UtilityWpf.View;component/Images/Stop.png"
                                               Command="{TemplateBinding CancelCommand}"
-                                              IsEnabled="{Binding ProcessState,RelativeSource={RelativeSource TemplatedParent},Converter={StaticResource EnumBool},ConverterParameter={StaticResource paramscancel},Mode=OneWayToSource }"
-                                               />
+                                              IsEnabled="{Binding ProcessState,RelativeSource={RelativeSource TemplatedParent},Converter={StaticResource EnumBool},ConverterParameter={StaticResource paramscancel},Mode=OneWayToSource }" />
                                 <Grid>
-                                    
+
                                     <Button Margin="6" Grid.Column="0" Command="{Binding PreviousTrackButtonClickCommand}">
-                                        <materialDesign:PackIcon Kind="SkipPrevious" Height="Auto" Width="Auto"/>
+                                        <materialDesign:PackIcon Kind="SkipPrevious" Height="Auto" Width="Auto" />
                                     </Button>
                                     <Button Margin="6" Grid.Column="1" Command="{Binding PlayPauseTrackButtonClickCommand}">
                                         <materialDesign:PackIcon Kind="PlayPause" Height="Auto" Width="Auto" />
@@ -85,17 +80,16 @@
                                         <materialDesign:PackIcon Kind="SkipNext" Height="Auto" Width="Auto" />
                                     </Button>
 
-                                    
-                                    <ProgressBar Style="{StaticResource ProgressBar}" Grid.Column="2" Value="{   Binding Value,RelativeSource={RelativeSource TemplatedParent}}"  />
+                                    <ProgressBar Style="{StaticResource ProgressBar}" Grid.Column="2" Value="{   Binding Value,RelativeSource={RelativeSource TemplatedParent}}" />
 
-                                <!--<TextBlock Grid.Column="2" Width="50" 
-                                   HorizontalAlignment="Right" 
+                                    <!--<TextBlock Grid.Column="2" Width="50"
+                                   HorizontalAlignment="Right"
                                    VerticalAlignment="Center" Foreground="Black"
                                    FontWeight="Medium"
                                    Text="{Binding Time,RelativeSource={RelativeSource TemplatedParent},StringFormat=\{0:h\\:mm\:\\:ss}"
                                  ></TextBlock>-->
-                                    <TextBlock Grid.Column="2" Width="100" 
-                                   HorizontalAlignment="Right" 
+                                    <TextBlock Grid.Column="2" Width="100"
+                                   HorizontalAlignment="Right"
                                    VerticalAlignment="Center" Foreground="Black"
                                    FontWeight="Medium"
                                    Text="{Binding MTime,Converter={StaticResource tssc},RelativeSource={RelativeSource TemplatedParent}}"
@@ -103,28 +97,23 @@
                                 </Grid>
                             </StackPanel>
 
-                            
-                            
-
                             <StackPanel  Grid.Column="1"
-                                         Orientation="Horizontal" 
-                                        x:Name= "Stack2"                                   
+                                         Orientation="Horizontal"
+                                        x:Name= "Stack2"
                                          Visibility="{Binding ElementName=toggle,
                                         Path=IsChecked,
-                                        Converter={StaticResource BoolToVis}}"
-                                       >
+                                        Converter={StaticResource BoolToVis}}">
 
-                                <Slider x:Name="DelaySlider" 
+                                <Slider x:Name="DelaySlider"
                                         Style="{StaticResource ResourceKey=SliderStyle}"
                                         Maximum="3000"
                                         Width="100"
                                         IsSnapToTickEnabled="True"
-                                        Ticks="100,200,300,500,1000,2000"                                                                                     
-                                        Orientation="Horizontal"  
-                                        AutoToolTipPrecision="100" 
-                                        TickPlacement="BottomRight"  
-                                    Value="{Binding Attribute,RelativeSource={RelativeSource TemplatedParent}}"
-                                        />
+                                        Ticks="100,200,300,500,1000,2000"
+                                        Orientation="Horizontal"
+                                        AutoToolTipPrecision="100"
+                                        TickPlacement="BottomRight"
+                                    Value="{Binding Attribute,RelativeSource={RelativeSource TemplatedParent}}" />
                             </StackPanel>
                         </Grid>
                     </Grid>
@@ -132,5 +121,4 @@
             </Setter.Value>
         </Setter>
     </Style>
-
 </ResourceDictionary>

@@ -1,15 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 
 using System.Windows.Data;
 
 namespace UtilityWpf
 {
-    
     [ValueConversion(typeof(bool), typeof(bool))]
     public class InverseBooleanConverter : IValueConverter
     {
@@ -33,9 +27,6 @@ namespace UtilityWpf
             return !(bool)value;
         }
 
-        #endregion
+        #endregion IValueConverter Members
     }
-
-
- 
 }

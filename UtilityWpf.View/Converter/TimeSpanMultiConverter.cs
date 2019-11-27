@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
 
 namespace UtilityWpf
@@ -14,23 +10,21 @@ namespace UtilityWpf
         {
             if (values[0] is DateTime & values[1] is DateTime)
             {
-
                 var ts = ((DateTime)values[0]) - ((DateTime)values[1]);
-
 
                 switch (ts.Days)
                 {
                     case (0):
                         return $"{ts.Hours }:{ts.Minutes}:{ts.Seconds}";
+
                     case (1):
                         return $"1 day { ts.Hours } hours";
+
                     default:
                         if (ts.Days > 1)
                             return $"{ts.Days} days {ts.Hours }:{ts.Minutes}:{ts.Seconds}";
                         else
                             return ((DateTime)values[0]).ToString("D", CultureInfo.CurrentCulture);
-
-
                 }
             }
             else { return ""; }

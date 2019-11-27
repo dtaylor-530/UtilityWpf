@@ -1,9 +1,4 @@
 ﻿using Microsoft.Xaml.Behaviors;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -18,6 +13,7 @@ namespace UtilityWpf.Behavior
             get { return (object)GetValue(SelectedItemProperty); }
             set { SetValue(SelectedItemProperty, value); }
         }
+
         public static readonly DependencyProperty SelectedItemProperty =
             DependencyProperty.Register(
               nameof(SelectedItem),
@@ -27,7 +23,7 @@ namespace UtilityWpf.Behavior
                 FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
                 OnSelectedItemChanged));
 
-        static void OnSelectedItemChanged(DependencyObject sender,
+        private static void OnSelectedItemChanged(DependencyObject sender,
           DependencyPropertyChangedEventArgs e)
         {
             var behavior = (BindableSelectedItemBehavior)sender;
@@ -35,7 +31,8 @@ namespace UtilityWpf.Behavior
             if (generator.ContainerFromItem(e.NewValue) is TreeViewItem item)
                 item.SetValue(TreeViewItem.IsSelectedProperty, true);
         }
-        #endregion
+
+        #endregion SelectedItem Property
 
         protected override void OnAttached()
         {
@@ -52,7 +49,7 @@ namespace UtilityWpf.Behavior
                 AssociatedObject.SelectedItemChanged -= OnTreeViewSelectedItemChanged;
         }
 
-        void OnTreeViewSelectedItemChanged(object sender,
+        private void OnTreeViewSelectedItemChanged(object sender,
             RoutedPropertyChangedEventArgs<object> e) =>
           SelectedItem = e.NewValue;
     }

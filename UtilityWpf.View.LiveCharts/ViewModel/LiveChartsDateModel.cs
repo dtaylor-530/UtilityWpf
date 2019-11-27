@@ -1,29 +1,17 @@
 ﻿using LiveCharts;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace UtilityWpf.ViewModel.Livecharts
 {
-
-
-
     public class DateModel
     {
         public System.DateTime DateTime { get; set; }
         public double Value { get; set; }
     }
 
-
-
-
-
     public static class DateModelHelper
     {
-
-
         public static void AddPoints(this SeriesCollection col, string title, params Tuple<DateTime, double>[] vals)
         {
             var seriesView = col.Where(l => l.Title == title).FirstOrDefault();
@@ -40,12 +28,6 @@ namespace UtilityWpf.ViewModel.Livecharts
             {
                 seriesView.Values.AddRange(points);
             }
-
         }
-
-
     }
-
-
-
 }

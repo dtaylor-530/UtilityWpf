@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace UtilityWpf.View
 {
     [TemplatePart(Name = PartListBox, Type = typeof(ListBox))]
-    public class HeaderedListBox:HeaderedContentControl
+    public class HeaderedListBox : HeaderedContentControl
     {
-
         private const string PartListBox = "PART_ListBox";
         private ListBox ListBoxPart;
 
@@ -21,8 +16,7 @@ namespace UtilityWpf.View
             this.ListBoxPart = GetTemplateChild(PartListBox) as ListBox;
 
             this.ListBoxPart.SelectionChanged += ListBoxPart_SelectionChanged;
-           // FindName(PartListBox);
-
+            // FindName(PartListBox);
         }
 
         static HeaderedListBox()

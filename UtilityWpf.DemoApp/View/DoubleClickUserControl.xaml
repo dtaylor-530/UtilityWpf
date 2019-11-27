@@ -1,12 +1,10 @@
 ﻿<UserControl x:Class="UtilityWpf.DemoApp.DoubleClickUserControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:UtilityWpf.DemoApp"
-             xmlns:util="clr-namespace:UtilityWpf.View;assembly=UtilityWpf.View"
-
-            >
+             xmlns:util="clr-namespace:UtilityWpf.View;assembly=UtilityWpf.View">
     <UserControl.Resources>
 
         <DataTemplate DataType="{x:Type local:Character}">
@@ -18,13 +16,13 @@
         </DataTemplate>
         </UserControl.Resources>
     <Grid>
-        
+
         <ListBox ItemsSource="{Binding Characters }">
             <ListBox.ItemContainerStyle>
                 <Style>
                     <Setter Property="util:MouseDoubleClick.Command" Value="{Binding DataContext.MyCommand,
-                                    RelativeSource={RelativeSource FindAncestor, 
-                                    AncestorType={x:Type UserControl}}}"/>
+                                    RelativeSource={RelativeSource FindAncestor,
+                                    AncestorType={x:Type UserControl}}}" />
                 </Style>
             </ListBox.ItemContainerStyle>
         </ListBox>

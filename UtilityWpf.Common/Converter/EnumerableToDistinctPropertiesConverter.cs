@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
 using UtilityHelper;
 using UtilityHelper.NonGeneric;
@@ -28,14 +25,13 @@ namespace UtilityWpf
 
             return null;
         }
-        
+
         public object ConvertBack(object value, Type targetType, object parameter,
             System.Globalization.CultureInfo culture)
         {
             throw new NotSupportedException();
         }
 
-        #endregion
-
+        #endregion IValueConverter Members
     }
 }

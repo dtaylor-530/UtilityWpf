@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
+﻿using System.ComponentModel;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
@@ -10,24 +6,19 @@ using System.Windows.Media;
 
 namespace UtilityWpf.View
 {
-
     //using Microsoft.Windows.Controls;
     //using Microsoft.Windows.Controls.Primitives;
-
-
 
     public static class DataGridHelpers
     {
         public static System.Drawing.Point? GetTableIndices(System.Windows.DependencyObject dep)
         {
-
             int columnIndex;
             int rowIndex;
             while ((dep != null) && !(dep is DataGridCell) && !(dep is DataGridColumnHeader))
             {
                 dep = VisualTreeHelper.GetParent(dep);
             }
-
 
             if (dep == null)
                 return null;
@@ -55,7 +46,6 @@ namespace UtilityWpf.View
                 if (dep == null)
                     return null;
 
-
                 object value = DataGridHelpers.GetValue(dep as DataGridRow, cell.Column);
                 columnIndex = cell.Column.DisplayIndex;
                 rowIndex = DataGridHelpers.FindRowIndex(dep as DataGridRow);
@@ -67,10 +57,7 @@ namespace UtilityWpf.View
             {
                 return null;
             }
-
-
         }
-
 
         /// <summary>
         /// Determine the index of a DataGridRow
@@ -124,7 +111,6 @@ namespace UtilityWpf.View
             return boundPropertyName;
         }
 
-
         public static T GetVisualChild<T>(Visual parent) where T : Visual
         {
             T child = default(T);
@@ -149,6 +135,7 @@ namespace UtilityWpf.View
         {
             return (DataGridRow)grid.ItemContainerGenerator.ContainerFromItem(grid.SelectedItem);
         }
+
         public static DataGridRow GetRow(this DataGrid grid, int index)
         {
             DataGridRow row = (DataGridRow)grid.ItemContainerGenerator.ContainerFromIndex(index);
@@ -186,7 +173,4 @@ namespace UtilityWpf.View
             return grid.GetCell(rowContainer, column);
         }
     }
-
-
-
 }

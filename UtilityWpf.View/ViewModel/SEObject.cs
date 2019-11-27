@@ -1,26 +1,17 @@
-﻿
-using DynamicData.Binding;
-using Reactive.Bindings;
+﻿using DynamicData.Binding;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Threading.Tasks;
-using System.Text;
-using System.Threading.Tasks;
 using UtilityHelper;
-using UtilityInterface;
 using UtilityInterface.Generic;
 
 namespace UtilityWpf.ViewModel
 {
-
     //public interface IChildren<T>
     //{
-
     //    IEnumerable<T> Children { get; set; }
 
     //}
@@ -28,17 +19,15 @@ namespace UtilityWpf.ViewModel
     //// Selectable / Expandable
     public class SEObject<T> : SHDObject<T>
     {
-        InteractiveCollectionViewModel<T> collection;
+        private InteractiveCollectionViewModel<T> collection;
 
-
-        public SEObject(T @object, string childrenpath, IObservable<bool> ischecked, IObservable<bool> expand, System.Windows.Threading.Dispatcher dispatcher = null, IConvertible id = null) : base(@object,null,null,id)
+        public SEObject(T @object, string childrenpath, IObservable<bool> ischecked, IObservable<bool> expand, System.Windows.Threading.Dispatcher dispatcher = null, IConvertible id = null) : base(@object, null, null, id)
         {
             Object = @object;
             bool hasinterface = false;
             var type = @object.GetType();
             if (type.GetInterfaces().Contains(typeof(IParent<T>)))
                 hasinterface = true;
-
 
             expand/*.CombineLatest(ischecked,(a,b)=>new { a, b })*/.Subscribe(_ =>
             {
@@ -50,14 +39,12 @@ namespace UtilityWpf.ViewModel
                     privatemethod(@object, childrenpath, ischecked, expand, hasinterface));
                 else
                     privatemethod(@object, childrenpath, ischecked, expand, hasinterface);
-
             });
 
             ischecked.Subscribe(_ => IsChecked = _);
             // Needs to be run outside of constructor to ensure notfication raised;
             //Init(ischecked);
         }
-
 
         private void privatemethod(T @object, string childrenpath, IObservable<bool> ischecked, IObservable<bool> expand, bool hasinterface)
         {
@@ -76,8 +63,6 @@ namespace UtilityWpf.ViewModel
             }
         }
 
-
-
         //public void Init(IObservable<bool> @checked)
         //{
         //    @checked.Subscribe(_ => IsChecked = _);
@@ -87,7 +72,6 @@ namespace UtilityWpf.ViewModel
 
         private KeyValuePair<T, InteractionArgs> _affectedchild;
 
-
         public virtual KeyValuePair<T, InteractionArgs> ChildChanged
         {
             get { return _affectedchild; }
@@ -95,7 +79,6 @@ namespace UtilityWpf.ViewModel
             {
                 //if (value != _isSelected)
                 //{
-
                 _affectedchild = value;
                 OnPropertyChanged(nameof(ChildChanged));
                 //IsSelected = true;
@@ -107,7 +90,4 @@ namespace UtilityWpf.ViewModel
 
         //public T Object { get; private set; }
     }
-
-
-
 }

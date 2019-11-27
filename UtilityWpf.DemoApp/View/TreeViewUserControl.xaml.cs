@@ -1,22 +1,12 @@
-﻿using System;
+﻿using DynamicData;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Reactive.Concurrency;
 using System.Reactive.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using DynamicData;
 
 namespace UtilityWpf.DemoApp
 {
@@ -36,7 +26,6 @@ namespace UtilityWpf.DemoApp
             set => stock = (stock != value) ? value : stock;
         }
 
-
         public TreeViewUserControl()
         {
             InitializeComponent();
@@ -51,7 +40,6 @@ namespace UtilityWpf.DemoApp
          .Subscribe(_ =>
          Stock = sectors.First().Stocks.First());
         }
-
 
         public IEnumerable<Sector> GetSectors()
         {
@@ -68,7 +56,6 @@ namespace UtilityWpf.DemoApp
                            Name = __["Company"]
                        }).ToList()
                    };
-
         }
     }
 
@@ -84,6 +71,5 @@ namespace UtilityWpf.DemoApp
         public string Key { get; set; }
         //public Series<DateTime, double> Prices { get; set; }
         //public IEnumerable<DayMovement> Prices { get; set; }
-
     }
 }

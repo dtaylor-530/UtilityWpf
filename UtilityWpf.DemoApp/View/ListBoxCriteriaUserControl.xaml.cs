@@ -1,19 +1,10 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace UtilityWpf.DemoApp
 {
@@ -33,18 +24,14 @@ namespace UtilityWpf.DemoApp
             Expired = System.Convert.ToBoolean(random.Next(0, 2))
         });
         }
-
-
     }
 
-    class PassFail
-        {
-            public string Key { get; set; }
+    internal class PassFail
+    {
+        public string Key { get; set; }
 
-            public bool Expired { get; set; }
-
-        }
-
+        public bool Expired { get; set; }
+    }
 
     //class EventArgsConverter : IValueConverter
     //{
@@ -59,12 +46,11 @@ namespace UtilityWpf.DemoApp
     //    }
     //}
 
-
-    class ListConverter : IValueConverter
+    internal class ListConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var x= (value) as IEnumerable;
+            var x = (value) as IEnumerable;
             if (x == null)
                 return DependencyProperty.UnsetValue;
             else

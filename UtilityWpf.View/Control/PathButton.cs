@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -13,10 +9,9 @@ namespace UtilityWpf.View
     //[TemplatePart(Name = PART_Pathx, Type = typeof(Path))]
     public class PathButton : Button
     {
-
         //private const string PART_Pathx = "PART_Pathx";
 
-        public static readonly DependencyProperty PathProperty = DependencyProperty.Register("PathData", typeof(System.Windows.Media.Geometry), typeof(PathButton),new PropertyMetadata (pathData));
+        public static readonly DependencyProperty PathProperty = DependencyProperty.Register("PathData", typeof(System.Windows.Media.Geometry), typeof(PathButton), new PropertyMetadata(pathData));
 
         public System.Windows.Media.Geometry PathData
         {
@@ -24,8 +19,8 @@ namespace UtilityWpf.View
             set { SetValue(PathProperty, value); }
         }
 
-        static System.Windows.Media.Geometry pathData;
-        public static readonly DependencyProperty HoverBackgroundProperty = DependencyProperty.Register("HoverBackground", typeof(System.Windows.Media.Brush), typeof(PathButton),new PropertyMetadata (new SolidColorBrush(Color.FromArgb(255, 255, 139, 0))));
+        private static System.Windows.Media.Geometry pathData;
+        public static readonly DependencyProperty HoverBackgroundProperty = DependencyProperty.Register("HoverBackground", typeof(System.Windows.Media.Brush), typeof(PathButton), new PropertyMetadata(new SolidColorBrush(Color.FromArgb(255, 255, 139, 0))));
 
         public System.Windows.Media.Brush HoverBackground
         {
@@ -44,10 +39,8 @@ namespace UtilityWpf.View
             pathData = (System.Windows.Media.Geometry)converter.ConvertFrom(sData);
         }
 
-
         public PathButton()
         {
-
             Uri resourceLocater = new Uri("/UtilityWpf.View;component/Themes/PathButton.xaml", System.UriKind.Relative);
             ResourceDictionary resourceDictionary = (ResourceDictionary)Application.LoadComponent(resourceLocater);
             Style = resourceDictionary["PathButtonStyle"] as Style;
@@ -56,7 +49,6 @@ namespace UtilityWpf.View
             {
                 PathData = pathData;
             }
-
         }
     }
 }

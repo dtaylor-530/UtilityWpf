@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
-
 
 namespace UtilityWpf.Animation
 {
@@ -15,9 +10,7 @@ namespace UtilityWpf.Animation
     {
         public static readonly DependencyProperty DurationProperty = DependencyProperty.Register("Duration", typeof(int), typeof(BarControl), new PropertyMetadata(1000, DurationChanged));
 
-
         public static readonly DependencyProperty SizeProperty = DependencyProperty.Register("Size", typeof(double), typeof(BarControl), new PropertyMetadata(30d, _SizeChanged));
-
 
         public static readonly DependencyProperty OrientationProperty = DependencyProperty.Register("Orientation", typeof(Orientation), typeof(BarControl), new PropertyMetadata(Orientation.Vertical, OrientationChanged));
 
@@ -26,7 +19,6 @@ namespace UtilityWpf.Animation
         public override void OnApplyTemplate()
         {
             rctMovingObject = this.GetTemplateChild("PART_MovingObject") as Rectangle;
-
         }
 
         public Orientation Orientation
@@ -34,7 +26,6 @@ namespace UtilityWpf.Animation
             get { return (Orientation)GetValue(OrientationProperty); }
             set { SetValue(OrientationProperty, value); }
         }
-
 
         public int Duration
         {
@@ -55,9 +46,7 @@ namespace UtilityWpf.Animation
 
         public BarControl()
         {
-          
         }
-
 
         private static void _SizeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -96,8 +85,5 @@ namespace UtilityWpf.Animation
         {
             //(d as BarControl)
         }
-
-
-
     }
 }

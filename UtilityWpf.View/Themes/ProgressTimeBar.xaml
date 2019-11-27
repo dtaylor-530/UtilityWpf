@@ -2,11 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:UtilityWpf.View"
                              xmlns:ruben="clr-namespace:Rubenhak.Common.WPF;assembly=Rubenhak.Common.WPF"
-        xmlns:converters="clr-namespace:Converters"
-                >
-
-
-
+        xmlns:converters="clr-namespace:Converters">
 
     <!--Control colors.-->
     <Color x:Key="WindowColor">#FFE8EDF9</Color>
@@ -26,7 +22,6 @@
 
     <Color x:Key="ControlMouseOverColor">#FF3843C4</Color>
     <Color x:Key="ControlPressedColor">#FF211AA9</Color>
-
 
     <Color x:Key="GlyphColor">#FF444444</Color>
     <Color x:Key="GlyphMouseOver">sc#1, 0.004391443, 0.002428215, 0.242281124</Color>
@@ -79,23 +74,16 @@
         </LinearGradientBrush.GradientStops>
     </LinearGradientBrush>
 
-
-
-
-
     <Style x:Key="ProgressTimeBarStyle" TargetType="ProgressBar"  BasedOn="{StaticResource {x:Type ProgressBar }}">
 
-        <Setter Property="Margin" Value="3"/>
-        <!--<Setter Property="Value" Value="{TemplateBinding Property=Value}"/>-->
+        <Setter Property="Margin" Value="3" />
+        <!--<Setter Property="Value" Value="{TemplateBinding Property=Value}" />-->
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate  TargetType="ProgressBar"  x:Name="PART_ProgressBar"   >
+                <ControlTemplate  TargetType="ProgressBar"  x:Name="PART_ProgressBar">
 
                     <Grid MinHeight="14"              MinWidth="200"                       Background="{TemplateBinding Background}">
 
-
-    
-                        
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
                                 <VisualState x:Name="Determinate" />
@@ -110,7 +98,6 @@
                                                 </DiscreteObjectKeyFrame.Value>
                                             </DiscreteObjectKeyFrame>
                                         </ObjectAnimationUsingKeyFrames>
-
                                     </Storyboard>
                                 </VisualState>
                             </VisualStateGroup>
@@ -123,7 +110,6 @@
                                 <SolidColorBrush Color="{DynamicResource BorderMediumColor}" />
                             </Border.BorderBrush>
                         </Border>
-
 
                         <Border x:Name="PART_Indicator"
                   CornerRadius="2"
@@ -143,7 +129,6 @@
                                         </GradientStopCollection>
                                     </GradientBrush.GradientStops>
                                 </LinearGradientBrush>
-
                             </Border.BorderBrush>
                             <Grid ClipToBounds="True"
                   x:Name="Animation">
@@ -155,63 +140,57 @@
                             </Grid>
                         </Border>
 
-
                         <!-- TIMER TEXTBLOCK-->
 
-                        <!--<TextBlock x:Name="blockTime_small" 
-                                   HorizontalAlignment="Right" TextAlignment="Right" 
-                                   FontSize="12"  FontWeight="Medium"  Foreground="Black" >
+                        <!--<TextBlock x:Name="blockTime_small"
+                                   HorizontalAlignment="Right" TextAlignment="Right"
+                                   FontSize="12"  FontWeight="Medium"  Foreground="Black">
                                    00:00:00
                         </TextBlock>-->
 
-                        <!--<Button x:Name="PART_Button"  Focusable="False"    HorizontalAlignment="Right"  VerticalAlignment="Center" >
-                            --><!--<ToggleButton.Template x:Name="template">
+                        <!--<Button x:Name="PART_Button"  Focusable="False"    HorizontalAlignment="Right"  VerticalAlignment="Center">
+                            -->
+                        <!--<ToggleButton.Template x:Name="template">
                                 <ControlTemplate TargetType="{x:Type ToggleButton}" x:Name="control">
                                     <Grid x:Name="PART_Grid" Height="30" Width="30">
-                                        <TextBox x:Name="PART_Timer" Margin="1"/>
-                                        <TextBox x:Name="PART_Progress" Margin="1"/>
+                                        <TextBox x:Name="PART_Timer" Margin="1" />
+                                        <TextBox x:Name="PART_Progress" Margin="1" />
                                     </Grid>
                                     <ControlTemplate.Triggers>
 
-                                        <Trigger Property="IsChecked" 
+                                        <Trigger Property="IsChecked"
                                                  Value="False">
-                                            <Setter TargetName="PART_Timer" 
+                                            <Setter TargetName="PART_Timer"
                                                  Property="Visibility"
                                                  Value="Hidden">
                                             </Setter>
                                         </Trigger>
-                                        <Trigger Property="IsChecked"  
+                                        <Trigger Property="IsChecked"
                                                  Value="True">
-                                            <Setter TargetName="PART_Progress" 
+                                            <Setter TargetName="PART_Progress"
                                                     Property="Visibility"
                                                     Value="Hidden">
                                             </Setter>
                                         </Trigger>
                                     </ControlTemplate.Triggers>
                                 </ControlTemplate>
-                            </ToggleButton.Template>--><!--
+                            </ToggleButton.Template>-->
+                        <!--
                         </Button>-->
 
                         <StackPanel>
-                            <TextBlock x:Name="PART_Block" Width="50" 
-                                   HorizontalAlignment="Right" 
+                            <TextBlock x:Name="PART_Block" Width="50"
+                                   HorizontalAlignment="Right"
                                    VerticalAlignment="Center" Foreground="Black"
                                    FontWeight="Medium"
                                    Text="{Binding MTime,RelativeSource={RelativeSource TemplatedParent},StringFormat=\{0:h\\:mm\:\\:ss}"
                                  ></TextBlock>
-                            <TextBlock Text="{Binding MTime ,StringFormat={}{0:g},RelativeSource={RelativeSource TemplatedParent}}"/>
-                            <TextBlock Text="{Binding MTime , StringFormat={}{0:hh}:{0:mm}, FallbackValue=00:00,RelativeSource={RelativeSource TemplatedParent}}"/>
+                            <TextBlock Text="{Binding MTime ,StringFormat={}{0:g},RelativeSource={RelativeSource TemplatedParent}}" />
+                            <TextBlock Text="{Binding MTime , StringFormat={}{0:hh}:{0:mm}, FallbackValue=00:00,RelativeSource={RelativeSource TemplatedParent}}" />
 
-
-                            <!--<TextBlock Width="30" VerticalAlignment="Center" Text="{Binding ElementName=DelaySlider,Path=Value}"/>-->
-
+                            <!--<TextBlock Width="30" VerticalAlignment="Center" Text="{Binding ElementName=DelaySlider,Path=Value}" />-->
                         </StackPanel>
-
                     </Grid>
-
-
-
-
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -239,31 +218,27 @@
         </Setter>
     </Style>
 
-    
-
-        <!--<Style  x:Key="{x:Type ProgressBar}"   TargetType="{x:Type ProgressBar}">
+    <!--<Style  x:Key="{x:Type ProgressBar}"   TargetType="{x:Type ProgressBar}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ProgressBar}">
                     <Grid MinHeight="14" MinWidth="200">
-                        <Border 
-            Name="PART_Track" 
-            CornerRadius="2" 
+                        <Border
+            Name="PART_Track"
+            CornerRadius="2"
             Background="{StaticResource PressedBrush}"
             BorderBrush="{StaticResource SolidBorderBrush}"
             BorderThickness="1" />
-                        <Border 
-            Name="PART_Indicator" 
-            CornerRadius="2" 
-            Background="{StaticResource DarkBrush}" 
-            BorderBrush="{StaticResource NormalBorderBrush}" 
-            BorderThickness="1" 
+                        <Border
+            Name="PART_Indicator"
+            CornerRadius="2"
+            Background="{StaticResource DarkBrush}"
+            BorderBrush="{StaticResource NormalBorderBrush}"
+            BorderThickness="1"
             HorizontalAlignment="Left" />
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>-->
-
-
 </ResourceDictionary>

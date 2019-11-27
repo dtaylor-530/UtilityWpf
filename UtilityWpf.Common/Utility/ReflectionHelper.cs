@@ -3,22 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace UtilityWpf
 {
     public static class ReflectionHelper
     {
-
         public static IEnumerable RecursivePropValues(object e, string path)
         {
             List<IEnumerable> lst = new List<IEnumerable>();
             lst.Add(new[] { e });
             try
             {
-
                 var xx = UtilityHelper.PropertyHelper.GetPropertyValue<IEnumerable>(e, path);
                 foreach (var x in xx)
                     lst.Add(RecursivePropValues(x, path));
@@ -30,7 +26,6 @@ namespace UtilityWpf
             return lst.SelectMany(_ => _.Cast<object>());
         }
 
-
         public static IEnumerable<FieldInfo> GetDependencyProperties(this Type type)
         {
             var flags = BindingFlags.Static |
@@ -39,17 +34,13 @@ namespace UtilityWpf
 
             return type.GetFields(flags)
                                  .Where(f => f.FieldType == typeof(DependencyProperty));
-
         }
     }
 }
+
 //        public static T GetPropValue<T>(this Object obj, String name, Type type = null) => GetPropValue<T>(obj, (type ?? obj.GetType()).GetProperty(name));
 
-
-
 //        public static T GetPropValue<T, R>(R obj, String name) => GetPropValue<T>(obj, typeof(R).GetProperty(name));
-
-
 
 //        public static T GetPropValue<T>(this Object obj, PropertyInfo info = null)
 //        {
@@ -65,7 +56,6 @@ namespace UtilityWpf
 //                yield return GetPropValue<T>(x, info);
 //        }
 
-
 //        public static IEnumerable<T> GetPropertyValues<T>(this IEnumerable<Object> obj, String name, Type type = null)
 //        {
 //            var x = (type ?? obj.First().GetType()).GetProperty(name);
@@ -80,15 +70,11 @@ namespace UtilityWpf
 
 //        public static IEnumerable<T> GetPropertyValues<T>(this IEnumerable<Object> obj, PropertyInfo info = null) => obj.Select(_ => GetPropValue<T>(_, info));
 
-
 //        public static IEnumerable<T> GetPropertyValues<T>(this IEnumerable obj, PropertyInfo info = null)
 //        {
 //            foreach (var x in obj)
 //                yield return GetPropValue<T>(x, info);
 //        }
-
-
-
 
 //        public static Dictionary<string, object> FromObject(object @object)
 //        {
@@ -109,7 +95,6 @@ namespace UtilityWpf
 //            }
 //            return obj;
 //        }
-
 
 //        public static T ToObject<T>(this Dictionary<string, object> dict)
 //        {
@@ -133,12 +118,10 @@ namespace UtilityWpf
 
 //        public static object FirstNG(this IEnumerable enumerable)
 //        {
-
 //            IEnumerator enumerator = enumerable.GetEnumerator();
 //            enumerator.MoveNext();
 //            return enumerator.Current;
 //        }
-
 
 //        public static object GetPropValue(this Object obj, String name, Type type = null) => GetPropValue(obj, (type ?? obj.GetType()).GetProperty(name));
 
@@ -152,12 +135,10 @@ namespace UtilityWpf
 //            return retval == null ? null : retval;
 //        }
 
-
-
 //        public static void SetValue(object inputObject, string propertyName, object propertyVal, bool ignoreCase = true)
 //        {
 //            System.Reflection.PropertyInfo propertyInfo = null;
-//            //get the property information based on the 
+//            //get the property information based on the
 //            if (ignoreCase)
 //                propertyInfo = inputObject.GetType().GetProperty(propertyName, BindingFlags.SetProperty |
 //                       BindingFlags.IgnoreCase |
@@ -182,9 +163,5 @@ namespace UtilityWpf
 //        private static bool IsNullableType(Type type) => type.IsGenericType && type.GetGenericTypeDefinition().Equals(typeof(Nullable<>));
 
 //    }
-
-
-
-
 
 //}

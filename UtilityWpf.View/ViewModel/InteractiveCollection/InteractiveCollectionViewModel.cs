@@ -1,22 +1,15 @@
 ﻿using DynamicData;
-using DynamicData.Binding;
-using Reactive.Bindings;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
-using System.Text;
-using System.Threading.Tasks;
-using UtilityInterface;
 using UtilityInterface.Generic;
 
 namespace UtilityWpf.ViewModel
 {
-
-    public class InteractiveCollectionViewModel<T, R> : InteractiveCollectionBase<T>, ICollectionViewModel<IContain<T>>,IDisposable
+    public class InteractiveCollectionViewModel<T, R> : InteractiveCollectionBase<T>, ICollectionViewModel<IContain<T>>, IDisposable
     {
         //private ReadOnlyObservableCollection<SHDObject<T>> _items;
 
@@ -49,23 +42,21 @@ namespace UtilityWpf.ViewModel
                 () => Console.WriteLine("observable completed"));
 
             Title = title;
-         
-
         }
 
-        IDisposable disposable;
-        public InteractiveCollectionViewModel(IObservable<IChangeSet<T, R>> observable, IScheduler scheduler=null, IObservable<T> disable = null, Func<T, IConvertible> getkey = null, string title = null,bool isReadonly=false)
+        private IDisposable disposable;
+
+        public InteractiveCollectionViewModel(IObservable<IChangeSet<T, R>> observable, IScheduler scheduler = null, IObservable<T> disable = null, Func<T, IConvertible> getkey = null, string title = null, bool isReadonly = false)
         {
-            
             if (scheduler != null)
                 observable = observable.ObserveOn(scheduler);
 
-            disposable= observable
-          
+            disposable = observable
+
                 .Transform(s =>
                 {
                     var funcenable = disable?.Scan(new List<T>(), (a, b) => { a.Add(b); return a; }).Select(_ => { Predicate<T> f = a => !_.Any(b => b.Equals(a)); return f; });
-                    var so = new SHDObject<T>(s, null, funcenable,getkey?.Invoke(s));
+                    var so = new SHDObject<T>(s, null, funcenable, getkey?.Invoke(s));
                     so.IsReadOnly = isReadonly;
                     this.ReactToChanges(so);
                     return (IContain<T>)so;
@@ -82,16 +73,14 @@ namespace UtilityWpf.ViewModel
                 {
                     (Errors as ISubject<Exception>).OnNext(ex);
                     Console.WriteLine("Error in generic view model");
-                    },
-                () => 
+                },
+                () =>
                 Console.WriteLine("observable completed"));
 
             Title = title;
-  
         }
+
         //((System.Reactive.Subjects.ISubject<KeyValuePair<object, InteractionArgs>>) interactivecollection.Interactions).OnNext(new KeyValuePair<object, InteractionArgs>(_.d, new InteractionArgs { Interaction = Interaction.Include, Value = false }));
-
-
 
         public InteractiveCollectionViewModel(IObservable<IChangeSet<T, R>> observable, string childrenpath, IObservable<bool> ischecked, IObservable<bool> expand, IScheduler scheduler, System.Windows.Threading.Dispatcher dispatcher, Func<T, IConvertible> getkey = null, string title = null)
         {
@@ -127,18 +116,14 @@ namespace UtilityWpf.ViewModel
             });
 
             Title = title;
-    
         }
-
-
 
         public InteractiveCollectionViewModel(IObservable<IChangeSet<T, R>> observable, IObservable<Predicate<T>> invisiblefilter, IObservable<Predicate<T>> enabledfilter, IScheduler scheduler, Func<T, IConvertible> getkey = null, string title = null)
         {
-
             disposable = observable.ObserveOn(scheduler)
            .Transform(s =>
            {
-               var so = new SHDObject<T>(s, invisiblefilter, enabledfilter,getkey?.Invoke(s));
+               var so = new SHDObject<T>(s, invisiblefilter, enabledfilter, getkey?.Invoke(s));
                this.ReactToChanges(so);
                return (IContain<T>)so;
            })
@@ -158,7 +143,6 @@ namespace UtilityWpf.ViewModel
                 () => Console.WriteLine("observable completed"));
 
             Title = title;
-    
         }
 
         public void Dispose()
@@ -166,10 +150,6 @@ namespace UtilityWpf.ViewModel
             disposable.Dispose();
         }
     }
-
-
-
-
 
     //public static IObservable<IKey> GetOutput(this SelectableCollectionViewModel<IKey, string> Selections)
     //{
@@ -186,16 +166,12 @@ namespace UtilityWpf.ViewModel
     //    //     .Select(_ => _.Object).Subscribe(_ =>
     //    //Console.WriteLine());
 
-
     //    return si.WhenValueChanged(t => t.Output)
     //        .Throttle(TimeSpan.FromMilliseconds(250))
     //        .Where(_ => _ != null)
     //         .Select(_ => _.Object);
 
-
-
     //}
-
 
     //public static SelectableObject<T> AddSelectable<T>(this ISelectableItems<T> si, T s)
     //{
@@ -209,10 +185,4 @@ namespace UtilityWpf.ViewModel
     //    return so;
 
     //}
-
-
 }
-
-
-
-

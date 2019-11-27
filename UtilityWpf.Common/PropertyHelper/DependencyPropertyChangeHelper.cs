@@ -1,32 +1,32 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 
 namespace UtilityWpf
 {
-
     public sealed class PropertyChangeNotifier :
     DependencyObject,
     IDisposable
     {
         #region Member Variables
+
         private WeakReference _propertySource;
-        #endregion // Member Variables
+
+        #endregion Member Variables
 
         #region Constructor
+
         public PropertyChangeNotifier(DependencyObject propertySource, string path)
         : this(propertySource, new PropertyPath(path))
         {
         }
+
         public PropertyChangeNotifier(DependencyObject propertySource, DependencyProperty property)
         : this(propertySource, new PropertyPath(property))
         {
         }
+
         public PropertyChangeNotifier(DependencyObject propertySource, PropertyPath property)
         {
             if (null == propertySource)
@@ -40,9 +40,11 @@ namespace UtilityWpf
             binding.Source = propertySource;
             BindingOperations.SetBinding(this, ValueProperty, binding);
         }
-        #endregion // Constructor
+
+        #endregion Constructor
 
         #region PropertySource
+
         public DependencyObject PropertySource
         {
             get
@@ -62,9 +64,11 @@ namespace UtilityWpf
                 }
             }
         }
-        #endregion // PropertySource
+
+        #endregion PropertySource
 
         #region Value
+
         /// <summary>
         /// Identifies the <see cref="Value"/> dependency property
         /// </summary>
@@ -96,18 +100,22 @@ namespace UtilityWpf
                 this.SetValue(PropertyChangeNotifier.ValueProperty, value);
             }
         }
-        #endregion //Value
+
+        #endregion Value
 
         #region Events
+
         public event EventHandler ValueChanged;
-        #endregion // Events
+
+        #endregion Events
 
         #region IDisposable Members
+
         public void Dispose()
         {
             BindingOperations.ClearBinding(this, ValueProperty);
         }
-        #endregion
-    }
 
+        #endregion IDisposable Members
+    }
 }

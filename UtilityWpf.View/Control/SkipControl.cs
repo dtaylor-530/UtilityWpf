@@ -1,23 +1,16 @@
-﻿using DynamicData;
-using Reactive.Bindings;
+﻿using Reactive.Bindings;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-
 
 namespace UtilityWpf.View
 {
     public class SkipControl : Control
     {
-
         public static readonly DependencyProperty PreviousCommandProperty = DependencyProperty.Register("PreviousCommand", typeof(ICommand), typeof(SkipControl));
 
         public static readonly DependencyProperty NextCommandProperty = DependencyProperty.Register("NextCommand", typeof(ICommand), typeof(SkipControl));
@@ -28,16 +21,12 @@ namespace UtilityWpf.View
 
         //public static readonly DependencyProperty OutputProperty = DependencyProperty.Register("Output", typeof(object), typeof(SkipControl), new PropertyMetadata( 0 ));
 
-
-        ISubject<int> SizeChanges = new Subject<int>();
-
+        private ISubject<int> SizeChanges = new Subject<int>();
 
         private static void CanMoveToNextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             (d as SkipControl).CanMoveToNextChanges.OnNext((bool)e.NewValue);
         }
-
-
 
         private static void CanMoveToPreviousChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -49,7 +38,6 @@ namespace UtilityWpf.View
             get { return (bool)GetValue(CanMoveToNextProperty); }
             set { SetValue(CanMoveToNextProperty, value); }
         }
-
 
         public bool CanMoveToPrevious
         {
@@ -68,13 +56,11 @@ namespace UtilityWpf.View
         //    DefaultStyleKeyProperty.OverrideMetadata(typeof(SkipControl), new FrameworkPropertyMetadata(typeof(SkipControl)));
         //}
 
-        ISubject<bool> CanMoveToNextChanges = new Subject<bool>();
-        ISubject<bool> CanMoveToPreviousChanges = new Subject<bool>();
-
+        private ISubject<bool> CanMoveToNextChanges = new Subject<bool>();
+        private ISubject<bool> CanMoveToPreviousChanges = new Subject<bool>();
 
         public SkipControl()
         {
-
             Uri resourceLocater = new Uri("/UtilityWpf.View;component/Themes/SkipStyle.xaml", System.UriKind.Relative);
             ResourceDictionary resourceDictionary = (ResourceDictionary)Application.LoadComponent(resourceLocater);
             Style = resourceDictionary["SkipStyle"] as Style;
@@ -88,13 +74,9 @@ namespace UtilityWpf.View
             {
                 this.Dispatcher.InvokeAsync(() => RaiseSkipEvent(direction), System.Windows.Threading.DispatcherPriority.Background, default(System.Threading.CancellationToken));
             });
-
-
         }
 
-
         public static readonly RoutedEvent SkipEvent = EventManager.RegisterRoutedEvent("Skip", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(SkipControl));
-
 
         public event RoutedEventHandler Skip
         {
@@ -102,12 +84,11 @@ namespace UtilityWpf.View
             remove { RemoveHandler(SkipEvent, value); }
         }
 
-        void RaiseSkipEvent(UtilityEnum.Direction direction)
+        private void RaiseSkipEvent(UtilityEnum.Direction direction)
         {
-            SkipRoutedEventArgs newEventArgs = new SkipRoutedEventArgs(SkipControl.SkipEvent) { Direction =direction };
+            SkipRoutedEventArgs newEventArgs = new SkipRoutedEventArgs(SkipControl.SkipEvent) { Direction = direction };
             RaiseEvent(newEventArgs);
         }
-
 
         public class SkipRoutedEventArgs : RoutedEventArgs
         {
@@ -115,16 +96,7 @@ namespace UtilityWpf.View
 
             public SkipRoutedEventArgs(RoutedEvent @event) : base(@event)
             {
-
             }
-
         }
-
-
     }
-
 }
-
-
-
-

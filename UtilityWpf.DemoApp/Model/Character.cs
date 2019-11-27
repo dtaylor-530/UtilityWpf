@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.ComponentModel;
 using System.Windows;
 
@@ -16,6 +13,7 @@ namespace UtilityWpf.DemoApp
     public class Character : INotifyPropertyChanged
     {
         private string _first = string.Empty;
+
         public string First
         {
             get { return _first; }
@@ -27,6 +25,7 @@ namespace UtilityWpf.DemoApp
         }
 
         private string _last = string.Empty;
+
         public string Last
         {
             get { return _last; }
@@ -38,6 +37,7 @@ namespace UtilityWpf.DemoApp
         }
 
         private string _image = null;
+
         public string Image
         {
             get { return _image; }
@@ -49,6 +49,7 @@ namespace UtilityWpf.DemoApp
         }
 
         private int _age = 0;
+
         public int Age
         {
             get { return _age; }
@@ -60,6 +61,7 @@ namespace UtilityWpf.DemoApp
         }
 
         private Gender _gender = Gender.Unknown;
+
         public Gender Gender
         {
             get { return _gender; }
@@ -71,6 +73,7 @@ namespace UtilityWpf.DemoApp
         }
 
         private Point _location = new Point();
+
         public Point Location
         {
             get { return _location; }
@@ -80,24 +83,22 @@ namespace UtilityWpf.DemoApp
                 RaisePropertyChanged("Location");
             }
         }
-        
-
 
         public override string ToString()
         {
             return _first + " " + _last;
         }
-        
+
         #region INotifyPropertyChanged Members
 
         public event PropertyChangedEventHandler PropertyChanged;
+
         protected void RaisePropertyChanged(string name)
         {
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(name));
         }
 
-        #endregion
-
+        #endregion INotifyPropertyChanged Members
     }
 }

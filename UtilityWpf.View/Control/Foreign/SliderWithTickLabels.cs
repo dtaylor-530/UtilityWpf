@@ -1,18 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace UtilityWpf.View.Foreign
 {
@@ -20,14 +12,14 @@ namespace UtilityWpf.View.Foreign
     /// Siga os passos 1a ou 1b e depois 2 para usar esse controle personalizado em um arquivo XAML.
     ///
     /// Passo 1a) Usando o controle personalizado em um arquivo XAML que já existe no projeto atual.
-    /// Adicione o atributo XmlNamespace ao elemento raiz do arquivo de marcação onde ele 
+    /// Adicione o atributo XmlNamespace ao elemento raiz do arquivo de marcação onde ele
     /// deve ser usado:
     ///
     ///     xmlns:MyNamespace="clr-namespace:SliderWithTickLabels"
     ///
     ///
     /// Passo 1b) Usando o controle personalizado em um arquivo XAML que existe em um projeto diferente.
-    /// Adicione o atributo XmlNamespace ao elemento raiz do arquivo de marcação onde ele 
+    /// Adicione o atributo XmlNamespace ao elemento raiz do arquivo de marcação onde ele
     /// deve ser usado:
     ///
     ///     xmlns:MyNamespace="clr-namespace:SliderWithTickLabels;assembly=SliderWithTickLabels"
@@ -54,8 +46,8 @@ namespace UtilityWpf.View.Foreign
         [Bindable(true)]
         public DoubleCollection GeneratedTicks
         {
-            get=> base.GetValue(SliderWithTickLabels.GeneratedTicksProperty) as DoubleCollection;
-            set =>  base.SetValue(SliderWithTickLabels.GeneratedTicksProperty, value);
+            get => base.GetValue(SliderWithTickLabels.GeneratedTicksProperty) as DoubleCollection;
+            set => base.SetValue(SliderWithTickLabels.GeneratedTicksProperty, value);
         }
 
         [Bindable(true)]
@@ -65,7 +57,6 @@ namespace UtilityWpf.View.Foreign
             set => base.SetValue(SliderWithTickLabels.TickLabelTemplateProperty, value);
         }
 
-
         static SliderWithTickLabels()
         {
             FrameworkElement.DefaultStyleKeyProperty.OverrideMetadata(typeof(SliderWithTickLabels), new FrameworkPropertyMetadata(typeof(SliderWithTickLabels)));
@@ -73,6 +64,7 @@ namespace UtilityWpf.View.Foreign
             SliderWithTickLabels.GeneratedTicksProperty = DependencyProperty.Register("GeneratedTicks", typeof(DoubleCollection), typeof(SliderWithTickLabels), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender));
             SliderWithTickLabels.TickLabelTemplateProperty = DependencyProperty.Register("TickLabelTemplate", typeof(DataTemplate), typeof(SliderWithTickLabels), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender | FrameworkPropertyMetadataOptions.AffectsMeasure));
         }
+
         public SliderWithTickLabels()
         {
             //Uri resourceLocater = new Uri("/UtilityWpf.View;component/Themes/Foreign/SliderWithTickLabels.xaml", System.UriKind.Relative);
@@ -81,8 +73,6 @@ namespace UtilityWpf.View.Foreign
 
             CalculateTicks();
         }
-
-
 
         protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
         {
@@ -148,7 +138,7 @@ namespace UtilityWpf.View.Foreign
                         //{
                         //    this.GeneratedTicks = new DoubleCollection(Enumerable.Range(0, int.MaxValue).Select(t => Math.Min(t * tickFrequency + min, max)));
                         //}
-                    },System.Windows.Threading.DispatcherPriority.Background);
+                    }, System.Windows.Threading.DispatcherPriority.Background);
                 }
             }
             catch (Exception ex)

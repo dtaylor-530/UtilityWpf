@@ -4,47 +4,41 @@
                     xmlns:pt="http://propertytools.org/wpf">
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary  Source="/UtilityWpf.View;component/DataTemplate/KeyValuePairDataTemplate.xaml"/>
+        <ResourceDictionary  Source="/UtilityWpf.View;component/DataTemplate/KeyValuePairDataTemplate.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
-    
     <DataTemplate x:Key="DefaultTemplate">
         <Viewbox>
-            <pt:PropertyGrid SelectedObject="{Binding }"/>
+            <pt:PropertyGrid SelectedObject="{Binding }" />
         </Viewbox>
     </DataTemplate>
 
     <DataTemplate x:Key="ContentPresenterTemplate">
-        <ContentPresenter HorizontalAlignment="Stretch" Content="{Binding }"/>
+        <ContentPresenter HorizontalAlignment="Stretch" Content="{Binding }" />
     </DataTemplate>
-    
+
     <DataTemplate x:Key="EnumerableTemplate">
         <Viewbox>
-            <ItemsControl ItemTemplate="{StaticResource DefaultTemplate }"/>
+            <ItemsControl ItemTemplate="{StaticResource DefaultTemplate }" />
         </Viewbox>
     </DataTemplate>
 
     <DataTemplate x:Key="DictionaryTemplate">
         <Viewbox>
-            <ItemsControl ItemTemplate="{StaticResource KeyValuePairTemplate }"/>
+            <ItemsControl ItemTemplate="{StaticResource KeyValuePairTemplate }" />
         </Viewbox>
     </DataTemplate>
 
     <DataTemplate x:Key="IConvertibleTemplate">
         <Viewbox>
-            <TextBlock Text="{Binding }"/>
+            <TextBlock Text="{Binding }" />
         </Viewbox>
     </DataTemplate>
 
-
-
-    <local:PropertyDataTemplateSelector x:Key="propertytemplateSelector" 
+    <local:PropertyDataTemplateSelector x:Key="propertytemplateSelector"
               IConvertibleTemplate="{StaticResource  IConvertibleTemplate}"
-              DefaultDataTemplate="{StaticResource DefaultTemplate}" 
+              DefaultDataTemplate="{StaticResource DefaultTemplate}"
               EnumerableDataTemplate="{StaticResource EnumerableTemplate }"
               DictionaryDataTemplate="{StaticResource DictionaryTemplate}"
-            ContentPresenterTemplate="{StaticResource ContentPresenterTemplate}" 
-        />
-
-
+            ContentPresenterTemplate="{StaticResource ContentPresenterTemplate}" />
 </ResourceDictionary>

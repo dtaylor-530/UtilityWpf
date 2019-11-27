@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Markup;
@@ -22,11 +18,9 @@ namespace UtilityWpf.View
             a();
         }
 
-
         static ResourcePicker()
         {
-           // DefaultStyleKeyProperty.OverrideMetadata(typeof(ResourcePicker), new FrameworkPropertyMetadata(typeof(ResourcePicker)));
-   
+            // DefaultStyleKeyProperty.OverrideMetadata(typeof(ResourcePicker), new FrameworkPropertyMetadata(typeof(ResourcePicker)));
         }
 
         public ResourcePicker()
@@ -36,16 +30,13 @@ namespace UtilityWpf.View
             Style = resourceDictionary.Values.Cast<Style>().First() as Style;
         }
 
-
-
         public string Path
         {
             get { return (string)GetValue(PathProperty); }
             set { SetValue(PathProperty, value); }
         }
 
-
-        public static readonly DependencyProperty PathProperty =            DependencyProperty.Register("Path", typeof(string), typeof(ResourcePicker), new PropertyMetadata(null,PathChanged));
+        public static readonly DependencyProperty PathProperty = DependencyProperty.Register("Path", typeof(string), typeof(ResourcePicker), new PropertyMetadata(null, PathChanged));
 
         private static void PathChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -56,12 +47,12 @@ namespace UtilityWpf.View
         {
             if (ComboBox != null)
                 this.Dispatcher.InvokeAsync(() =>
-            ComboBox.ItemsSource = System.IO.Directory.GetFiles(Path).Select(_=>System.IO.Path.GetFileNameWithoutExtension(_)), System.Windows.Threading.DispatcherPriority.Background);
+            ComboBox.ItemsSource = System.IO.Directory.GetFiles(Path).Select(_ => System.IO.Path.GetFileNameWithoutExtension(_)), System.Windows.Threading.DispatcherPriority.Background);
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            string fileName = System.IO.Path.Combine(Path,ComboBox.SelectedItem.ToString()+".xaml");
+            string fileName = System.IO.Path.Combine(Path, ComboBox.SelectedItem.ToString() + ".xaml");
             if (File.Exists(fileName))
             {
                 using (FileStream fs = new FileStream(fileName, FileMode.Open))
@@ -75,8 +66,5 @@ namespace UtilityWpf.View
                 }
             }
         }
-  
-
-
     }
 }

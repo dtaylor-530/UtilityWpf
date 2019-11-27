@@ -16,7 +16,6 @@
 
 //        public ReadOnlyReactiveProperty<DateTime> Time { get; }
 
-
 //        public T Object { get; set; }
 //    }
 

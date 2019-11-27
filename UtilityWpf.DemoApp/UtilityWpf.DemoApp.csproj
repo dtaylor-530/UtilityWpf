@@ -127,13 +127,18 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converter\Converter.cs" />
-    <Compile Include="Converter\EventArgsConverter.cs" />
     <Compile Include="Model\Connected.cs" />
     <Compile Include="View\CalendarUserControl.xaml.cs">
       <DependentUpon>CalendarUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\DatesListUserControl.xaml.cs">
+      <DependentUpon>DatesListUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\FolderOpenUserControl.xaml.cs">
       <DependentUpon>FolderOpenUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\KeyValueCollectionUserControl.xaml.cs">
+      <DependentUpon>KeyValueCollectionUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ListBoxCriteriaUserControl.xaml.cs">
       <DependentUpon>ListBoxCriteriaUserControl.xaml</DependentUpon>
@@ -172,6 +177,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\DatesListUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\DictionaryUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -189,6 +198,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\FolderOpenUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\KeyValueCollectionUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

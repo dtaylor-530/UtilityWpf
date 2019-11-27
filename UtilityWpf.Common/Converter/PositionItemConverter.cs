@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -12,7 +8,6 @@ namespace UtilityWpf
 {
     public class PositionItemConverter : IMultiValueConverter
     {
-
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
             ItemsControl itemscontrol = values[0] as ItemsControl;
@@ -20,13 +15,13 @@ namespace UtilityWpf
             int position = 0;
             try
             {
-                 position = System.Convert.ToInt32(values[2]);
+                position = System.Convert.ToInt32(values[2]);
             }
             catch
             {
                 return DependencyProperty.UnsetValue;
             }
-            if (values != null && values.Length == 3 && count > 0 && position>=0 && position<count)
+            if (values != null && values.Length == 3 && count > 0 && position >= 0 && position < count)
             {
                 var itemContext = (values[1] as System.Windows.Controls.ContentPresenter).DataContext;
                 var lastItem = itemscontrol.Items[position];

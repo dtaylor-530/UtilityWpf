@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:UtilityWpf.View">
 
-    <ResourceDictionary.MergedDictionaries >
+    <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/UtilityWpf.View;component/DataTemplate/ButtonDefinitionDataTemplate.xaml"></ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 
@@ -14,21 +14,18 @@
     </ItemsPanelTemplate>
 
     <Style x:Key="ButtonDefinitionStyle"  TargetType="ItemsControl" BasedOn="{StaticResource {x:Type ItemsControl}}">
-        <Setter Property="ItemTemplate" Value="{StaticResource ButtonDefinitionTemplate}"/>
+        <Setter Property="ItemTemplate" Value="{StaticResource ButtonDefinitionTemplate}" />
 
         <Style.Triggers>
             <DataTrigger Binding="{Binding Orientation,Mode=OneWay,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ButtonDefinitionsControl}}}" Value="Vertical">
-                <Setter Property="ItemsPanel" Value="{StaticResource horizontal}"  />
+                <Setter Property="ItemsPanel" Value="{StaticResource horizontal}" />
             </DataTrigger>
             <DataTrigger Binding="{Binding Orientation,Mode=OneWay,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ButtonDefinitionsControl}}}" Value="Vertical">
-                <Setter Property="ItemsPanel" Value="{StaticResource vertical}"  />
+                <Setter Property="ItemsPanel" Value="{StaticResource vertical}" />
             </DataTrigger>
         </Style.Triggers>
     </Style>
 
-
     <Style x:Key="BDStyle"  TargetType="{x:Type  local:ButtonDefinitionsControl  }" BasedOn="{StaticResource ButtonDefinitionStyle}">
     </Style>
-
-
 </ResourceDictionary>

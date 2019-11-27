@@ -4,23 +4,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
 
 using UtilityHelper.NonGeneric;
 using UtilityWpf.Commmand;
 
 namespace UtilityWpf.View
 {
-
     public class CollectionEditor : ListBoxEx
     {
-
-
-
         public static readonly DependencyProperty ContentTemplateProperty = DependencyProperty.Register("ContentTemplate", typeof(DataTemplate), typeof(CollectionEditor));
 
         public static readonly DependencyProperty ButtonsProperty = DependencyProperty.Register("Buttons", typeof(IEnumerable<ViewModel.ButtonDefinition>), typeof(CollectionEditor));
@@ -29,14 +21,11 @@ namespace UtilityWpf.View
 
         //public static readonly DependencyProperty ItemsPresenterProperty = DependencyProperty.Register("ItemsPresenter", typeof(object), typeof(CollectionEditor), new PropertyMetadata(null, InputChanged));
 
-
-
         public IEnumerable Buttons
         {
             get { return (IEnumerable)GetValue(ButtonsProperty); }
             set { SetValue(ButtonsProperty, value); }
         }
-
 
         public DataTemplate ContentTemplate
         {
@@ -44,12 +33,10 @@ namespace UtilityWpf.View
             set { SetValue(ContentTemplateProperty, value); }
         }
 
-
         public object Input
         {
             get { return (object)GetValue(InputProperty); }
             set { SetValue(InputProperty, value); }
-
         }
 
         private static void InputChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -57,22 +44,15 @@ namespace UtilityWpf.View
             (d as CollectionEditor).InputSubject.OnNext((DatabaseCommand)e.NewValue);
         }
 
-
         protected ISubject<DatabaseCommand> InputSubject = new Subject<DatabaseCommand>();
-
 
         static CollectionEditor()
         {
-
             DefaultStyleKeyProperty.OverrideMetadata(typeof(CollectionEditor), new FrameworkPropertyMetadata(typeof(CollectionEditor)));
-
         }
 
-
-
-        public CollectionEditor():base()
+        public CollectionEditor() : base()
         {
-
             Uri resourceLocater = new Uri("/UtilityWpf.View;component/Themes/CollectionEditor.xaml", System.UriKind.Relative);
             ResourceDictionary resourceDictionary = (ResourceDictionary)Application.LoadComponent(resourceLocater);
             Style = resourceDictionary["CollectionEditorStyle"] as Style;
@@ -85,7 +65,6 @@ namespace UtilityWpf.View
             //     .CombineLatest(KeySubject, (item, key) => new { item, key })
             //  .Subscribe(_ => React(_.item, _.key));
 
-
             var obs = ItemsSourceSubject.Where(_ => _ != null)
                 .Take(1)
                 .Select(_ => (_.First()))
@@ -95,21 +74,21 @@ namespace UtilityWpf.View
             InputSubject.WithLatestFrom(obs, (input, item) => new { input, item })
               .Subscribe(_ =>
                    {
-
                        switch (_.input)
                        {
                            case (DatabaseCommand.Delete):
                                DeletedSubject.OnNext(_.item);
                                break;
+
                            case (DatabaseCommand.Update):
 
                                break;
+
                            case (DatabaseCommand.Clear):
                                ClearedSubject.OnNext(null);
                                break;
                        }
                    });
-
 
             Action<DatabaseCommand> av = (a) => this.Dispatcher.InvokeAsync(() => InputSubject.OnNext(a), System.Windows.Threading.DispatcherPriority.Background, default(System.Threading.CancellationToken));
 
@@ -125,11 +104,9 @@ namespace UtilityWpf.View
                 Console.WriteLine("measurements-service equals null in collectionviewmodel");
             else
                 this.Dispatcher.InvokeAsync(() => Buttons = items.ToList(), System.Windows.Threading.DispatcherPriority.Background, default(System.Threading.CancellationToken));
-
-
         }
 
-        List<object> clxnitems = new List<object>();
+        private List<object> clxnitems = new List<object>();
 
         //protected virtual void React(object _b, string key)
         //{

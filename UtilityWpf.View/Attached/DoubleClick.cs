@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace UtilityWpf.View
 {
-
     public class MouseDoubleClick : DependencyObject
     {
         public static readonly DependencyProperty CommandProperty =
@@ -32,10 +26,12 @@ namespace UtilityWpf.View
         {
             target.SetValue(CommandParameterProperty, value);
         }
+
         public static object GetCommandParameter(DependencyObject target)
         {
             return target.GetValue(CommandParameterProperty);
         }
+
         private static void CommandChanged(DependencyObject target, DependencyPropertyChangedEventArgs e)
         {
             Control control = target as Control;
@@ -51,6 +47,7 @@ namespace UtilityWpf.View
                 }
             }
         }
+
         private static void OnMouseDoubleClick(object sender, RoutedEventArgs e)
         {
             Control control = sender as Control;
@@ -62,6 +59,7 @@ namespace UtilityWpf.View
                 e.Handled = true;
             }
         }
+
         //public class ControlDoubleClick : DependencyObject
         //{
         //    public static readonly DependencyProperty CommandProperty =
@@ -70,11 +68,8 @@ namespace UtilityWpf.View
         //    public static readonly DependencyProperty ValueProperty =
         //DependencyProperty.RegisterAttached("Value", typeof(bool), typeof(ControlDoubleClick), new PropertyMetadata(OnValueCommand));
 
-
-
         //    private static void OnValueCommand(DependencyObject d, DependencyPropertyChangedEventArgs e)
         //    {
-
         //    }
 
         //    public static ICommand GetCommand(Control target)
@@ -107,10 +102,6 @@ namespace UtilityWpf.View
         //        }
         //    }
 
-
         //}
-
-
-
     }
 }

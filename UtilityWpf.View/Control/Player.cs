@@ -1,23 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reactive.Linq;
 using System.Reactive.Subjects;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Input;
-using System.Windows.Threading;
-using UtilityWpf;
 using UtilityWpf.Commmand;
 
 namespace UtilityWpf.View
 {
     public class Player : ProgressTimeBar
     {
-
         //private ToggleButtonEx playPauseButton;
         //private Button cancelButton;
         //private Slider SliderControl;
@@ -31,14 +21,11 @@ namespace UtilityWpf.View
 
         //public static readonly DependencyProperty OutputProperty = DependencyProperty.Register("Output", typeof(UtilityEnum.ProcessState), typeof(Player), new PropertyMetadata(default(UtilityEnum.ProcessState),ProcessStateChanged));
 
-
-
         //public bool IsPlaying
         //{
         //    get { return (bool)GetValue(IsPlayingProperty); }
         //    //set { SetValue(IsPlayingProperty, value); }
         //}
-
 
         //public TimeSpan TimeOut
         //{
@@ -46,14 +33,11 @@ namespace UtilityWpf.View
         //    set { SetValue(TimeOutProperty, value); }
         //}
 
-
         //public double Attribute
         //{
         //    get { return (double)GetValue(AttributeProperty); }
         //    set { SetValue(AttributeProperty, value); }
         //}
-
-
 
         public object ProcessState
         {
@@ -61,15 +45,11 @@ namespace UtilityWpf.View
             set { SetValue(ProcessStateProperty, value); }
         }
 
-
-
-
         //public static readonly DependencyProperty ProgressProperty = DependencyProperty.Register("Progress", typeof(int), typeof(Player), new PropertyMetadata(0));
 
         public static readonly DependencyProperty ProcessStateProperty = DependencyProperty.Register("ProcessState", typeof(object), typeof(Player), new PropertyMetadata(UtilityEnum.ProcessState.Ready, ProcessStateChanged));
 
         //public static readonly DependencyProperty QueuedItemsProperty = DependencyProperty.Register("QueuedItems", typeof(int), typeof(Player), new PropertyMetadata(0));
-
 
         //public static readonly DependencyProperty AttributeProperty = DependencyProperty.Register("Attribute", typeof(double), typeof(Player), new FrameworkPropertyMetadata(0.00, new PropertyChangedCallback(AttributeChanged)));
 
@@ -77,17 +57,12 @@ namespace UtilityWpf.View
 
         //public static readonly DependencyProperty IsPlayingProperty = DependencyProperty.Register("IsPlaying", typeof(bool), typeof(Player), new FrameworkPropertyMetadata(false,OnIsPlayingChanged));
 
-
         public static readonly DependencyProperty CancelCommandProperty = DependencyProperty.Register("CancelCommand", typeof(ICommand), typeof(Player));
-
-
-
 
         //private static void OnIsPlayingChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         //{
         //    (d as Player).IsPlayingSubject.OnNext((bool)e.NewValue);
         //}
-
 
         //private static void AttributeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         //{
@@ -104,23 +79,18 @@ namespace UtilityWpf.View
             (d as Player).ProcessStates.OnNext((UtilityEnum.ProcessState)e.NewValue);
         }
 
-
-
-
         //protected ISubject<bool> IsPlayingSubject = new Subject<bool>();
         protected ISubject<UtilityEnum.ProcessState> ProcessStates = new Subject<UtilityEnum.ProcessState>();
+
         //protected ISubject<TimeSpan> TimeOutChanges = new Subject<TimeSpan>();
         //protected ISubject<double> AttributeChanges = new Subject<double>();
-
-
-
 
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
 
             //playPauseButton = GetTemplateChild("PlayPause") as ToggleButtonEx;
-           // cancelButton = GetTemplateChild("Cancel") as Button;
+            // cancelButton = GetTemplateChild("Cancel") as Button;
 
             //playPauseButton.Click += PlayPauseButton_Click;
             //cancelButton.Click += CancelButton_Click;
@@ -131,17 +101,12 @@ namespace UtilityWpf.View
             //ProgressTimeBar = GetTemplateChild("ProgressTimeBar") as ProgressTimeBar;
             //this.ValueChanged += ProgressTimeBar_ValueChanged;
             //chkbx.Checked += Chkbx_Checked;
-
         }
-
-
 
         static Player()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(Player), new FrameworkPropertyMetadata(typeof(Player)));
         }
-
-
 
         public Player()
         {
@@ -152,12 +117,8 @@ namespace UtilityWpf.View
             this.SetValue(CancelCommandProperty, new RelayCommand(() =>
              {
                  this.Dispatcher.InvokeAsync(() => ProcessState = UtilityEnum.ProcessState.Terminated, System.Windows.Threading.DispatcherPriority.Background, default(System.Threading.CancellationToken));
-
              }));
-
         }
-
-
 
         //protected override void TimeFunction()
         //{
@@ -178,9 +139,6 @@ namespace UtilityWpf.View
         //    });
         //}
 
-
-
-
         //private void SliderControl_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         //{
         //    SetValue(AttributeProperty, e.NewValue);
@@ -191,7 +149,6 @@ namespace UtilityWpf.View
         //    if (e.NewValue == 100)
         //        CancelButton_Click(null, null);
         //}
-
 
         //private void CancelButton_Click(object sender, RoutedEventArgs e)
         //{

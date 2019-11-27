@@ -1,19 +1,9 @@
 ﻿using AutoBogus;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace UtilityWpf.DemoApp
 {
@@ -32,7 +22,6 @@ namespace UtilityWpf.DemoApp
         {
             await Task.Delay(20000).ContinueWith(_ =>
             {
-
                 // Configure globally
                 //AutoFaker.Configure(builder =>
                 //{
@@ -48,13 +37,13 @@ namespace UtilityWpf.DemoApp
   .RuleFor(fake => fake.First, fake => fake.Random.Word())
     .RuleFor(fake => fake.Last, fake => fake.Random.Word())
         .RuleFor(fake => fake.Location, fake => new Point(fake.Random.Int(), fake.Random.Int()))
-                   .RuleFor(fake => fake.Age, fake =>fake.Random.Int(0,10000));
-                this.Dispatcher.InvokeAsync(()=> sic.Data = personFaker.Generate(10));
-
+                   .RuleFor(fake => fake.Age, fake => fake.Random.Int(0, 10000));
+                this.Dispatcher.InvokeAsync(() => sic.Data = personFaker.Generate(10));
             });
         }
 
-        bool b;
+        private bool b;
+
         private void ToggleButton_Click(object sender, RoutedEventArgs e)
         {
             b = !b;
@@ -62,7 +51,7 @@ namespace UtilityWpf.DemoApp
         }
     }
 
-    public class ValueChangedCommand:UtilityWpf.View.ValueChangedCommand,INotifyPropertyChanged
+    public class ValueChangedCommand : UtilityWpf.View.ValueChangedCommand, INotifyPropertyChanged
     {
         private KeyValuePair<string, double> keyValuePair;
 
@@ -72,7 +61,6 @@ namespace UtilityWpf.DemoApp
         public ValueChangedCommand()
         {
             base.Event += ValueChangedCommand_Event;
-
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

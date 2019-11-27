@@ -1,17 +1,12 @@
-﻿
-using DynamicData;
+﻿using DynamicData;
 using DynamicData.Binding;
 using Reactive.Bindings;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
-using System.Text;
-using System.Threading.Tasks;
-using UtilityInterface;
 using UtilityInterface.Generic;
 
 namespace UtilityWpf.ViewModel
@@ -19,13 +14,11 @@ namespace UtilityWpf.ViewModel
     public enum Interaction
     {
         Select, Include, Expand, Check
-
     }
 
     public enum UserCommand
     {
         Delete
-
     }
 
     public class InteractionArgs : EventArgs
@@ -40,10 +33,8 @@ namespace UtilityWpf.ViewModel
         public object Parameter { get; set; }
     }
 
-
     public abstract class InteractiveCollectionBase<T> : NPC
     {
-
         public IObservable<KeyValuePair<T, InteractionArgs>> Interactions = new System.Reactive.Subjects.Subject<KeyValuePair<T, InteractionArgs>>();
 
         public IObservable<UserCommandArgs> UserCommands = new System.Reactive.Subjects.Subject<UserCommandArgs>();
@@ -59,8 +50,7 @@ namespace UtilityWpf.ViewModel
         //public IObservable<T> UnChecked { get; } = new System.Reactive.Subjects.Subject<T>();
         public ISubject<KeyValuePair<T, InteractionArgs>> ChildSubject = new Subject<KeyValuePair<T, InteractionArgs>>();
 
-        public  IObservable<Exception> Errors { get; } = new Subject<Exception>();
-
+        public IObservable<Exception> Errors { get; } = new Subject<Exception>();
 
         public string Title { get; protected set; }
 
@@ -69,46 +59,43 @@ namespace UtilityWpf.ViewModel
         public ICollection<IContain<T>> Items => _items;
 
         public IObservable<KeyValuePair<IContain<T>, ChangeReason>> Changes => changes;
-        ISubject<KeyValuePair<IContain<T>, ChangeReason>> changes = new Subject<KeyValuePair<IContain<T>, ChangeReason>>();
+        private ISubject<KeyValuePair<IContain<T>, ChangeReason>> changes = new Subject<KeyValuePair<IContain<T>, ChangeReason>>();
 
         public InteractiveCollectionBase()
         {
             Init();
             Changes.Subscribe(_ =>
             {
-
             });
         }
 
         private void Init()
         {
-            this.Interactions.Where(_ => _.Value.Interaction == Interaction.Check && ((bool?)_.Value.Value==true)).Subscribe(_ =>
-            {
-                @checked.Add(_.Key);
-                if (@unchecked.Contains(_.Key))
-                    @unchecked.Remove(_.Key);
-            });
-            this.ChildSubject.Where(_ => _.Value.Interaction == Interaction.Check && ((bool?)_.Value.Value==true)).Subscribe(_ =>
-            {
-                @checked.Add(_.Key);
-                if (@unchecked.Contains(_.Key))
-                    @unchecked.Remove(_.Key);
-            });
+            this.Interactions.Where(_ => _.Value.Interaction == Interaction.Check && ((bool?)_.Value.Value == true)).Subscribe(_ =>
+              {
+                  @checked.Add(_.Key);
+                  if (@unchecked.Contains(_.Key))
+                      @unchecked.Remove(_.Key);
+              });
+            this.ChildSubject.Where(_ => _.Value.Interaction == Interaction.Check && ((bool?)_.Value.Value == true)).Subscribe(_ =>
+              {
+                  @checked.Add(_.Key);
+                  if (@unchecked.Contains(_.Key))
+                      @unchecked.Remove(_.Key);
+              });
             //              if(!@unchecked.Contains(_.))
-            this.Interactions.Where(_ => _.Value.Interaction == Interaction.Check && !((bool?)_.Value.Value==true)).Subscribe(_ =>
-            {
-                @unchecked.Add(_.Key);
-                if (@checked.Contains(_.Key))
-                    @checked.Remove(_.Key);
-            });
-            this.ChildSubject.Where(_ => _.Value.Interaction == Interaction.Check && !((bool?)_.Value.Value==true)).Subscribe(_ =>
-            {
-                @unchecked.Add(_.Key);
-                if (@checked.Contains(_.Key))
-                    @checked.Remove(_.Key);
-            });
-
-
+            this.Interactions.Where(_ => _.Value.Interaction == Interaction.Check && !((bool?)_.Value.Value == true)).Subscribe(_ =>
+              {
+                  @unchecked.Add(_.Key);
+                  if (@checked.Contains(_.Key))
+                      @checked.Remove(_.Key);
+              });
+            this.ChildSubject.Where(_ => _.Value.Interaction == Interaction.Check && !((bool?)_.Value.Value == true)).Subscribe(_ =>
+              {
+                  @unchecked.Add(_.Key);
+                  if (@checked.Contains(_.Key))
+                      @checked.Remove(_.Key);
+              });
         }
 
         public ReactiveCollection<object> @checked { get; } = new ReactiveCollection<object>();
@@ -124,21 +111,17 @@ namespace UtilityWpf.ViewModel
                   .CombineLatest(ischecked, (a, b) => new { a, b }).Where(_ => @checked.Contains(_.a) || _.b == false);
 
             return xx.Select(_ => _.a);
-
         }
 
         public IObservable<List<T>> GetCheckedChildItems(IObservable<bool> ischecked, string childrenpath)
         {
             var x = GetSelectedItem(ischecked);
             return x.Select(_ => ReflectionHelper.RecursivePropValues(_, childrenpath).Cast<T>().Where(a => @checked.Contains(a)).ToList());
-
         }
     }
 
-
     //public abstract class InteractiveCollectionBase2<T> : INPCBase
     //{
-
     //    public IObservable<T> Selected{ get; } = new System.Reactive.Subjects.Subject<T>();
 
     //    //public IObservable<T> Expanded { get; } = new System.Reactive.Subjects.Subject<T>();
@@ -150,12 +133,8 @@ namespace UtilityWpf.ViewModel
     //    public ICollection<SHDObject<T>> Items => _items;
     //}
 
-
-
     public static class BaseHelper
     {
-
-
         public static void ReactToChanges<T>(this InteractiveCollectionBase<T> col, SHDObject<T> so)
         {
             //so.IsSelected
@@ -166,16 +145,15 @@ namespace UtilityWpf.ViewModel
             //                 ((System.Reactive.Subjects.ISubject<T>)col.Selected).OnNext(col.Items.FirstOrDefault(sof => ((SHDObject<T>)sof).IsSelected.Value == true).Object);
             //         });
 
-            so.WhenPropertyChanged(_ => _.IsSelected).Select(_ => _.Value).Buffer(TimeSpan.FromMilliseconds(250)).Where(_ => _.Count > 0).Where(_ => _.All(a => a==true))
+            so.WhenPropertyChanged(_ => _.IsSelected).Select(_ => _.Value).Buffer(TimeSpan.FromMilliseconds(250)).Where(_ => _.Count > 0).Where(_ => _.All(a => a == true))
          //.Throttle(TimeSpan.FromMilliseconds(250))
          .Subscribe(b =>
          {
              //if (col.Items?.FirstOrDefault(sof => ((SHDObject<T>)sof).IsSelected.Value == true) != (null))
-             //{ 
+             //{
              //    ((System.Reactive.Subjects.ISubject<T>)col.Selected).OnNext(col.Items.FirstOrDefault(sof => ((SHDObject<T>)sof).IsSelected.Value == true).Object);
              ((System.Reactive.Subjects.ISubject<KeyValuePair<T, InteractionArgs>>)col.Interactions).OnNext(new KeyValuePair<T, InteractionArgs>(so.Object, new InteractionArgs { Interaction = Interaction.Select, Value = b.Count }));
          });
-
 
             so.WhenPropertyChanged(_ => _.IsExpanded).Select(_ => _.Value).Subscribe(_ =>
              {
@@ -199,7 +177,6 @@ namespace UtilityWpf.ViewModel
                 //((System.Reactive.Subjects.ISubject<T>)col.Deleted).OnNext(so == default(SHDObject<T>) ? default(T) : so.Object);
             });
 
-
             so.WhenPropertyChanged(_ => _.IsChecked).StartWith(new PropertyValue<SHDObject<T>, bool?>(so, so.IsChecked)).Subscribe(_ =>
               {
                   if (_.Value != null)
@@ -212,8 +189,6 @@ namespace UtilityWpf.ViewModel
 
         //public static void ReactToChanges<T>(this InteractiveCollectionBase<T> col, SEObject<T> so)
         //{
-
-
         //so.WhenPropertyChanged(_=>_.IsSelected)
         //      .Throttle(TimeSpan.FromMilliseconds(250))
         //         .Subscribe(b =>
@@ -221,7 +196,6 @@ namespace UtilityWpf.ViewModel
         //             if (col.Items?.FirstOrDefault(sof => ((SEObject<T>)sof).IsSelected == true) != (null))
         //                 ((System.Reactive.Subjects.ISubject<T>)col.Selected).OnNext(col.Items.FirstOrDefault(sof => ((SEObject<T>)sof).IsSelected== true).Object);
         //         });
-
 
         //so.WhenPropertyChanged(_ => _.IsExpanded).Subscribe(_ =>
         // {
@@ -233,20 +207,14 @@ namespace UtilityWpf.ViewModel
         //    ((System.Reactive.Subjects.ISubject<T>)col.Checked).OnNext(so == default(SEObject<T>) ? default(T) : so.Object);
         //});
 
-
-
         //so.OnPropertyChange<SEObject<T>,bool>(nameof(SEObject<T>.IsSelected)).Subscribe(_ =>
         //{
-
         //},(e)=>
         //{ },()=> { });
 
         //so.WhenPropertyChanged(_ => _.IsSelected).Subscribe(_ =>
         //{
-
         //});
-
-
 
         //so.DoubleClickCommand.Subscribe(_ =>
         //{
@@ -254,15 +222,10 @@ namespace UtilityWpf.ViewModel
         //    //((System.Reactive.Subjects.ISubject<T>)col.DoubleClicked).OnNext(so == default(SHDObject<T>) ? default(T) : so.Object);
         //});
 
-
         //}
-
 
         //public static IObservable<T> ReactChecked<T>(this InteractiveCollectionBase<T> bse,SEObject<T> item,IObservable<bool> ischecked)
         //{
-
-
-
         //ischecked.Subscribe(ischecked_ =>
         //{
         //    if (ischecked_)
@@ -281,21 +244,11 @@ namespace UtilityWpf.ViewModel
         //    }
         //});
 
-
-
-
-
-
         //    .Subscribe(_ =>
         //{
-
         //});
 
-
-
-
         //.WithLatestFrom(ischecked, (a, b) => new { a, b })
-
 
         //    .Subscribe(_ =>
         //{
@@ -305,8 +258,6 @@ namespace UtilityWpf.ViewModel
         //        this.Dispatcher.InvokeAsync(() => SelectedItems = ReflectionHelper.RecursivePropValues(_.a.Key, childrenpath).Cast<object>().Where(a => @checked.Contains(a)).ToList(), System.Windows.Threading.DispatcherPriority.Background, default(System.Threading.CancellationToken));
         //    }
         //});
-
-
 
         //    kx.ChildSubject.Where(_ => _.Value.Interaction == Interaction.Check).Subscribe(_ =>
         //    {
@@ -326,8 +277,6 @@ namespace UtilityWpf.ViewModel
         //                    this.Dispatcher.InvokeAsync(() => SelectedItems = ReflectionHelper.RecursivePropValues(_.Key, childrenpath).Cast<object>().Where(a => @checked.Contains(a)).ToList(), System.Windows.Threading.DispatcherPriority.Background, default(System.Threading.CancellationToken));
         //                }
 
-
-
         //    });
         //}
 
@@ -339,7 +288,6 @@ namespace UtilityWpf.ViewModel
         public static IObservable<T> GetSelected<T>(this InteractiveCollectionBase<T> bse)
         {
             return bse.Interactions.Where(_ => _.Value.Interaction == Interaction.Select && _.Value.Value.Equals(1)).Select(_ => _.Key);
-
         }
 
         public static IObservable<T> GetExpanded<T>(this InteractiveCollectionBase<T> bse)
@@ -376,18 +324,10 @@ namespace UtilityWpf.ViewModel
         {
             return bse.Interactions.Where(_ => _.Value.Interaction == Interaction.Include && _.Value.Value.Equals(true)).Select(_ => _.Key);
         }
-
-
-
-
-
     }
+
     public interface ICollectionViewModel<T>
     {
-
         ICollection<T> Items { get; }
     }
-
 }
-
-

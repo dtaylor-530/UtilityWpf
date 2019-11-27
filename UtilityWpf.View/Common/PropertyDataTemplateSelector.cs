@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace UtilityWpf.View
@@ -25,8 +22,6 @@ namespace UtilityWpf.View
 
             //DataTemplate myDataTemplate = ((System.Windows.Controls.ContentPresenter)container).ContentTemplate;
 
-
-
             var dataTemplateKey = new DataTemplateKey(type);
             //var x = Application.Current.Resources[dataTemplateKey];
             object dataTemplate = null;
@@ -35,7 +30,6 @@ namespace UtilityWpf.View
 
             if (dataTemplate != null)
                 return ContentPresenterTemplate;
-
 
             var interfaces = type.GetInterfaces();
             if ((interfaces.Contains(typeof(IConvertible))))
@@ -46,8 +40,6 @@ namespace UtilityWpf.View
                 return EnumerableDataTemplate;
             else
                 return DefaultDataTemplate;
-
         }
     }
-
 }

@@ -1,17 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace UtilityWpf.DemoApp
 {
@@ -27,14 +18,13 @@ namespace UtilityWpf.DemoApp
         }
     }
 
-
     public class ViewModel
     {
         public List<Character> Characters { get; }
- public ICommand MyCommand { get; set; }
+        public ICommand MyCommand { get; set; }
+
         public ViewModel()
         {
-
             Characters = new List<Character>
             {
                 new Character{First = "Bart", Last="Simpson" ,Age=10,
@@ -49,19 +39,17 @@ namespace UtilityWpf.DemoApp
             };
             MyCommand = new DelegateCommand(() => MessageBox.Show("double click!"));
         }
-
     }
-                  
-        //    <local:Character First = "Homer" Last="Simpson" Age="38"
-        //  Gender="Male" Image="images/homer.png" Location="75,0" />
-        //    <local:Character First = "Lisa" Last="Bouvier" Age="8"
-        //  Gender="Female" Image="images/lisa.png" Location="125,150" />
-        //    <local:Character First = "Maggie" Last="Simpson" Age="0"
-        //  Gender="Female" Image="images/maggie.png" Location="225,150" />
-        //    <local:Character First = "Marge" Last="Bouvier" Age="38"
-        //  Gender="Female" Image="images/marge.png" Location="175,0" />
-        //</x:Array>
-         
+
+    //    <local:Character First = "Homer" Last="Simpson" Age="38"
+    //  Gender="Male" Image="images/homer.png" Location="75,0" />
+    //    <local:Character First = "Lisa" Last="Bouvier" Age="8"
+    //  Gender="Female" Image="images/lisa.png" Location="125,150" />
+    //    <local:Character First = "Maggie" Last="Simpson" Age="0"
+    //  Gender="Female" Image="images/maggie.png" Location="225,150" />
+    //    <local:Character First = "Marge" Last="Bouvier" Age="38"
+    //  Gender="Female" Image="images/marge.png" Location="175,0" />
+    //</x:Array>
 
     /// <summary>
     /// Represents a delegate command.

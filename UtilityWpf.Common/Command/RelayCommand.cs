@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace UtilityWpf.Commmand
@@ -14,17 +10,21 @@ namespace UtilityWpf.Commmand
             add { CommandManager.RequerySuggested += value; }
             remove { CommandManager.RequerySuggested -= value; }
         }
+
         private Action methodToExecute;
         private Func<bool> canExecuteEvaluator;
+
         public RelayCommand(Action methodToExecute, Func<bool> canExecuteEvaluator)
         {
             this.methodToExecute = methodToExecute;
             this.canExecuteEvaluator = canExecuteEvaluator;
         }
+
         public RelayCommand(Action methodToExecute)
             : this(methodToExecute, null)
         {
         }
+
         public bool CanExecute(object parameter)
         {
             if (this.canExecuteEvaluator == null)
@@ -37,6 +37,7 @@ namespace UtilityWpf.Commmand
                 return result;
             }
         }
+
         public void Execute(object parameter)
         {
             this.methodToExecute.Invoke();
@@ -50,7 +51,7 @@ namespace UtilityWpf.Commmand
         private readonly Action<T> _execute = null;
         private readonly Predicate<T> _canExecute = null;
 
-        #endregion
+        #endregion Fields
 
         #region Constructors
 
@@ -77,7 +78,7 @@ namespace UtilityWpf.Commmand
             _canExecute = canExecute;
         }
 
-        #endregion
+        #endregion Constructors
 
         #region ICommand Members
 
@@ -105,6 +106,6 @@ namespace UtilityWpf.Commmand
             _execute((T)parameter);
         }
 
-        #endregion
+        #endregion ICommand Members
     }
 }
